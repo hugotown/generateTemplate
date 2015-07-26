@@ -1,0 +1,19 @@
+<div class="popover" tabindex="-1">
+  <div class="arrow"></div>
+  <h3 class="popover-title" ng-bind-html="title" ng-show="title"></h3>
+  <div class="popover-content">
+    <form name="popoverForm">
+      <p ng-bind-html="content" style="min-width:300px;"></p>
+      <div class="form-group">
+      	<div class="row">
+      		<div class="col-md-9">
+      			<input class="form-control" type="text" ng-model="$item.label">
+      		</div>
+      		<div class="col-md-2">
+        		<button type="button" style="margin-left:1px; margin-top:3px;" class="btn blue btn-sm" ng-click="$hide()"><span class="glyphicon glyphicon-ok"></span></button>        		
+     		 </div>
+     	</div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,344 @@
+<div class="page-sidebar navbar-collapse collapse">
+	<!-- BEGIN SIDEBAR MENU -->
+	<!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+	<!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+	<!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+	<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+	<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+	<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+<!--
+	<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+
+		<li ng-repeat=" xmenu in menues ">
+			<a href="javascript:;"  ng-show=" 0 < xmenu.children.length " >
+				<i class="{{xmenu.icon}}"></i>
+				<span class="title">{{xmenu.title}}</span>
+				<span class="arrow "></span>
+			</a>
+			<a href="{{xmenu.shref}}" ng-hide=" 0 < xmenu.children.length ">
+				<i class="{{xmenu.icon}}"></i>
+				<span class="title">{{xmenu.title}}</span>
+			</a>
+			<ul ng-show=" 0 < xmenu.children.length "  class="sub-menu">
+				<li ng-repeat=" ymenu in xmenu.children ">
+					<a href="{{ymenu.shref}}" ng-hide=" 0 < ymenu.children.length ">
+						<i class="{{ymenu.icon}}"></i>
+						<span class="title">{{ymenu.title}}</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+
+	</ul>
+-->
+	<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+		<li class="start" ng-if="currentUser.Permissions['dashboards'].doget">
+			<a href="#/dashboard.html">
+				<i class="icon-home"></i>
+				<span class="title">Dashboard</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['activities'].doget">
+			<a href="#/activities">
+				<i class="icon-note"></i>
+				<span class="title">{{'Activities' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['accounts'].doget">
+			<a href="#/accounts">
+				<i class="icon-users"></i>
+				<span class="title">{{'Accounts' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['appointments'].doget">
+			<a href="#/appointments">
+				<i class="icon-pointer"></i>
+				<span class="title">{{'Appointments' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['attachments'].doget">
+			<a href="#/attachments">
+				<i class="icon-link"></i>
+				<span class="title">{{'Attachments' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['contacts'].doget">
+			<a href="#/contacts">
+				<i class="icon-bubbles"></i>
+				<span class="title">{{'Contacts' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['invoices'].doget">
+			<a href="#/invoices">
+				<i class="icon-tag"></i>
+				<span class="title">{{'Invoices' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="(currentUser.Permissions['loyaltyprograms'].doget ||
+					currentUser.Permissions['loyaltyprogramsaccounts'].doget ||
+					currentUser.Permissions['loyaltyprogramtransactions'].doget)">
+			<a href="javascript:;">
+				<i class="icon-briefcase"></i>
+				<span class="title">{{'Loyalty' | translate}}</span>
+				<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li ng-if="currentUser.Permissions['loyaltyprograms'].doget">
+					<a href="#/loyaltyprograms">
+						<i class="icon-pin"></i>
+						<span class="title">{{'Programs' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['loyaltyprogramsaccounts'].doget">
+					<a href="#/loyaltyprogramsaccounts">
+						<i class="icon-user-following"></i>
+						<span class="title">{{'Members' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['loyaltyprogramtransactions'].doget">
+					<a href="#/loyaltyprogramtransactions">
+						<i class="icon-shuffle"></i>
+						<span class="title">{{'Transactions' | translate}}</span>
+					</a>
+				</li>
+
+			</ul>
+		</li>
+		<li ng-if="currentUser.Permissions['mails'].doget">
+			<a href="#/mails">
+				<i class="icon-envelope-open"></i>
+				<span class="title">{{'Mails' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['reports'].doget">
+			<a href="#/reports">
+				<i class="icon-bar-chart"></i>
+				<span class="title">{{'Reports' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['reservations'].doget">
+			<a href="#/reservations">
+				<i class="icon-hourglass"></i>
+				<span class="title">{{'Reservations' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="(currentUser.Permissions['opportunities'].doget ||
+					currentUser.Permissions['quotes'].doget ||
+					currentUser.Permissions['orders'].doget ||
+					currentUser.Permissions['payments'].doget ||
+					currentUser.Permissions['agreements'].doget)">
+			<a href="javascript:;">
+				<i class="icon-calculator"></i>
+				<span class="title">{{'Sales' | translate}}</span>
+				<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li ng-if="currentUser.Permissions['opportunities'].doget">
+					<a href="#/opportunities">
+						<i class="icon-star"></i>
+						<span class="title">{{'Opportunities' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['quotes'].doget">
+					<a href="#/quotes">
+						<i class="fa fa-bell-o"></i>
+						<span class="title">{{'Quotes' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['orders'].doget">
+					<a href="#/orders">
+						<i class="icon-basket-loaded"></i>
+						<span class="title">{{'Orders' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['payments'].doget">
+					<a href="#/payments">
+						<i class="fa fa-usd"></i>
+						<span class="title">{{'Payments' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['agreements'].doget">
+					<a href="#/agreements">
+						<i class="icon-directions"></i>
+						<span class="title">{{'Agreements' | translate}}</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li ng-if="currentUser.Permissions['servicerequests'].doget">
+			<a href="#/servicerequests">
+				<i class="icon-bulb"></i>
+				<span class="title">{{'Services' | translate}}</span>
+			</a>
+		</li>
+		<li ng-if="currentUser.Permissions['surveys'].doget">
+			<a href="#/surveys">
+				<i class="icon-flag"></i>
+				<span class="title">{{'Surveys' | translate}}</span>
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:;">
+				<i class="icon-settings"></i>
+				<span class="title">{{'Configuration' | translate}}</span>
+				<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li ng-if="currentUser.Permissions['cronlogs'].dopost">
+					<a href="#/cronlogs">
+						<i class="fa fa-file-text-o"></i>
+						<span class="title">{{'Cronlogs' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['dashboardobjects'].dopost">
+					<a href="#/dashboardobjects">
+						<i class="icon-diamond"></i>
+						<span class="title">{{'Dashboard' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['lovs'].dopost">
+					<a href="#/lovs">
+						<i class="icon-list"></i>
+						<span class="title">{{'Lovs' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['periods'].dopost">
+					<a href="#/periods">
+						<i class="icon-compass"></i>
+						<span class="title">{{'Periods' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['reportcharts'].dopost">
+					<a href="#/reportcharts">
+						<i class="icon-bar-chart"></i>
+						<span class="title">{{'Reports' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['sequences'].dopost">
+					<a href="#/sequences">
+						<i class="icon-grid"></i>
+						<span class="title">{{'Sequences' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="currentUser.Permissions['tmplsurveys'].dopost">
+					<a href="#/tmplsurveys">
+						<i class="icon-speech"></i>
+						<span class="title">{{'Surveys' | translate}}</span>
+					</a>
+				</li>
+				<li ng-if="(currentUser.Permissions['currencies'].dopost ||
+					currentUser.Permissions['employeepositions'].dopost ||
+					currentUser.Permissions['configs'].dopost ||
+					currentUser.Permissions['groups'].dopost ||
+					currentUser.Permissions['ctrls'].dopost || 
+					currentUser.Permissions['resources'].dopost ||
+					currentUser.Permissions['stores'].dopost ||
+					currentUser.Permissions['teams'].dopost ||
+					currentUser.Permissions['users'].dopost)">
+					<a href="javascript:;">
+						<i class="icon-globe"></i>
+						<span class="title">{{'Organization' | translate}}</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li ng-if="currentUser.Permissions['currencies'].dopost">
+							<a href="#/currencies">
+								<i class="fa fa-money"></i>
+								<span class="title">{{'Currencies' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['employeepositions'].dopost">
+							<a href="#/employeepositions">
+								<i class="fa fa-sitemap"></i>
+								<span class="title">{{'Employee Positions' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['configs'].dopost">
+							<a href="#/configs">
+								<i class="fa fa-bullseye"></i>
+								<span class="title">{{'Global Parameters' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['groups'].dopost">
+							<a href="#/groups">
+								<i class="icon-users"></i>
+								<span class="title">{{'Groups' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['ctrls'].dopost">
+							<a href="#/ctrls">
+								<i class="icon-lock-open"></i>
+								<span class="title">{{'Permissions' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['resources'].dopost">
+							<a href="#/resources">
+								<i class="icon-badge"></i>
+								<span class="title">{{'Resources' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['stores'].dopost">
+							<a href="#/stores">
+								<i class="fa fa-building-o"></i>
+								<span class="title">{{'Stores' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['teams'].dopost">
+							<a href="#/teams">
+								<i class="fa fa-cubes"></i>
+								<span class="title">{{'Teams' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['users'].dopost">
+							<a href="#/users">
+								<i class="icon-user"></i>
+								<span class="title">{{'Users' | translate}}</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li ng-if="(currentUser.Permissions['loadpricelists'].dopost ||
+					currentUser.Permissions['families'].dopost ||
+					currentUser.Permissions['pricelists'].dopost || 
+					currentUser.Permissions['products'].dopost)">
+					<a href="javascript:;">
+						<i class="icon-bell"></i>
+						<span class="title">{{'Products & Prices' | translate}}</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li ng-if="currentUser.Permissions['loadpricelists'].dopost">
+							<a href="#/loadpricelists">
+								<i class="fa fa-spinner"></i>
+								<span class="title">{{'Load Pricelist' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['families'].dopost">
+							<a href="#/families">
+								<i class="icon-puzzle"></i>
+								<span class="title">{{'Families' | translate}}</span>
+							</a>
+						</li>
+						<li ng-if="currentUser.Permissions['pricelists'].dopost">
+							<a href="#/pricelists">
+								<i class="icon-wallet"></i>
+								<span class="title">{{'Pricelists' | translate}}</span>
+							</a>
+						</li>
+
+						<li ng-if="currentUser.Permissions['products'].dopost">
+							<a href="#/products">
+								<i class="icon-bag"></i>
+								<span class="title">{{'Products' | translate}}</span>
+							</a>
+						</li>
+
+
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<!-- END SIDEBAR MENU -->
+</div>	

@@ -1,0 +1,167 @@
+<style type="text/css">
+    .flags-sprite,.flags-american,.flags-china,.flags-france,.flags-germany,.flags-italy,.flags-japan,.flags-korea,.flags-portugal,.flags-russia,.flags-spain {
+    background: url('../../../assets/global/img/flags-s1545c92c32.png') no-repeat;
+    }
+    .flags-american {
+    background-position: 0 -0px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-china {
+    background-position: 0 -64px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-france {
+    background-position: 0 -192px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-germany {
+    background-position: 0 -256px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-italy {
+    background-position: 0 -224px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-japan {
+    background-position: 0 -128px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-korea {
+    background-position: 0 0;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-portugal {
+    background-position: 0 -32px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-russia {
+    background-position: 0 -288px;
+    height: 32px;
+    width: 32px;
+    }
+    .flags-spain {
+    background-position: 0 -288px;
+    height: 32px;
+    width: 32px;
+    }
+</style>
+<div class="navbar main hidden-print">
+    <a href="/login" class="appbrand">
+    	<span>Obelit CRM <span>{{appVersion}}</span></span>
+    </a>
+    <button type="button" ng-click="toggleMainMenu()" class="btn btn-navbar">
+    	<span class="glyphicons show_lines toggle"></span>
+    </button>	
+    <ul class="topnav pull-right">
+        <li class="visible-lg">
+            <ul class="notif">
+                <li><a href="" class="glyphicons envelope" data-toggle="tooltip" data-placement="bottom" data-original-title="5 new messages"> 5</a></li>
+                <li><a href="" class="glyphicons shopping_cart" data-toggle="tooltip" data-placement="bottom" data-original-title="1 new orders"> 1</a></li>
+                <li><a href="" class="glyphicons log_book" data-toggle="tooltip" data-placement="bottom" data-original-title="3 new activities"> 3</a></li>
+            </ul>
+        </li>
+        <li ng-cloak ng-controller="FavoriteHeaderController" class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+	            <i class="icon-star"></i>
+	            <span class="badge badge-warning">
+	            	{{favorites.length}}
+	        	</span>
+            </a>
+            <ul class="dropdown-menu pull-right">
+				<li class="external text-center">
+					<a href="javascript:void(0);" class="btn btn-block" >
+                    	<span class="bold">{{favorites.length}} </span>
+                        <span ng-if="((favorites.length) != 1)">{{'Favorites' | translate}}</span>
+                        <span ng-if="((favorites.length) == 1)">{{'Favorite' | translate}}</span>
+					</a>
+				</li>
+                <li>
+                    <ul class="dropdown-menu-list scroller" data-handle-color="#637283">
+                        <li ng-repeat="favorite in favorites | limitTo:10" class="">
+                            <a href="{{favorite.Favorite.link}}{{favorite.Favorite.objectId}}" class="btn btn-icon btn-default btn-block">
+	                            <span class="details pull-left {{favorite.Lov.value}} ">
+		                            <span class="label label-sm label-icon ">
+		                            	<i class="fa fa-star" style="color:#f3c200;"></i>
+		                            </span>
+		                            {{ (favorite.Favorite.objectName.length > 18) ? ((favorite.Favorite.objectName | limitTo: 18) + '...'):favorite.Favorite.objectName}}
+	                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref='favorites.list' class="btn btn-block"  >{{'View all' | translate }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="hidden-xs">
+        	<a href="#themer" data-toggle="collapse" class="glyphicons eyedropper">
+        		<span>Themer</span>
+        	</a>
+        </li>
+        <li class="hidden-sm hidden-xs">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <div style="margin-top: 5px; margin-bottom: 3px;" ng-class="loadLangClass()"></div>
+            </a>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="javascript:;" ng-click="setLang('en-US')">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="flag flags-american"></div>
+                            </div>
+                            <div class="col-md-9">
+                                {{'English' | translate}}
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" ng-click="setLang('es-MX')">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="flag flags-spain"></div>
+                            </div>
+                            <div class="col-md-9">
+                                {{'Spanish' | translate}}
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="account">
+            <a data-toggle="dropdown" href="javascript:;" class="glyphicons logout lock"><span class="hidden-sm text">{{currentUser.User.name}}</span></a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="my-accoutn.html?lang=en" class="glyphicons cogwheel">{{'Settings' | translate}}</a></li>
+                <li><a href="#/activities" class="glyphicons list">{{'My Tasks' | translate }} </a></li>
+                <li class="highlight profile">
+                    <span>
+	                    <span class="heading">{{'Profile' | translate}} 
+	                    	<a href="#/users/edit/" class="pull-right">{{'edit' | translate}}</a>
+	                    </span>
+	                    <img alt="" style="width: 40px;" src="{{(currentUser.User.avatar) ? currentUser.User.avatar:'/img/avatar_placeholder.svg'}}"/>
+	                    <span class="details">
+		                    <a href="javascript:void(0);">{{currentUser.User.name}} </a>
+		                    {{currentUser.User.email}}
+	                    </span>
+	                    <span class="clearfix"></span>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                    	<a class="btn btn-default btn-small pull-right" style="padding: 2px 10px; background: #fff;" href="javascript:void(0);" ng-click="logout()">{{'Log out' | translate }}</a>
+                    </span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

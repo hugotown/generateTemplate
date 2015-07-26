@@ -1,0 +1,444 @@
+<div class="row" ng-controller="UserAddController">
+	<div class="col-md-12 content">
+  <div ui-view="" class="ng-scope">
+    <div class="none">
+      <div class="portlet-body">
+      	<div class="row">
+			<div class="col-md-12 content">
+				<form id="UserForm" name="UserForm" class="form-horizontal crm-form" data-ng-submit="saveUser(users.User)">
+					<div class="widget widget-2">
+                        <!-- Widget heading start -->
+                        <div class="widget-head">
+                            <h4 class="heading glyphicons edit"><i></i> {{'General Information' | translate }}</h4>
+                            <div class="menubar crm-menubar">
+								<ul>
+									<li>
+									<a ui-sref="users.list" class="btn-crm-header btn btn-sm btn-circle btn-default" data-title="{{'All users' | translate}}" data-type="success" data-container="body" bs-tooltip >
+										<i class="glyphicon glyphicon-list-alt"></i>
+									</a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                        <!-- Widget heading end -->
+                        <div class="widget-body">
+	<div class="row">
+	<div class="col-md-6">
+		<div class="form-group {{(UserForm.UsercreatedAt.$untouched) ? '':((UserForm.UsercreatedAt.$invalid) ? 'has-error':'has-success') }}">
+		<label class="col-md-9 crm-form-label control-label">{{'createdAt' | translate }}
+			<span style="margin: 0;"
+				class="btn-action single glyphicons circle_question_mark"
+				data-trigger="hover" data-type="info" data-title="{{'form.help.UsercreatedAt' | translate}}"
+				bs-tooltip><i></i>
+			</span>
+		</label>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-6" style="padding-right:0;">
+				<div class="input-group">
+				<input type="text" readonly class="form-control"
+					ng-model="users.User.createdAt"
+					id="UsercreatedAt"
+					name="UsercreatedAt"
+					tabindex="2"
+					data-date-format="yyyy-MM-dd"
+					data-model-date-format="yyyy-MM-dd HH:mm:ss"
+					data-date-type="string"
+					data-container="body" data-autoclose="false"
+					bs-datepicker >
+				    <span class="input-group-btn">
+				        <label class="btn btn-default" for="UsercreatedAt">
+				        <i class="glyphicon glyphicon-calendar"></i></label>
+				    </span>
+				</div>
+				</div>
+				<div class="col-md-6">
+	            	<div class="input-group">
+	         			<input readonly data-container="body" type="text"
+	         			data-time-type="string"
+						data-model-time-format="yyyy-MM-dd HH:mm:ss"
+	         			class="form-control" ng-model="users.User.createdAt" id="UsercreatedAtTime" name="UsercreatedAtTime" bs-timepicker>
+					    <span class="input-group-btn">
+					        <label class="btn btn-default" for="UsercreatedAtTime">
+					        <i class="glyphicon glyphicon-time"></i></label>
+					    </span>
+		            </div>
+				</div>
+			</div>
+			<p class="help-block" ng-show="(UserForm.UsercreatedAt.$touched && UserForm.UsercreatedAt.$error.required)">{{ 'This is a required field' | translate }}</p>
+			<p class="help-block" ng-show="(UserForm.UsercreatedAt.$touched && UserForm.UsercreatedAt.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+			<p class="help-block" ng-show="(UserForm.UsercreatedAt.$touched && UserForm.UsercreatedAt.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+		</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group {{(UserForm.UserupdatedAt.$untouched) ? '':((UserForm.UserupdatedAt.$invalid) ? 'has-error':'has-success') }}">
+		<label class="col-md-9 crm-form-label control-label">{{'updatedAt' | translate }}
+			<span style="margin: 0;"
+				class="btn-action single glyphicons circle_question_mark"
+				data-trigger="hover" data-type="info" data-title="{{'form.help.UserupdatedAt' | translate}}"
+				bs-tooltip><i></i>
+			</span>
+		</label>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-6" style="padding-right:0;">
+				<div class="input-group">
+				<input type="text" readonly class="form-control"
+					ng-model="users.User.updatedAt"
+					id="UserupdatedAt"
+					name="UserupdatedAt"
+					tabindex="103"
+					data-date-format="yyyy-MM-dd"
+					data-model-date-format="yyyy-MM-dd HH:mm:ss"
+					data-date-type="string"
+					data-container="body" data-autoclose="false"
+					bs-datepicker >
+				    <span class="input-group-btn">
+				        <label class="btn btn-default" for="UserupdatedAt">
+				        <i class="glyphicon glyphicon-calendar"></i></label>
+				    </span>
+				</div>
+				</div>
+				<div class="col-md-6">
+	            	<div class="input-group">
+	         			<input readonly data-container="body" type="text"
+	         			data-time-type="string"
+						data-model-time-format="yyyy-MM-dd HH:mm:ss"
+	         			class="form-control" ng-model="users.User.updatedAt" id="UserupdatedAtTime" name="UserupdatedAtTime" bs-timepicker>
+					    <span class="input-group-btn">
+					        <label class="btn btn-default" for="UserupdatedAtTime">
+					        <i class="glyphicon glyphicon-time"></i></label>
+					    </span>
+		            </div>
+				</div>
+			</div>
+			<p class="help-block" ng-show="(UserForm.UserupdatedAt.$touched && UserForm.UserupdatedAt.$error.required)">{{ 'This is a required field' | translate }}</p>
+			<p class="help-block" ng-show="(UserForm.UserupdatedAt.$touched && UserForm.UserupdatedAt.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+			<p class="help-block" ng-show="(UserForm.UserupdatedAt.$touched && UserForm.UserupdatedAt.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+		</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.UsercreatedBy.$untouched) ? '':((UserForm.UsercreatedBy.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'createdBy' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.UsercreatedBy' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="number" class="form-control " placeholder=""
+				id="UsercreatedBy"
+				name="UsercreatedBy"
+				tabindex="4"
+				ng-model="users.User.createdBy"  step="1">				<p class="help-block" ng-show="(UserForm.UsercreatedBy.$touched && UserForm.UsercreatedBy.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UsercreatedBy.$touched && UserForm.UsercreatedBy.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UsercreatedBy.$touched && UserForm.UsercreatedBy.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.UserupdatedBy.$untouched) ? '':((UserForm.UserupdatedBy.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'updatedBy' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.UserupdatedBy' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="number" class="form-control " placeholder=""
+				id="UserupdatedBy"
+				name="UserupdatedBy"
+				tabindex="105"
+				ng-model="users.User.updatedBy"  step="1">				<p class="help-block" ng-show="(UserForm.UserupdatedBy.$touched && UserForm.UserupdatedBy.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UserupdatedBy.$touched && UserForm.UserupdatedBy.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UserupdatedBy.$touched && UserForm.UserupdatedBy.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.Userusername.$untouched) ? '':((UserForm.Userusername.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'username' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Userusername' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="Userusername"
+				name="Userusername"
+				tabindex="6"
+				ng-model="users.User.username"  >				<p class="help-block" ng-show="(UserForm.Userusername.$touched && UserForm.Userusername.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Userusername.$touched && UserForm.Userusername.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Userusername.$touched && UserForm.Userusername.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.Useremail.$untouched) ? '':((UserForm.Useremail.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'email' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Useremail' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="Useremail"
+				name="Useremail"
+				tabindex="107"
+				ng-model="users.User.email"  >				<p class="help-block" ng-show="(UserForm.Useremail.$touched && UserForm.Useremail.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Useremail.$touched && UserForm.Useremail.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Useremail.$touched && UserForm.Useremail.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.Userpassword.$untouched) ? '':((UserForm.Userpassword.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'password' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Userpassword' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="Userpassword"
+				name="Userpassword"
+				tabindex="8"
+				ng-model="users.User.password"  >				<p class="help-block" ng-show="(UserForm.Userpassword.$touched && UserForm.Userpassword.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Userpassword.$touched && UserForm.Userpassword.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Userpassword.$touched && UserForm.Userpassword.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.Username.$untouched) ? '':((UserForm.Username.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'name' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Username' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="Username"
+				name="Username"
+				tabindex="109"
+				ng-model="users.User.name"  >				<p class="help-block" ng-show="(UserForm.Username.$touched && UserForm.Username.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Username.$touched && UserForm.Username.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Username.$touched && UserForm.Username.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.UserfirstName.$untouched) ? '':((UserForm.UserfirstName.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'firstName' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.UserfirstName' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="UserfirstName"
+				name="UserfirstName"
+				tabindex="10"
+				ng-model="users.User.firstName"  >				<p class="help-block" ng-show="(UserForm.UserfirstName.$touched && UserForm.UserfirstName.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UserfirstName.$touched && UserForm.UserfirstName.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UserfirstName.$touched && UserForm.UserfirstName.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.UserlastName.$untouched) ? '':((UserForm.UserlastName.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'lastName' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.UserlastName' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="UserlastName"
+				name="UserlastName"
+				tabindex="111"
+				ng-model="users.User.lastName"  >				<p class="help-block" ng-show="(UserForm.UserlastName.$touched && UserForm.UserlastName.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UserlastName.$touched && UserForm.UserlastName.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.UserlastName.$touched && UserForm.UserlastName.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.Usergender.$untouched) ? '':((UserForm.Usergender.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'gender' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Usergender' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="Usergender"
+				name="Usergender"
+				tabindex="12"
+				ng-model="users.User.gender"  >				<p class="help-block" ng-show="(UserForm.Usergender.$touched && UserForm.Usergender.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Usergender.$touched && UserForm.Usergender.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Usergender.$touched && UserForm.Usergender.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+			<div class="form-group {{ (UserForm.Usergroup_id.$untouched) ? '':((UserForm.Usergroup_id.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'Group' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Usergroup_id' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="none">
+				<span ng-if="(ParentGroup == null)">
+					<div class="input-group col-md-9">
+						<ui-select ng-model="selectedGroup.selected"
+							theme="select2"
+							id="Usergroup_id"
+							name="Usergroup_id"
+							tabindex="113"
+							reset-search-input="false" >
+							<ui-select-match placeholder="Select Group...">{{$select.selected.Group.name}}</ui-select-match>
+					    	<ui-select-choices repeat="row in groups | limitTo: 10 track by $index"
+					             refresh="getGroups($select.search)"
+					             refresh-delay="1000">
+								<span ng-bind-html="row.Group.name | highlight: $select.search"></span>
+							</ui-select-choices>
+						</ui-select>
+						<span class="input-group-btn">
+							<a href="javascript:;" ng-click="selectedGroup.selected = undefined" class="btn btn-default">
+							<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</span>
+					</div>
+					<div class="input-group col-md-12">
+						<p class="help-block" ng-show="(UserForm.Usergroup_id.$error.required)">{{ 'This is a required field' | translate }}</p>
+					</div>
+				</span>
+				<span ng-if="(ParentGroup != null)">
+					<p class="input-group col-md-12">
+						<b>
+							{{ ParentGroup.name | limitTo: 20 }}{{ParentGroup.name.length > 20 ? '...' : ''}}
+						</b>
+					</p>
+				</span>
+			</div>
+			</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+			<div class="form-group {{ (UserForm.Userworkstation_id.$untouched) ? '':((UserForm.Userworkstation_id.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'Workstation' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Userworkstation_id' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="none">
+				<span ng-if="(ParentWorkstation == null)">
+					<div class="input-group col-md-9">
+						<ui-select ng-model="selectedWorkstation.selected"
+							theme="select2"
+							id="Userworkstation_id"
+							name="Userworkstation_id"
+							tabindex="14"
+							reset-search-input="false" >
+							<ui-select-match placeholder="Select Workstation...">{{$select.selected.Workstation.name}}</ui-select-match>
+					    	<ui-select-choices repeat="row in workstations | limitTo: 10 track by $index"
+					             refresh="getWorkstations($select.search)"
+					             refresh-delay="1000">
+								<span ng-bind-html="row.Workstation.name | highlight: $select.search"></span>
+							</ui-select-choices>
+						</ui-select>
+						<span class="input-group-btn">
+							<a href="javascript:;" ng-click="selectedWorkstation.selected = undefined" class="btn btn-default">
+							<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</span>
+					</div>
+					<div class="input-group col-md-12">
+						<p class="help-block" ng-show="(UserForm.Userworkstation_id.$error.required)">{{ 'This is a required field' | translate }}</p>
+					</div>
+				</span>
+				<span ng-if="(ParentWorkstation != null)">
+					<p class="input-group col-md-12">
+						<b>
+							{{ ParentWorkstation.name | limitTo: 20 }}{{ParentWorkstation.name.length > 20 ? '...' : ''}}
+						</b>
+					</p>
+				</span>
+			</div>
+			</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group {{ (UserForm.Userstatus.$untouched) ? '':((UserForm.Userstatus.$invalid) ? 'has-error':'has-success') }}">
+			<label class="col-md-9 crm-form-label control-label">{{'status' | translate }}
+				<span style="margin: 0;"
+					class="btn-action single glyphicons circle_question_mark"
+					data-trigger="hover" data-type="info" data-title="{{'form.help.Userstatus' | translate}}"
+					bs-tooltip><i></i>
+				</span>
+			</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control " placeholder=""
+				id="Userstatus"
+				name="Userstatus"
+				tabindex="115"
+				ng-model="users.User.status"  >				<p class="help-block" ng-show="(UserForm.Userstatus.$touched && UserForm.Userstatus.$error.required)">{{ 'This is a required field' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Userstatus.$touched && UserForm.Userstatus.$error.number)">{{ 'Please enter a numeric value' | translate }}</p>
+				<p class="help-block" ng-show="(UserForm.Userstatus.$touched && UserForm.Userstatus.$error.datetime)">{{ 'Please enter a numeric value' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	</div>
+								<hr class="separator">
+                                <div class="form-actions" style="padding-right: 15px;">
+								    <a href="javascript:;" class="btn-crm-header btn btn-icon btn-primary glyphicons circle_ok" ng-disabled="!(UserForm.$valid) || UserForm.$waiting"
+								    	ng-click="saveUser(users.User)">{{'Save' | translate }}
+								    </a>
+									<a href back-button class="btn-crm-header btn btn-icon btn-default glyphicons circle_remove">{{'Cancel' | translate }}
+									</a>
+                                </div>
+								</div>
+								<div class="separator line"></div>
+                                <div class="separator line"></div>
+                                </div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
