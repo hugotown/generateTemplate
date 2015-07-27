@@ -1,0 +1,160 @@
+<style>
+  /* Contextual table row variants */
+  /* Override from template */
+  .table > thead > tr > td,
+  .table > thead > tr > th,
+  .table > thead > tr > td,
+  .table > thead > tr > th {
+  background: #FFFFFF !important;
+  color: #004b54 !important;
+  cursor: pointer;
+  }
+  .editable-click, a.editable-click {
+  cursor: pointer;
+  }
+  md-toolbar.demo-toolbar {
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+}
+</style>
+<section data-ng-init="prepareData()" data-ng-controller="UsersController">
+  <!-- BEGIN Portlet PORTLET-->
+  <div class="portlet box green-haze">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="fa fa-gift"></i>{{ 'Users' | translate }}
+      </div>
+      <div class="tools">
+        <a href="javascript:;" class="collapse">
+        </a>
+        <a href="#portlet-config" data-toggle="modal" class="config">
+        </a>
+        <a href="javascript:;" class="reload">
+        </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group form-md-line-input has-info form-md-floating-label">
+          <div class="input-group">
+            <div class="input-group-control">
+              <input type="text" name="fSearch" class="form-control" ng-model="userFilters" value="">
+              <label for="fSearch">{{ 'Search' | translate }}</label>
+            </div>
+            <span class="input-group-btn btn-right">
+              <md-menu>
+                <md-button class="md-icon-button" ng-click="$mdOpenMenu()">
+                  <i class="fa fa-bars"></i>
+                </md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button ui-sref="usersCreate">
+                      {{ 'Add user' | translate }}
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-divider></md-menu-divider>
+                  <md-menu-item>
+                    <md-button ng-click="ExportToExcel()">
+                      <i class='fa fa-file-excel-o'></i>
+                      {{ 'Export to Excel' | translate }}
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="ExportToPDF()">
+                      <i class='fa fa-file-pdf-o'></i>
+                      {{ 'Export to PDF' | translate }}
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div tasty-table bind-resource="ngtUsersResource" watch-resource="collection" bind-filters="userFilters">
+          <div class='table-responsive'>
+            <table class="table table-striped table-condensed">
+              <thead tasty-thead></thead>
+              <tbody>
+                <tr ng-show="!rows.length">
+                  <td colspan="{{(header.columns).length}}">
+                    <center>{{'No data found' | translate }}</center>
+                  </td>
+                </tr>
+                <tr ng-repeat="user in rows">
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.username">
+                    {{ ( user.username || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.email">
+                    {{ ( user.email || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.password">
+                    {{ ( user.password || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.name">
+                    {{ ( user.name || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.firstName">
+                    {{ ( user.firstName || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.lastName">
+                    {{ ( user.lastName || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.gender">
+                    {{ ( user.gender || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.group_id">
+                    {{ ( user.group_id || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.workstation_id">
+                    {{ ( user.workstation_id || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td class="tasty-table-td">
+                    <span onaftersave="editableUpdate(user)" editable-text="user.status">
+                    {{ ( user.status || '...' ) | translate  }}
+                    </span>
+                  </td>
+                                    <td>
+                    <div class="actions">
+                      <a ng-href="/user/view/{{user.id}}" class="btn btn-circle btn-icon-only blue ">
+                      <i class="fa fa-eye"></i>
+                      </a>
+                      <a ng-href="/user/edit/{{user.id}}" class="btn btn-circle btn-icon-only yellow-casablanca " >
+                      <i class="fa fa-pencil"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div tasty-pagination bind-items-per-page="ngTitemsPerPage" bind-list-items-per-page="ngTlistItemsPerPage"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <!-- END Portlet PORTLET-->
+</section>

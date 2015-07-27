@@ -20,9 +20,7 @@
 <?php $singularHumanName = Inflector::classify($singularHumanName); ?>
 <?php $pluralVar = strtolower($pluralVar); ?>
 <?php $singularVar = strtolower($singularVar); ?>
-<div class="none" ng-controller="<?php echo $pluralHumanName;?>Controller">
-	<div class="innerLR">
-		<h3 class="glyphicons glyphicon-asterisk"><i></i>{{ '<?php echo Inflector::pluralize($singularHumanName); ?>' | translate}}</h3>
-		<div class="tab-content"><ui-view></ui-view></div>
-	</div>
+<div ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller">
+	<h1>Welcome to the <?php echo $pluralVar; ?></h1>
+	<a ui-sref="<?php echo $pluralVar; ?>List">Go To List</a>
 </div>

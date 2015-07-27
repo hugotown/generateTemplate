@@ -14,8 +14,9 @@ class WorkstationsControllerTest extends ControllerTestCase {
  */
 	public $fixtures = array(
 		'app.workstation',
-		'app.store',
-		'app.user'
+		'app.building',
+		'app.user',
+		'app.group'
 	);
 
 /**

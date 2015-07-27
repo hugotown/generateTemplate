@@ -60,7 +60,7 @@ class CakeularTask extends BakeTask {
  *
  * @var array
  */
-	public $scaffoldActions = array('html_index', 'html_list', 'html_add', 'html_edit', 'js_index', 'js_states');
+	public $scaffoldActions = array('html_home', 'html_list', 'html_add', 'html_edit', 'js_index', 'js_states', 'js_controller', 'js_route', 'js_service');
 
 /**
  * An array of action names that don't require templates. These
@@ -360,7 +360,7 @@ class CakeularTask extends BakeTask {
 		switch ($checkAction[0]) {
 			case 'html':
 				$action = str_replace('html_', '', $action);
-				$filename = WWW_ROOT . DS . 'view' . DS . strtolower($this->controllerName) . DS . Inflector::underscore($action) . '.html';
+				$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . Inflector::underscore($action) . '.html';
 				break;
 
 			case 'js': {
@@ -369,9 +369,18 @@ class CakeularTask extends BakeTask {
 				if ($action == "index"){
 					$filename = WWW_ROOT . DS . 'js' . DS . strtolower($this->controllerName) . '.js';
 				}
-				else{
-					$filename = WWW_ROOT . DS . 'js' . DS . 'ui-states' . DS . strtolower($this->controllerName) . '.js';	
-				}
+				elseif($action == "controller")
+					{
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'controllers' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.js';
+					} elseif($action == "service")
+					{
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'services' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.js';
+					} elseif($action == "route")
+					{
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.js';
+					} else{
+						$filename = WWW_ROOT . DS . 'js' . DS . 'ui-states' . DS . strtolower($this->controllerName) . '.js';	
+					}
 				break;
 			}
 			default:

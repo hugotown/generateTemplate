@@ -1,0 +1,135 @@
+<style>
+    /* Contextual table row variants */
+    /* Override from template */
+    .table > thead > tr > td,
+    .table > thead > tr > th,
+    .table > thead > tr > td,
+    .table > thead > tr > th {
+    background: #FFFFFF !important;
+    color: #004b54 !important;
+    cursor: pointer;
+    }
+    .editable-click, a.editable-click {
+    cursor: pointer;
+    }
+</style>
+<section data-ng-init="prepareData()" data-ng-controller="WorkstationsController">
+    <div class="panel ">
+        <div class="panel-heading bg-blue-madison text-center">
+            <h3 class="panel-title">{{ 'Workstations' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="input-group-control col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="workstationFilters" value="">
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                            <span class="input-group-btn btn-right col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                <md-menu md-position-mode="target-right target">
+                                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+                                      <i class="fa fa-bars"></i>
+                                    </md-button>
+                                    <md-menu-content width="4">
+                                        <md-menu-item>
+                                            <md-button ui-sref="workstationsAdd">
+                                            {{ 'Add workstation' | translate }}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-divider></md-menu-divider>
+                                        <md-menu-item>
+                                            <md-button ng-click="ExportToExcel()">
+                                                <i class='fa fa-file-excel-o'></i>
+                                                {{ 'Export to Excel' | translate }}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <md-button ng-click="ExportToPDF()">
+                                                <i class='fa fa-file-pdf-o'></i>
+                                                {{ 'Export to PDF' | translate }}
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div tasty-table bind-resource="ngtWorkstationsResource" watch-resource="collection" bind-filters="workstationFilters">
+                        <div class='table-responsive'>
+                            <table class="table table-striped table-condensed">
+                                <thead tasty-thead></thead>
+                                <tbody>
+                                    <tr ng-show="!rows.length">
+                                        <td colspan="{{(header.columns).length}}">
+                                            <center>{{'No data found' | translate }}</center>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="workstation in rows">
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.name">
+                                            {{ ( workstation.name || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.role">
+                                            {{ ( workstation.role || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.employeeNumber">
+                                            {{ ( workstation.employeeNumber || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.workarea">
+                                            {{ ( workstation.workarea || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.status">
+                                            {{ ( workstation.status || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.parent_id">
+                                            {{ ( workstation.parent_id || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.building_id">
+                                            {{ ( workstation.building_id || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td class="tasty-table-td">
+                                            <span onaftersave="editableUpdate(workstation)" editable-text="workstation.description">
+                                            {{ ( workstation.description || '...' ) | translate  }}
+                                            </span>
+                                        </td>
+                                                                                <td>
+                                            <div class="actions">
+                                                <a ng-href="/workstation/view/{{workstation.id}}" class="btn btn-circle btn-icon-only blue ">
+                                                <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a ng-href="/workstation/edit/{{workstation.id}}" class="btn btn-circle btn-icon-only yellow-casablanca " >
+                                                <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div tasty-pagination bind-items-per-page="ngTitemsPerPage" bind-list-items-per-page="ngTlistItemsPerPage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

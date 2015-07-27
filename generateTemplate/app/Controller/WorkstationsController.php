@@ -95,23 +95,21 @@
 
 	            			// CHANGE FOR THE DESIRED OUTPUT FIELDS ARRAY HERE...
 						    $fields = array(
-								'Workstation.id',
 								'Workstation.createdAt',
 								'Workstation.updatedAt',
 								'Workstation.createdBy',
 								'Workstation.updatedBy',
-								'Parent.name',
-								'Workstation.parent_id',
-								'Workstation.lft',
-								'Workstation.rght',
-								'Workstation.role',
 								'Workstation.name',
+								'Workstation.role',
 								'Workstation.employeeNumber',
 								'Workstation.workarea',
-								'Store.name',
-								'Workstation.store_id',
-								'Workstation.description',
 								'Workstation.status',
+								'Parent.name',
+								'Workstation.parent_id',
+								'Building.name',
+								'Workstation.building_id',
+								'Workstation.description',
+								'Workstation.id',
 							);
 					        $this->paginate = array(
 					            'fields' => $fields,
