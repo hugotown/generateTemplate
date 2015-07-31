@@ -49,18 +49,64 @@
         <!-- BEGIN FORM-->
         <form name="<?php echo $singularVar; ?>Form" class="form-horizontal" role="form" data-ng-submit="create(<?php echo $singularVar; ?>Form.$valid)" novalidate>
           <div class="form-body">
-              <?php foreach ($fields as $key => $field)
+            <?php foreach ($fields as $key => $field)
+            {
+              $fieldAlreadyPainted = false;
+              if($field !== "createdAt" && $field !== "updatedAt" 
+                && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
               {
-                if($field !== "createdAt" && $field !== "updatedAt" 
-                  && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                if(!($schema[$field]['null'])) {
+                  $required = 'required';
+                } else {
+                  $required = '';
+                }
+                foreach ($associations['belongsTo'] as $alias => $details)
                 {
+                  if($details['foreignKey'] == $field)
+                  {
+                    $fieldAlreadyPainted = true;
+                    $otherSingularVar = Inflector::variable($alias);
+                    $otherPluralHumanName = Inflector::humanize($details['controller']);
+                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                    $otherPluralVar = Inflector::variable($details['controller']);
                   ?>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                          <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+                          <div class="col-md-8">
+                              <md-autocomplete md-autofocus = "false"
+                                ng-disabled="isDisabled" md-no-cache="true"
+                                md-search-text="search<?php echo $otherSingularHumanName; ?>"
+                                md-search-text-change="search<?php echo $otherSingularHumanName; ?>Change(search<?php echo $otherSingularHumanName; ?>)"
+                                md-selected-item="selected<?php echo $otherSingularHumanName; ?>"
+                                md-selected-item-change="selected<?php echo $otherSingularHumanName; ?>Change(item)"
+                                md-items="item in get<?php echo $otherPluralHumanName; ?>(search<?php echo $otherSingularHumanName; ?>)"
+                                md-item-text="item.name"
+                                md-min-length="0"
+                                placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">
+                              <md-item-template>
+                                <span md-highlight-text="search<?php echo $otherSingularHumanName; ?>" md-highlight-flags="^i">{{item.name}}</span>
+                              </md-item-template>
+                              <md-not-found> {{ 'No matches found for' | translate }} "{{search<?php echo $otherSingularHumanName; ?>}}". </md-not-found>
+                            </md-autocomplete>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <?php
+                  }
+                }
+                if(!$fieldAlreadyPainted)
+                {
+                ?>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
                       <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" required autocomplete="off">
+                        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
                         <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
                           <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
                             {{ '<?php echo $field;?> field is required' | translate }}
@@ -71,25 +117,27 @@
                   </div>
                 </div>
 
-                  <?php
+                <?php
+
                 }
               }
-              ?>
+            }
+            ?>
 
-                <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-6">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-offset-3 col-md-9">
-                                    <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
-                                    <a ng-href="/workstation/list" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-6">
                 </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-offset-3 col-md-9">
+                      <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
+                      <a ui-sref="<?php echo $pluralVar; ?>List" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <?php }else{ ?>
 
             <div class="portlet box blue-madison">
@@ -103,5 +151,67 @@
               </div>
               <div class="portlet-body form">
                 <!-- BEGIN FORM-->
+                <form name="<?php echo $singularVar; ?>Form" class="form-horizontal" role="form" data-ng-submit="update(<?php echo $singularVar; ?>Form.$valid)" novalidate>
+                  <div class="form-body">
+                    <?php foreach ($fields as $key => $field)
+                    {
+                      if($field !== "createdAt" && $field !== "updatedAt" 
+                        && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                      {
+                        if(!($schema[$field]['null'])) {
+                          $required = 'required';
+                        } else {
+                          $required = '';
+                        }
+                        foreach ($associations['belongsTo'] as $alias => $details)
+                        {
+                          if($details['foreignKey'] == $field)
+                          {
+                            $otherSingularVar = Inflector::variable($alias);
+                            $otherPluralHumanName = Inflector::humanize($details['controller']);
+                            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                            $otherPluralVar = Inflector::variable($details['controller']);
+                          ?>
 
-                <?php } ?>
+                          <?php
+                          }
+                        }
+
+                        ?>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
+                              <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
+                              <div class="col-md-8">
+                                <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+                                <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
+                                  <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
+                                    {{ '<?php echo $field;?> field is required' | translate }}
+                                  </p>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <?php
+                      }
+                    }
+                    ?>
+
+                    <div class="form-actions">
+                      <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                              <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
+                              <a ui-sref="<?php echo $pluralVar; ?>List" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <?php } ?>

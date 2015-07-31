@@ -11,7 +11,7 @@ function($stateProvider) {
         templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/list.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>View', {
-        url: '/<?php echo strtolower($pluralVar);?>/view/:id',
+        url: '/<?php echo strtolower($pluralVar);?>/view/:<?php echo $singularVar; ?>Id',
         templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/view.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>Create', {
@@ -19,7 +19,7 @@ function($stateProvider) {
         templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/add.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>Edit', {
-        url: '/<?php echo strtolower($pluralVar);?>/edit/:id',
+        url: '/<?php echo strtolower($pluralVar);?>/edit/:<?php echo $singularVar; ?>Id',
         templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/edit.html'
     });
 }

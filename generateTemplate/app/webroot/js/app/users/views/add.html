@@ -24,12 +24,12 @@
         <!-- BEGIN FORM-->
         <form name="userForm" class="form-horizontal" role="form" data-ng-submit="create(userForm.$valid)" novalidate>
           <div class="form-body">
-                              <div class="row">
+                            <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.username.$invalid }">
                       <label for="username" class="col-md-4 control-label">{{ 'username' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="username" type="text" class="form-control" data-ng-model="username" id="username" placeholder="{{ 'username' | translate }}" required autocomplete="off">
+                        <input name="username" type="text" class="form-control" data-ng-model="username" id="username" placeholder="{{ 'username' | translate }}" autocomplete="off" required >
                         <span ng-show="submitted && userForm.username.$invalid" class="help-block">
                           <p ng-show="userForm.username.$error.required">
                             {{ 'username field is required' | translate }}
@@ -40,12 +40,12 @@
                   </div>
                 </div>
 
-                                  <div class="row">
+                                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.email.$invalid }">
                       <label for="email" class="col-md-4 control-label">{{ 'email' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="email" type="text" class="form-control" data-ng-model="email" id="email" placeholder="{{ 'email' | translate }}" required autocomplete="off">
+                        <input name="email" type="text" class="form-control" data-ng-model="email" id="email" placeholder="{{ 'email' | translate }}" autocomplete="off" required >
                         <span ng-show="submitted && userForm.email.$invalid" class="help-block">
                           <p ng-show="userForm.email.$error.required">
                             {{ 'email field is required' | translate }}
@@ -56,12 +56,12 @@
                   </div>
                 </div>
 
-                                  <div class="row">
+                                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.password.$invalid }">
                       <label for="password" class="col-md-4 control-label">{{ 'password' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="password" type="text" class="form-control" data-ng-model="password" id="password" placeholder="{{ 'password' | translate }}" required autocomplete="off">
+                        <input name="password" type="text" class="form-control" data-ng-model="password" id="password" placeholder="{{ 'password' | translate }}" autocomplete="off"  >
                         <span ng-show="submitted && userForm.password.$invalid" class="help-block">
                           <p ng-show="userForm.password.$error.required">
                             {{ 'password field is required' | translate }}
@@ -72,12 +72,12 @@
                   </div>
                 </div>
 
-                                  <div class="row">
+                                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.name.$invalid }">
                       <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" required autocomplete="off">
+                        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
                         <span ng-show="submitted && userForm.name.$invalid" class="help-block">
                           <p ng-show="userForm.name.$error.required">
                             {{ 'name field is required' | translate }}
@@ -88,12 +88,12 @@
                   </div>
                 </div>
 
-                                  <div class="row">
+                                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.firstName.$invalid }">
                       <label for="firstName" class="col-md-4 control-label">{{ 'firstName' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="firstName" type="text" class="form-control" data-ng-model="firstName" id="firstName" placeholder="{{ 'firstName' | translate }}" required autocomplete="off">
+                        <input name="firstName" type="text" class="form-control" data-ng-model="firstName" id="firstName" placeholder="{{ 'firstName' | translate }}" autocomplete="off" required >
                         <span ng-show="submitted && userForm.firstName.$invalid" class="help-block">
                           <p ng-show="userForm.firstName.$error.required">
                             {{ 'firstName field is required' | translate }}
@@ -104,12 +104,12 @@
                   </div>
                 </div>
 
-                                  <div class="row">
+                                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lastName.$invalid }">
                       <label for="lastName" class="col-md-4 control-label">{{ 'lastName' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="lastName" type="text" class="form-control" data-ng-model="lastName" id="lastName" placeholder="{{ 'lastName' | translate }}" required autocomplete="off">
+                        <input name="lastName" type="text" class="form-control" data-ng-model="lastName" id="lastName" placeholder="{{ 'lastName' | translate }}" autocomplete="off" required >
                         <span ng-show="submitted && userForm.lastName.$invalid" class="help-block">
                           <p ng-show="userForm.lastName.$error.required">
                             {{ 'lastName field is required' | translate }}
@@ -120,15 +120,15 @@
                   </div>
                 </div>
 
-                                  <div class="row">
+                                <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.gender.$invalid }">
-                      <label for="gender" class="col-md-4 control-label">{{ 'gender' | translate }}</label>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_gender.$invalid }">
+                      <label for="lov_user_gender" class="col-md-4 control-label">{{ 'lov_user_gender' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="gender" type="text" class="form-control" data-ng-model="gender" id="gender" placeholder="{{ 'gender' | translate }}" required autocomplete="off">
-                        <span ng-show="submitted && userForm.gender.$invalid" class="help-block">
-                          <p ng-show="userForm.gender.$error.required">
-                            {{ 'gender field is required' | translate }}
+                        <input name="lov_user_gender" type="text" class="form-control" data-ng-model="lov_user_gender" id="lov_user_gender" placeholder="{{ 'lov_user_gender' | translate }}" autocomplete="off"  >
+                        <span ng-show="submitted && userForm.lov_user_gender.$invalid" class="help-block">
+                          <p ng-show="userForm.lov_user_gender.$error.required">
+                            {{ 'lov_user_gender field is required' | translate }}
                           </p>
                         </span>
                       </div>
@@ -137,30 +137,64 @@
                 </div>
 
                                   <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.group_id.$invalid }">
-                      <label for="group_id" class="col-md-4 control-label">{{ 'group_id' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="group_id" type="text" class="form-control" data-ng-model="group_id" id="group_id" placeholder="{{ 'group_id' | translate }}" required autocomplete="off">
-                        <span ng-show="submitted && userForm.group_id.$invalid" class="help-block">
-                          <p ng-show="userForm.group_id.$error.required">
-                            {{ 'group_id field is required' | translate }}
-                          </p>
-                        </span>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                          <label for="parent" class="col-md-4 control-label">{{ 'group' | translate }}</label>
+                          <div class="col-md-8">
+                              <md-autocomplete md-autofocus = "false"
+                                ng-disabled="isDisabled" md-no-cache="true"
+                                md-search-text="searchGroup"
+                                md-search-text-change="searchGroupChange(searchGroup)"
+                                md-selected-item="selectedGroup"
+                                md-selected-item-change="selectedGroupChange(item)"
+                                md-items="item in getGroups(searchGroup)"
+                                md-item-text="item.name"
+                                md-min-length="0"
+                                placeholder="{{ 'Select Group' || translate }}...">
+                              <md-item-template>
+                                <span md-highlight-text="searchGroup" md-highlight-flags="^i">{{item.name}}</span>
+                              </md-item-template>
+                              <md-not-found> {{ 'No matches found for' | translate }} "{{searchGroup}}". </md-not-found>
+                            </md-autocomplete>
+                          </div>
                       </div>
                     </div>
                   </div>
-                </div>
+
+                                    <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                          <label for="parent" class="col-md-4 control-label">{{ 'workstation' | translate }}</label>
+                          <div class="col-md-8">
+                              <md-autocomplete md-autofocus = "false"
+                                ng-disabled="isDisabled" md-no-cache="true"
+                                md-search-text="searchWorkstation"
+                                md-search-text-change="searchWorkstationChange(searchWorkstation)"
+                                md-selected-item="selectedWorkstation"
+                                md-selected-item-change="selectedWorkstationChange(item)"
+                                md-items="item in getWorkstations(searchWorkstation)"
+                                md-item-text="item.name"
+                                md-min-length="0"
+                                placeholder="{{ 'Select Workstation' || translate }}...">
+                              <md-item-template>
+                                <span md-highlight-text="searchWorkstation" md-highlight-flags="^i">{{item.name}}</span>
+                              </md-item-template>
+                              <md-not-found> {{ 'No matches found for' | translate }} "{{searchWorkstation}}". </md-not-found>
+                            </md-autocomplete>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
 
                                   <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.workstation_id.$invalid }">
-                      <label for="workstation_id" class="col-md-4 control-label">{{ 'workstation_id' | translate }}</label>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_status.$invalid }">
+                      <label for="lov_user_status" class="col-md-4 control-label">{{ 'lov_user_status' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="workstation_id" type="text" class="form-control" data-ng-model="workstation_id" id="workstation_id" placeholder="{{ 'workstation_id' | translate }}" required autocomplete="off">
-                        <span ng-show="submitted && userForm.workstation_id.$invalid" class="help-block">
-                          <p ng-show="userForm.workstation_id.$error.required">
-                            {{ 'workstation_id field is required' | translate }}
+                        <input name="lov_user_status" type="text" class="form-control" data-ng-model="lov_user_status" id="lov_user_status" placeholder="{{ 'lov_user_status' | translate }}" autocomplete="off"  >
+                        <span ng-show="submitted && userForm.lov_user_status.$invalid" class="help-block">
+                          <p ng-show="userForm.lov_user_status.$error.required">
+                            {{ 'lov_user_status field is required' | translate }}
                           </p>
                         </span>
                       </div>
@@ -168,35 +202,19 @@
                   </div>
                 </div>
 
-                                  <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.status.$invalid }">
-                      <label for="status" class="col-md-4 control-label">{{ 'status' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="status" type="text" class="form-control" data-ng-model="status" id="status" placeholder="{{ 'status' | translate }}" required autocomplete="off">
-                        <span ng-show="submitted && userForm.status.$invalid" class="help-block">
-                          <p ng-show="userForm.status.$error.required">
-                            {{ 'status field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
+                
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-offset-3 col-md-9">
+                      <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
+                      <a ui-sref="usersList" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
                     </div>
                   </div>
                 </div>
-
-                  
-                <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-6">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-offset-3 col-md-9">
-                                    <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
-                                    <a ng-href="/workstation/list" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
+            </div>
             
