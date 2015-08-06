@@ -1,140 +1,108 @@
 <section data-ng-init="prepareData()" data-ng-controller="UsersController">
   <!-- BEGIN Portlet PORTLET-->
-  <div class="portlet box green-haze">
+  <div class="portlet box blue-madison">
     <div class="portlet-title">
       <div class="caption">
         <i class="fa fa-gift"></i>{{ 'Users' | translate }}
       </div>
-      <div class="tools">
-        <a href="javascript:;" class="collapse">
-        </a>
-        <a href="#portlet-config" data-toggle="modal" class="config">
-        </a>
-        <a href="javascript:;" class="reload">
+      <div class="actions">
+        <a ui-sref="usersCreate" class="btn btn-sm green-haze">
+          <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
     </div>
     <div class="portlet-body">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-bordered">
-              <thead>
-                <tr>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-bordered">
+            <thead>
+              <tr>
                                     <th>
-                    {{ username | translate  }}
-                  </th>
-                                    <th>
-                    {{ email | translate  }}
-                  </th>
-                                    <th>
-                    {{ password | translate  }}
-                  </th>
-                                    <th>
-                    {{ name | translate  }}
-                  </th>
-                                    <th>
-                    {{ firstName | translate  }}
-                  </th>
-                                    <th>
-                    {{ lastName | translate  }}
-                  </th>
-                                    <th>
-                    {{ lov_user_gender | translate  }}
-                  </th>
-                                    <th>
-                    {{ group_id | translate  }}
-                  </th>
-                                    <th>
-                    {{ workstation_id | translate  }}
-                  </th>
-                                    <th>
-                    {{ lov_user_status | translate  }}
-                  </th>
-                                      <th>{{ 'Actions' | translate }}</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="user in users">
+                      {{ username | translate  }}
+                    </th>
+                                        <th>
+                      {{ email | translate  }}
+                    </th>
+                                        <th>
+                      {{ password | translate  }}
+                    </th>
+                                        <th>
+                      {{ name | translate  }}
+                    </th>
+                                        <th>
+                      {{ firstName | translate  }}
+                    </th>
+                                        <th>
+                      {{ lastName | translate  }}
+                    </th>
+                                        <th>
+                      {{ lov_user_gender | translate  }}
+                    </th>
+                                        <th>
+                      {{ group_id | translate  }}
+                    </th>
+                                        <th>
+                      {{ workstation_id | translate  }}
+                    </th>
+                                        <th>
+                      {{ lov_user_status | translate  }}
+                    </th>
+                                    <th>{{ 'Actions' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in users">
                                     <td>
-                    {{ ( user.username || '...' ) | translate  }}
-                  </td>
+                      {{ ( user.username || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.email || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.password || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.name || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.firstName || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.lastName || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.lov_user_gender || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.group_id || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.workstation_id || '...' ) | translate  }}
+                    </td>
+                                        <td>
+                      {{ ( user.lov_user_status || '...' ) | translate  }}
+                    </td>
                                     <td>
-                    {{ ( user.email || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.password || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.name || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.firstName || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.lastName || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.lov_user_gender || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.group_id || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.workstation_id || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    {{ ( user.lov_user_status || '...' ) | translate  }}
-                  </td>
-                                    <td>
-                    <div class="actions">
-                      <a ui-sref="userView({userId: 'user.id'})" class="btn btn-xs btn-circle btn-block blue ">
+                  <div class="actions">
+                      <!-- <a ui-sref="userView({userId: 'user.id'})" class="btn btn-xs btn-circle btn-block blue ">
                       <i class="fa fa-eye"></i>
                       </a>
                       <a ui-sref="userEdit({userId: 'user.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
                       <i class="fa fa-pencil"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group form-md-line-input has-info form-md-floating-label">
-          <div class="input-group">
-            <span class="input-group-btn btn-right">
-              <md-menu>
-                <md-button class="md-icon-button" ng-click="$mdOpenMenu()">
-                  <i class="fa fa-bars"></i>
-                </md-button>
-                <md-menu-content>
-                  <md-menu-item>
-                    <md-button ui-sref="usersCreate">
-                      {{ 'Add user' | translate }}
-                    </md-button>
-                  </md-menu-item>
-                  <md-menu-divider></md-menu-divider>
-                  <md-menu-item>
-                    <md-button ng-click="ExportToExcel()">
-                      <i class='fa fa-file-excel-o'></i>
-                      {{ 'Export to Excel' | translate }}
-                    </md-button>
-                  </md-menu-item>
-                  <md-menu-item>
-                    <md-button ng-click="ExportToPDF()">
-                      <i class='fa fa-file-pdf-o'></i>
-                      {{ 'Export to PDF' | translate }}
-                    </md-button>
-                  </md-menu-item>
-                </md-menu-content>
-              </md-menu>
-            </span>
-          </div>
+                    </a> -->
+                    <a href="/#/users/view/{{user.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="/#/users/edit/{{user.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
     </div>
   </div>
   <!-- END Portlet PORTLET-->

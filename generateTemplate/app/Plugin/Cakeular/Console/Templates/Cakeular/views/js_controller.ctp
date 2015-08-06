@@ -119,10 +119,10 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
                         $otherPluralVar = Inflector::variable($details['controller']);
                         ?>
 if(data.<?php echo $otherSingularVar; ?>_id){
+$scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
+}
 
-                            $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
-                        }
-                        <?php
+                    <?php
                     }
                 }
             }
@@ -135,6 +135,31 @@ if(data.<?php echo $otherSingularVar; ?>_id){
         {
         $log.info('view mode');
             $scope.findOne();
+
+        $scope.$on('findOneLoaded', function(event, data)
+        {
+            <?php foreach ($fields as $key => $field)
+            {
+                foreach ($associations['belongsTo'] as $alias => $details)
+                {
+                    if($details['foreignKey'] == $field)
+                    {
+                        $otherSingularVar = Inflector::variable($alias);
+                        $otherPluralHumanName = Inflector::humanize($details['controller']);
+                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                        $otherPluralVar = Inflector::variable($details['controller']);
+                        ?>
+if(data.<?php echo $otherSingularVar; ?>_id){
+$scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
+}
+
+                    <?php
+                    }
+                }
+            }
+            ?>
+
+    });
         }
     };
 
@@ -272,6 +297,7 @@ if(data.<?php echo $otherSingularVar; ?>_id){
             {
                 $log.info('response save <?php echo $singularVar; ?>');
                 $log.info(response);
+                $location.path('<?php echo $pluralVar; ?>/view/' + response.id);
                 Notification.success({
                     title:'<?php echo $singularHumanName; ?>',
                     message: '<?php echo $singularHumanName; ?> has been saved',
@@ -284,6 +310,46 @@ if(data.<?php echo $otherSingularVar; ?>_id){
         }
     };
 
+    $scope.update = function(isValid) {
+      if (isValid) {
+      var <?php echo $singularVar; ?> = $scope.<?php echo $singularVar; ?>;
+                <?php foreach ($fields as $key => $field)
+                {
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                    {
+                            foreach ($associations['belongsTo'] as $alias => $details)
+                            {
+                                if($details['foreignKey'] == $field)
+                                {
+                                $fieldAlreadyPainted = true;
+                                $otherSingularVar = Inflector::variable($alias);
+                                $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                $otherPluralVar = Inflector::variable($details['controller']);
+                                    ?>
+
+ <?php echo $singularVar; ?>.<?php echo $field; ?> = $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null
+
+                                    <?
+
+                                }
+                            }
+                    }
+                } ?>
+
+        <?php echo $singularVar; ?>.$update(function() {
+          $location.path('<?php echo $pluralVar; ?>/view/' + <?php echo $singularVar; ?>.id);
+          Notification.success({
+                    title:'<?php echo $singularHumanName; ?>',
+                    message: '<?php echo $singularHumanName; ?> has been updated',
+                    delay: 4000
+                });
+        });
+
+      } else {
+        $scope.submitted = true;
+      }
+    };
 
 
 });

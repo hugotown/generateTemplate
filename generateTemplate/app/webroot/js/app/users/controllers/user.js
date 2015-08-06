@@ -96,14 +96,14 @@ project0001App
         $scope.$on('findOneLoaded', function(event, data)
         {
             if(data.group_id){
+$scope.selectedGroup.selected = data.group_id;
+}
 
-                            $scope.selectedGroup.selected = data.group_id;
-                        }
-                        if(data.workstation_id){
+                    if(data.workstation_id){
+$scope.selectedWorkstation.selected = data.workstation_id;
+}
 
-                            $scope.selectedWorkstation.selected = data.workstation_id;
-                        }
-                        
+                    
     });
             
         }
@@ -111,6 +111,19 @@ project0001App
         {
         $log.info('view mode');
             $scope.findOne();
+
+        $scope.$on('findOneLoaded', function(event, data)
+        {
+            if(data.group_id){
+$scope.selectedGroup.selected = data.group_id;
+}
+
+                    if(data.workstation_id){
+$scope.selectedWorkstation.selected = data.workstation_id;
+}
+
+                    
+    });
         }
     };
 
@@ -209,6 +222,7 @@ project0001App
             {
                 $log.info('response save user');
                 $log.info(response);
+                $location.path('users/view/' + response.id);
                 Notification.success({
                     title:'User',
                     message: 'User has been saved',
@@ -221,6 +235,29 @@ project0001App
         }
     };
 
+    $scope.update = function(isValid) {
+      if (isValid) {
+      var user = $scope.user;
+                
+ user.group_id = $scope.selectedGroup.selected ? $scope.selectedGroup.selected.id : null
+
+                                    
+ user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null
+
+                                    
+        user.$update(function() {
+          $location.path('users/view/' + user.id);
+          Notification.success({
+                    title:'User',
+                    message: 'User has been updated',
+                    delay: 4000
+                });
+        });
+
+      } else {
+        $scope.submitted = true;
+      }
+    };
 
 
 });
