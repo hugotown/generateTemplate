@@ -92,6 +92,19 @@ project0001App
         {
         $log.info('edit mode');
             $scope.findOne();
+
+        $scope.$on('findOneLoaded', function(event, data)
+        {
+            if(data.group_id){
+
+                            $scope.selectedGroup.selected = data.group_id;
+                        }
+                        if(data.workstation_id){
+
+                            $scope.selectedWorkstation.selected = data.workstation_id;
+                        }
+                        
+    });
             
         }
         if(path.indexOf('view') !== -1)
@@ -122,14 +135,15 @@ project0001App
         }, function(user)
         {
             $scope.user = user;
-            $scope.$emit('findOneLoaded', { data: user });
+            $scope.$emit('findOneLoaded', user);
         });
     };
 
 				
 	$scope.groups = [];
 	$scope.group = {};
-	var Groups = $injector.get('Groups');
+    $scope.selectedGroup = {};
+    var Groups = $injector.get('Groups');
 	    $scope.findGroups = function()
 	    {
 	        Groups.query(function(groups)
@@ -141,33 +155,11 @@ project0001App
 
         $scope.findGroups();
 
-    $scope.selectedGroup = {};
-    $scope.searchGroup = '';
-    $scope.getGroups = function(query)
-    {
-        var createFilterForGroups = function(query)
-        {
-            return function filterFn(groups) {
-                return (groups.name.indexOf(query) === 0);
-            };
-        };
-        var results = query ? $scope.groups.filter( createFilterForGroups(query) ) : $scope.groups;
-        return results;
-    };
-    $scope.searchGroupChange = function(text) {
-        //$log.info('group changed to ' + text);
-    };
-    $scope.selectedGroupChange = function(item) {
-        if(item){
-            if(item.Group){
-                $log.info(item.Group);
-            }
-        }
-    };
 				
 	$scope.workstations = [];
 	$scope.workstation = {};
-	var Workstations = $injector.get('Workstations');
+    $scope.selectedWorkstation = {};
+    var Workstations = $injector.get('Workstations');
 	    $scope.findWorkstations = function()
 	    {
 	        Workstations.query(function(workstations)
@@ -179,29 +171,6 @@ project0001App
 
         $scope.findWorkstations();
 
-    $scope.selectedWorkstation = {};
-    $scope.searchWorkstation = '';
-    $scope.getWorkstations = function(query)
-    {
-        var createFilterForWorkstations = function(query)
-        {
-            return function filterFn(workstations) {
-                return (workstations.name.indexOf(query) === 0);
-            };
-        };
-        var results = query ? $scope.workstations.filter( createFilterForWorkstations(query) ) : $scope.workstations;
-        return results;
-    };
-    $scope.searchWorkstationChange = function(text) {
-        //$log.info('workstation changed to ' + text);
-    };
-    $scope.selectedWorkstationChange = function(item) {
-        if(item){
-            if(item.Workstation){
-                $log.info(item.Workstation);
-            }
-        }
-    };
 
 
     $scope.create = function(isValid)
@@ -209,19 +178,30 @@ project0001App
         if (isValid)
         {
             var user = new Users({
-                createdBy: 1
-                , updatedBy: 1
-                , createdAt: moment().format('YYYY-MM-DD')
-                , updatedAt: moment().format('YYYY-MM-DD')
-                , name: this.name
-                , role: this.role
-                , employeeNumber: this.employeeNumber
-                , workarea: this.workarea
-                , description: this.description
-                , status: "active"//$scope.lovStatus.selected ? $scope.lovStatus.selected.id : null,
-                , parent_id: $scope.selectedParentWorkstation.Workstation ? $scope.selectedParentWorkstation.Workstation.id : null
-                , store_id: $scope.selectedStore.Store ? $scope.selectedStore.Store.id : null
-            });
+
+                                
+ username: this.username
+                                
+, email: this.email
+                                
+, password: this.password
+                                
+, name: this.name
+                                
+, firstName: this.firstName
+                                
+, lastName: this.lastName
+                                
+, lov_user_gender: this.lov_user_gender
+                                
+, group_id: $scope.selectedGroup.selected ? $scope.selectedGroup.selected.id : null
+
+                                    
+, workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null
+
+                                    
+, lov_user_status: this.lov_user_status
+                                            });
             $log.info('user to save');
             $log.info(user);
 
@@ -236,14 +216,6 @@ project0001App
                 });
             });
 
-            this.name = '';
-            this.role = '';
-            this.employeeNumber = '';
-            this.workarea = null;
-            this.description = '';
-            this.status = 'active';
-            $scope.selectedParentWorkstation = {};
-            $scope.selectedStore = {};
         } else {
             $scope.submitted = true;
         }

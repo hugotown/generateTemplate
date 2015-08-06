@@ -104,6 +104,31 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
         {
         $log.info('edit mode');
             $scope.findOne();
+
+        $scope.$on('findOneLoaded', function(event, data)
+        {
+            <?php foreach ($fields as $key => $field)
+            {
+                foreach ($associations['belongsTo'] as $alias => $details)
+                {
+                    if($details['foreignKey'] == $field)
+                    {
+                        $otherSingularVar = Inflector::variable($alias);
+                        $otherPluralHumanName = Inflector::humanize($details['controller']);
+                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                        $otherPluralVar = Inflector::variable($details['controller']);
+                        ?>
+if(data.<?php echo $otherSingularVar; ?>_id){
+
+                            $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
+                        }
+                        <?php
+                    }
+                }
+            }
+            ?>
+
+    });
             
         }
         if(path.indexOf('view') !== -1)
@@ -134,7 +159,7 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
         }, function(<?php echo $singularVar; ?>)
         {
             $scope.<?php echo $singularVar; ?> = <?php echo $singularVar; ?>;
-            $scope.$emit('findOneLoaded', { data: <?php echo $singularVar; ?> });
+            $scope.$emit('findOneLoaded', <?php echo $singularVar; ?>);
         });
     };
 
@@ -150,7 +175,8 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
 
 	$scope.<?php echo $otherPluralVar; ?> = [];
 	$scope.<?php echo $otherSingularVar; ?> = {};
-	var <?php echo $otherPluralHumanName; ?> = $injector.get('<?php echo $otherPluralHumanName; ?>');
+    $scope.selected<?php echo $otherSingularHumanName; ?> = {};
+    var <?php echo $otherPluralHumanName; ?> = $injector.get('<?php echo $otherPluralHumanName; ?>');
 	    $scope.find<?php echo $otherPluralHumanName; ?> = function()
 	    {
 	        <?php echo $otherPluralHumanName; ?>.query(function(<?php echo $otherPluralVar; ?>)
@@ -162,29 +188,6 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
 
         $scope.find<?php echo $otherPluralHumanName; ?>();
 
-    $scope.selected<?php echo $otherSingularHumanName; ?> = {};
-    $scope.search<?php echo $otherSingularHumanName; ?> = '';
-    $scope.get<?php echo $otherPluralHumanName; ?> = function(query)
-    {
-        var createFilterFor<?php echo $otherPluralHumanName; ?> = function(query)
-        {
-            return function filterFn(<?php echo $otherPluralVar; ?>) {
-                return (<?php echo $otherPluralVar; ?>.name.indexOf(query) === 0);
-            };
-        };
-        var results = query ? $scope.<?php echo $otherPluralVar; ?>.filter( createFilterFor<?php echo $otherPluralHumanName; ?>(query) ) : $scope.<?php echo $otherPluralVar; ?>;
-        return results;
-    };
-    $scope.search<?php echo $otherSingularHumanName; ?>Change = function(text) {
-        //$log.info('<?php echo $otherSingularVar; ?> changed to ' + text);
-    };
-    $scope.selected<?php echo $otherSingularHumanName; ?>Change = function(item) {
-        if(item){
-            if(item.<?php echo $otherSingularHumanName; ?>){
-                $log.info(item.<?php echo $otherSingularHumanName; ?>);
-            }
-        }
-    };
 <?php
 	}
 }
@@ -196,18 +199,71 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
         if (isValid)
         {
             var <?php echo $singularVar; ?> = new <?php echo Inflector::humanize($pluralVar); ?>({
-                createdBy: 1
-                , updatedBy: 1
-                , createdAt: moment().format('YYYY-MM-DD')
-                , updatedAt: moment().format('YYYY-MM-DD')
-                , name: this.name
-                , role: this.role
-                , employeeNumber: this.employeeNumber
-                , workarea: this.workarea
-                , description: this.description
-                , status: "active"//$scope.lovStatus.selected ? $scope.lovStatus.selected.id : null,
-                , parent_id: $scope.selectedParentWorkstation.Workstation ? $scope.selectedParentWorkstation.Workstation.id : null
-                , store_id: $scope.selectedStore.Store ? $scope.selectedStore.Store.id : null
+
+                <?php $sidxp = false; $countIdx = 0; ?>
+                <?php foreach ($fields as $key => $field)
+                {
+                    $fieldAlreadyPainted = false;
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                    {
+                        if($sidxp)
+                        {
+                            foreach ($associations['belongsTo'] as $alias => $details)
+                            {
+                                if($details['foreignKey'] == $field)
+                                {
+                                $fieldAlreadyPainted = true;
+                                $otherSingularVar = Inflector::variable($alias);
+                                $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                $otherPluralVar = Inflector::variable($details['controller']);
+                                    ?>
+
+, <?php echo $field; ?>: $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null
+
+                                    <?
+
+                                }
+                            }
+                            if(!$fieldAlreadyPainted)
+                            {
+                                ?>
+
+, <?php echo $field; ?>: this.<?php echo $field; ?>
+
+                                <?php
+                            }
+                        } else {
+                            foreach ($associations['belongsTo'] as $alias => $details)
+                            {
+                                if($details['foreignKey'] == $field)
+                                {
+                                $fieldAlreadyPainted = true;
+                                $otherSingularVar = Inflector::variable($alias);
+                                $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                $otherPluralVar = Inflector::variable($details['controller']);
+                                    ?>
+
+ <?php echo $field; ?>: $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null
+
+                                    <?
+
+                                }
+                            }
+                            if(!$fieldAlreadyPainted)
+                            {
+                                ?>
+
+ <?php echo $field; ?>: this.<?php echo $field; ?>
+
+                                <?php
+                            }
+                            $sidxp = true;
+                        }
+                    $countIdx ++;
+                    }
+                } ?>
             });
             $log.info('<?php echo $singularVar; ?> to save');
             $log.info(<?php echo $singularVar; ?>);
@@ -223,14 +279,6 @@ DTColumnDefBuilder.newColumnDef(<?php echo $countIdx; ?>).withTitle("<?php echo 
                 });
             });
 
-            this.name = '';
-            this.role = '';
-            this.employeeNumber = '';
-            this.workarea = null;
-            this.description = '';
-            this.status = 'active';
-            $scope.selectedParentWorkstation = {};
-            $scope.selectedStore = {};
         } else {
             $scope.submitted = true;
         }

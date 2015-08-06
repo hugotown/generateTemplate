@@ -75,21 +75,12 @@
                       <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
                           <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
                           <div class="col-md-8">
-                              <md-autocomplete md-autofocus = "false"
-                                ng-disabled="isDisabled" md-no-cache="true"
-                                md-search-text="search<?php echo $otherSingularHumanName; ?>"
-                                md-search-text-change="search<?php echo $otherSingularHumanName; ?>Change(search<?php echo $otherSingularHumanName; ?>)"
-                                md-selected-item="selected<?php echo $otherSingularHumanName; ?>"
-                                md-selected-item-change="selected<?php echo $otherSingularHumanName; ?>Change(item)"
-                                md-items="item in get<?php echo $otherPluralHumanName; ?>(search<?php echo $otherSingularHumanName; ?>)"
-                                md-item-text="item.name"
-                                md-min-length="0"
-                                placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">
-                              <md-item-template>
-                                <span md-highlight-text="search<?php echo $otherSingularHumanName; ?>" md-highlight-flags="^i">{{item.name}}</span>
-                              </md-item-template>
-                              <md-not-found> {{ 'No matches found for' | translate }} "{{search<?php echo $otherSingularHumanName; ?>}}". </md-not-found>
-                            </md-autocomplete>
+                              <ui-select <?php echo $required ; ?> ng-model="selected<?php echo $otherSingularHumanName; ?>.selected" theme="bootstrap" ng-disabled="disabled" >
+                                <ui-select-match placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="item in <?php echo $otherPluralVar; ?> | propsFilter: {name: $select.search}">
+                                  <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                              </ui-select>
                           </div>
                       </div>
                     </div>
@@ -155,47 +146,67 @@
                   <div class="form-body">
                     <?php foreach ($fields as $key => $field)
                     {
-                      if($field !== "createdAt" && $field !== "updatedAt" 
-                        && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
-                      {
-                        if(!($schema[$field]['null'])) {
-                          $required = 'required';
-                        } else {
-                          $required = '';
-                        }
-                        foreach ($associations['belongsTo'] as $alias => $details)
-                        {
-                          if($details['foreignKey'] == $field)
-                          {
-                            $otherSingularVar = Inflector::variable($alias);
-                            $otherPluralHumanName = Inflector::humanize($details['controller']);
-                            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                            $otherPluralVar = Inflector::variable($details['controller']);
-                          ?>
-
-                          <?php
-                          }
-                        }
-
-                        ?>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
-                              <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
-                              <div class="col-md-8">
-                                <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
-                                <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
-                                  <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
-                                    {{ '<?php echo $field;?> field is required' | translate }}
-                                  </p>
-                                </span>
-                              </div>
-                            </div>
+              $fieldAlreadyPainted = false;
+              if($field !== "createdAt" && $field !== "updatedAt" 
+                && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+              {
+                if(!($schema[$field]['null'])) {
+                  $required = 'required';
+                } else {
+                  $required = '';
+                }
+                foreach ($associations['belongsTo'] as $alias => $details)
+                {
+                  if($details['foreignKey'] == $field)
+                  {
+                    $fieldAlreadyPainted = true;
+                    $otherSingularVar = Inflector::variable($alias);
+                    $otherPluralHumanName = Inflector::humanize($details['controller']);
+                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                    $otherPluralVar = Inflector::variable($details['controller']);
+                  ?>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                          <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+                          <div class="col-md-8">
+                              <ui-select <?php echo $required ; ?> ng-model="selected<?php echo $otherSingularHumanName; ?>.selected" theme="bootstrap" ng-disabled="disabled" >
+                                <ui-select-match placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="item in <?php echo $otherPluralVar; ?> | propsFilter: {name: $select.search}">
+                                  <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                              </ui-select>
                           </div>
-                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-                        <?php
-                      }
+                  <?php
+                  }
+                }
+                if(!$fieldAlreadyPainted)
+                {
+                ?>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
+                      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+                        <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
+                          <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
+                            {{ '<?php echo $field;?> field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <?php
+
+                }
+              }
                     }
                     ?>
 
