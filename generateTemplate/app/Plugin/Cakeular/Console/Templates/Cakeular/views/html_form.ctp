@@ -22,19 +22,8 @@
   <?php $singularVar = strtolower($singularVar); ?>
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
-  <style media="screen">
-  /**Added in order to autocomplete works fine*/
-  .md-scroll-mask
-  {
-    position: initial;
-  }
-  </style>
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller" data-ng-init="prepareData()">
-    <div class="panel ">
-      <div class="panel-heading bg-blue-madison text-center">
-        <h2 class="panel-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h2>
-      </div>
-    </div>
+    <h3 class="page-title"></i>{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
     <?php if (strpos($action, 'html_add') !== false){ ?>
     <div class="portlet box blue-madison">
       <div class="portlet-title">
@@ -60,33 +49,39 @@
                 } else {
                   $required = '';
                 }
-                foreach ($associations['belongsTo'] as $alias => $details)
+                if(isset($associations['belongsTo']))
                 {
-                  if($details['foreignKey'] == $field)
+                  if(!empty($associations['belongsTo']))
                   {
-                    $fieldAlreadyPainted = true;
-                    $otherSingularVar = Inflector::variable($alias);
-                    $otherPluralHumanName = Inflector::humanize($details['controller']);
-                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                    $otherPluralVar = Inflector::variable($details['controller']);
-                  ?>
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
-                          <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
-                          <div class="col-md-8">
-                              <ui-select <?php echo $required ; ?> ng-model="selected<?php echo $otherSingularHumanName; ?>.selected" theme="bootstrap" ng-disabled="disabled" >
-                                <ui-select-match placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">{{$select.selected.name}}</ui-select-match>
-                                <ui-select-choices repeat="item in <?php echo $otherPluralVar; ?> | propsFilter: {name: $select.search}">
-                                  <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                              </ui-select>
+                    foreach ($associations['belongsTo'] as $alias => $details)
+                    {
+                      if($details['foreignKey'] == $field)
+                      {
+                        $fieldAlreadyPainted = true;
+                        $otherSingularVar = Inflector::variable($alias);
+                        $otherPluralHumanName = Inflector::humanize($details['controller']);
+                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                        $otherPluralVar = Inflector::variable($details['controller']);
+                      ?>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                              <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+                              <div class="col-md-8">
+                                  <ui-select <?php echo $required ; ?> ng-model="selected<?php echo $otherSingularHumanName; ?>.selected" theme="bootstrap" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in <?php echo $otherPluralVar; ?> | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                  </ui-select>
+                              </div>
                           </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <?php
+                      <?php
+                      }
+                    }
                   }
                 }
                 if(!$fieldAlreadyPainted)
@@ -155,33 +150,39 @@
                 } else {
                   $required = '';
                 }
-                foreach ($associations['belongsTo'] as $alias => $details)
+                if(isset($associations['belongsTo']))
                 {
-                  if($details['foreignKey'] == $field)
+                  if(!empty($associations['belongsTo']))
                   {
-                    $fieldAlreadyPainted = true;
-                    $otherSingularVar = Inflector::variable($alias);
-                    $otherPluralHumanName = Inflector::humanize($details['controller']);
-                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                    $otherPluralVar = Inflector::variable($details['controller']);
-                  ?>
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
-                          <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
-                          <div class="col-md-8">
-                              <ui-select <?php echo $required ; ?> ng-model="selected<?php echo $otherSingularHumanName; ?>.selected" theme="bootstrap" ng-disabled="disabled" >
-                                <ui-select-match placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">{{$select.selected.name}}</ui-select-match>
-                                <ui-select-choices repeat="item in <?php echo $otherPluralVar; ?> | propsFilter: {name: $select.search}">
-                                  <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                              </ui-select>
+                    foreach ($associations['belongsTo'] as $alias => $details)
+                    {
+                      if($details['foreignKey'] == $field)
+                      {
+                        $fieldAlreadyPainted = true;
+                        $otherSingularVar = Inflector::variable($alias);
+                        $otherPluralHumanName = Inflector::humanize($details['controller']);
+                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                        $otherPluralVar = Inflector::variable($details['controller']);
+                      ?>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                              <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+                              <div class="col-md-8">
+                                  <ui-select <?php echo $required ; ?> ng-model="selected<?php echo $otherSingularHumanName; ?>.selected" theme="bootstrap" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="{{ 'Select <?php echo $otherSingularHumanName; ?>' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in <?php echo $otherPluralVar; ?> | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                  </ui-select>
+                              </div>
                           </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <?php
+                      <?php
+                      }
+                    }
                   }
                 }
                 if(!$fieldAlreadyPainted)

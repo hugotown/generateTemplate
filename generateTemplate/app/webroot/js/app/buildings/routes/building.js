@@ -11,7 +11,7 @@ function($stateProvider) {
         templateUrl: '/js/app/buildings/views/list.html'
     });
     $stateProvider.state('buildingsView', {
-        url: '/buildings/view/:id',
+        url: '/buildings/view/:buildingId',
         templateUrl: '/js/app/buildings/views/view.html'
     });
     $stateProvider.state('buildingsCreate', {
@@ -19,7 +19,7 @@ function($stateProvider) {
         templateUrl: '/js/app/buildings/views/add.html'
     });
     $stateProvider.state('buildingsEdit', {
-        url: '/buildings/edit/:id',
+        url: '/buildings/edit/:buildingId',
         templateUrl: '/js/app/buildings/views/edit.html'
     });
 }

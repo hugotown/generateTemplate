@@ -1,16 +1,5 @@
-              <style media="screen">
-  /**Added in order to autocomplete works fine*/
-  .md-scroll-mask
-  {
-    position: initial;
-  }
-  </style>
-  <section ng-controller="GroupsController" data-ng-init="prepareData()">
-    <div class="panel ">
-      <div class="panel-heading bg-blue-madison text-center">
-        <h2 class="panel-title">{{ 'Groups' | translate }}</h2>
-      </div>
-    </div>
+              <section ng-controller="GroupsController" data-ng-init="prepareData()">
+    <h3 class="page-title"></i>{{ 'Groups' | translate }}</h3>
     
             <div class="portlet box blue-madison">
               <div class="portlet-title">
@@ -23,5 +12,70 @@
               </div>
               <div class="portlet-body form">
                 <!-- BEGIN FORM-->
+                <form name="groupForm" class="form-horizontal" role="form" data-ng-submit="update(groupForm.$valid)" novalidate>
+                  <div class="form-body">
+                                    <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && groupForm.name.$invalid }">
+                      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="name" type="text" class="form-control" data-ng-model="group.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && groupForm.name.$invalid" class="help-block">
+                          <p ng-show="groupForm.name.$error.required">
+                            {{ 'name field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && groupForm.lov_group_status.$invalid }">
+                      <label for="lov_group_status" class="col-md-4 control-label">{{ 'lov_group_status' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="lov_group_status" type="text" class="form-control" data-ng-model="group.lov_group_status" id="lov_group_status" placeholder="{{ 'lov_group_status' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && groupForm.lov_group_status.$invalid" class="help-block">
+                          <p ng-show="groupForm.lov_group_status.$error.required">
+                            {{ 'lov_group_status field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && groupForm.description.$invalid }">
+                      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="description" type="text" class="form-control" data-ng-model="group.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+                        <span ng-show="submitted && groupForm.description.$invalid" class="help-block">
+                          <p ng-show="groupForm.description.$error.required">
+                            {{ 'description field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 
+                    <div class="form-actions">
+                      <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                              <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
+                              <a ui-sref="groupsList" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    

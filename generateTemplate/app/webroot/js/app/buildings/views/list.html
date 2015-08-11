@@ -1,125 +1,104 @@
 <style>
-    /* Contextual table row variants */
-    /* Override from template */
-    .table > thead > tr > td,
-    .table > thead > tr > th,
-    .table > thead > tr > td,
-    .table > thead > tr > th {
+/* Contextual table row variants */
+/* Override from template */
+.table > thead > tr > td,
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
     background: #FFFFFF !important;
     color: #004b54 !important;
     cursor: pointer;
-    }
-    .editable-click, a.editable-click {
+}
+.editable-click, a.editable-click {
     cursor: pointer;
-    }
+}
 </style>
 <section data-ng-init="prepareData()" data-ng-controller="BuildingsController">
-    <div class="panel ">
-        <div class="panel-heading bg-blue-madison text-center">
-            <h3 class="panel-title">{{ 'Buildings' | translate }}</h3>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group form-md-line-input has-info">
-                        <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="input-group-control col-lg-8 col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="buildingFilters" value="">
-                                <div class="form-control-focus">
-                                </div>
-                            </div>
-                            <span class="input-group-btn btn-right col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                <md-menu md-position-mode="target-right target">
-                                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-                                      <i class="fa fa-bars"></i>
-                                    </md-button>
-                                    <md-menu-content width="4">
-                                        <md-menu-item>
-                                            <md-button ui-sref="buildingsAdd">
-                                            {{ 'Add building' | translate }}
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-divider></md-menu-divider>
-                                        <md-menu-item>
-                                            <md-button ng-click="ExportToExcel()">
-                                                <i class='fa fa-file-excel-o'></i>
-                                                {{ 'Export to Excel' | translate }}
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item>
-                                            <md-button ng-click="ExportToPDF()">
-                                                <i class='fa fa-file-pdf-o'></i>
-                                                {{ 'Export to PDF' | translate }}
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div tasty-table bind-resource="ngtBuildingsResource" watch-resource="collection" bind-filters="buildingFilters">
-                        <div class='table-responsive'>
-                            <table class="table table-striped table-condensed">
-                                <thead tasty-thead></thead>
-                                <tbody>
-                                    <tr ng-show="!rows.length">
-                                        <td colspan="{{(header.columns).length}}">
-                                            <center>{{'No data found' | translate }}</center>
-                                        </td>
-                                    </tr>
-                                    <tr ng-repeat="building in rows">
-                                                                                <td class="tasty-table-td">
-                                            <span onaftersave="editableUpdate(building)" editable-text="building.name">
-                                            {{ ( building.name || '...' ) | translate  }}
-                                            </span>
-                                        </td>
-                                                                                <td class="tasty-table-td">
-                                            <span onaftersave="editableUpdate(building)" editable-text="building.alias">
-                                            {{ ( building.alias || '...' ) | translate  }}
-                                            </span>
-                                        </td>
-                                                                                <td class="tasty-table-td">
-                                            <span onaftersave="editableUpdate(building)" editable-text="building.taxNumber">
-                                            {{ ( building.taxNumber || '...' ) | translate  }}
-                                            </span>
-                                        </td>
-                                                                                <td class="tasty-table-td">
-                                            <span onaftersave="editableUpdate(building)" editable-text="building.manager">
-                                            {{ ( building.manager || '...' ) | translate  }}
-                                            </span>
-                                        </td>
-                                                                                <td class="tasty-table-td">
-                                            <span onaftersave="editableUpdate(building)" editable-text="building.status">
-                                            {{ ( building.status || '...' ) | translate  }}
-                                            </span>
-                                        </td>
-                                                                                <td class="tasty-table-td">
-                                            <span onaftersave="editableUpdate(building)" editable-text="building.description">
-                                            {{ ( building.description || '...' ) | translate  }}
-                                            </span>
-                                        </td>
-                                                                                <td>
-                                            <div class="actions">
-                                                <a ng-href="/building/view/{{building.id}}" class="btn btn-circle btn-icon-only blue ">
-                                                <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a ng-href="/building/edit/{{building.id}}" class="btn btn-circle btn-icon-only yellow-casablanca " >
-                                                <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div tasty-pagination bind-items-per-page="ngTitemsPerPage" bind-list-items-per-page="ngTlistItemsPerPage"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<h3 class="page-title">{{ 'Buildings' | translate }}</h3>
+  <!-- BEGIN Portlet PORTLET-->
+  <div class="portlet box blue-madison">
+    <div class="portlet-title">
+      <div class="caption">
+        {{ 'List' | translate }}
+      </div>
+      <div class="actions">
+        <a ui-sref="buildingsCreate" class="btn btn-sm green-haze">
+          <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
+        </a>
+      </div>
     </div>
+    <div class="portlet-body">
+      <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group form-md-line-input has-info">
+                  <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="buildingFilters" value="">
+                          <div class="form-control-focus">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div tasty-table bind-resource="ngtBuildingResource" watch-resource="collection" bind-filters="buildingFilters">
+              <div class="table-responsive">
+                  <table class="table table-striped table-condensed">
+                      <thead tasty-thead></thead>
+                      <tbody>
+                          <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
+                          <tr ng-repeat="building in rows">
+                                                                  <td class="tasty-table-td">
+                                        {{ ( building.name || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( building.alias || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( building.taxNumber || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( building.manager || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( building.lov_building_status || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( building.description || '...' ) | translate  }}
+                                      </td>
+
+                                                                  <td>
+                                <div class="actions">
+                                    <!-- <a ui-sref="buildingView({buildingId: 'building.id'})" class="btn btn-xs btn-circle btn-block blue ">
+                                    <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a ui-sref="buildingEdit({buildingId: 'building.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                    <i class="fa fa-pencil"></i>
+                                  </a> -->
+                                  <a href="/#/buildings/view/{{building.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                    <i class="fa fa-eye"></i>
+                                  </a>
+                                  <a href="/#/buildings/edit/{{building.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                    <i class="fa fa-pencil"></i>
+                                  </a>
+                                </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div tasty-pagination bind-items-per-page="ngTitemsPerPage" bind-list-items-per-page="ngTlistItemsPerPage"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Portlet PORTLET-->
 </section>

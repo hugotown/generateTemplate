@@ -26,9 +26,9 @@
 			<?php echo h($workstation['Workstation']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Role'); ?></dt>
+		<dt><?php echo __('Lov Workstation Role'); ?></dt>
 		<dd>
-			<?php echo h($workstation['Workstation']['role']); ?>
+			<?php echo h($workstation['Workstation']['lov_workstation_role']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('EmployeeNumber'); ?></dt>
@@ -36,9 +36,9 @@
 			<?php echo h($workstation['Workstation']['employeeNumber']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Workarea'); ?></dt>
+		<dt><?php echo __('Workarea Id'); ?></dt>
 		<dd>
-			<?php echo h($workstation['Workstation']['workarea']); ?>
+			<?php echo h($workstation['Workstation']['workarea_id']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Status'); ?></dt>
@@ -98,10 +98,10 @@
 		<th><?php echo __('Name'); ?></th>
 		<th><?php echo __('FirstName'); ?></th>
 		<th><?php echo __('LastName'); ?></th>
-		<th><?php echo __('Gender'); ?></th>
+		<th><?php echo __('Lov User Gender'); ?></th>
 		<th><?php echo __('Group Id'); ?></th>
 		<th><?php echo __('Workstation Id'); ?></th>
-		<th><?php echo __('Status'); ?></th>
+		<th><?php echo __('Lov User Status'); ?></th>
 		<th><?php echo __('Id'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -117,10 +117,10 @@
 			<td><?php echo $user['name']; ?></td>
 			<td><?php echo $user['firstName']; ?></td>
 			<td><?php echo $user['lastName']; ?></td>
-			<td><?php echo $user['gender']; ?></td>
+			<td><?php echo $user['lov_user_gender']; ?></td>
 			<td><?php echo $user['group_id']; ?></td>
 			<td><?php echo $user['workstation_id']; ?></td>
-			<td><?php echo $user['status']; ?></td>
+			<td><?php echo $user['lov_user_status']; ?></td>
 			<td><?php echo $user['id']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'users', 'action' => 'view', $user['id'])); ?>
@@ -148,9 +148,9 @@
 		<th><?php echo __('CreatedBy'); ?></th>
 		<th><?php echo __('UpdatedBy'); ?></th>
 		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Role'); ?></th>
+		<th><?php echo __('Lov Workstation Role'); ?></th>
 		<th><?php echo __('EmployeeNumber'); ?></th>
-		<th><?php echo __('Workarea'); ?></th>
+		<th><?php echo __('Workarea Id'); ?></th>
 		<th><?php echo __('Status'); ?></th>
 		<th><?php echo __('Parent Id'); ?></th>
 		<th><?php echo __('Building Id'); ?></th>
@@ -165,9 +165,9 @@
 			<td><?php echo $childWorkstation['createdBy']; ?></td>
 			<td><?php echo $childWorkstation['updatedBy']; ?></td>
 			<td><?php echo $childWorkstation['name']; ?></td>
-			<td><?php echo $childWorkstation['role']; ?></td>
+			<td><?php echo $childWorkstation['lov_workstation_role']; ?></td>
 			<td><?php echo $childWorkstation['employeeNumber']; ?></td>
-			<td><?php echo $childWorkstation['workarea']; ?></td>
+			<td><?php echo $childWorkstation['workarea_id']; ?></td>
 			<td><?php echo $childWorkstation['status']; ?></td>
 			<td><?php echo $childWorkstation['parent_id']; ?></td>
 			<td><?php echo $childWorkstation['building_id']; ?></td>

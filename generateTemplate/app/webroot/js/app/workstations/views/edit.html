@@ -1,16 +1,5 @@
-              <style media="screen">
-  /**Added in order to autocomplete works fine*/
-  .md-scroll-mask
-  {
-    position: initial;
-  }
-  </style>
-  <section ng-controller="WorkstationsController" data-ng-init="prepareData()">
-    <div class="panel ">
-      <div class="panel-heading bg-blue-madison text-center">
-        <h2 class="panel-title">{{ 'Workstations' | translate }}</h2>
-      </div>
-    </div>
+              <section ng-controller="WorkstationsController" data-ng-init="prepareData()">
+    <h3 class="page-title"></i>{{ 'Workstations' | translate }}</h3>
     
             <div class="portlet box blue-madison">
               <div class="portlet-title">
@@ -23,5 +12,150 @@
               </div>
               <div class="portlet-body form">
                 <!-- BEGIN FORM-->
+                <form name="workstationForm" class="form-horizontal" role="form" data-ng-submit="update(workstationForm.$valid)" novalidate>
+                  <div class="form-body">
+                                    <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.name.$invalid }">
+                      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="name" type="text" class="form-control" data-ng-model="workstation.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && workstationForm.name.$invalid" class="help-block">
+                          <p ng-show="workstationForm.name.$error.required">
+                            {{ 'name field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.lov_workstation_role.$invalid }">
+                      <label for="lov_workstation_role" class="col-md-4 control-label">{{ 'lov_workstation_role' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="lov_workstation_role" type="text" class="form-control" data-ng-model="workstation.lov_workstation_role" id="lov_workstation_role" placeholder="{{ 'lov_workstation_role' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && workstationForm.lov_workstation_role.$invalid" class="help-block">
+                          <p ng-show="workstationForm.lov_workstation_role.$error.required">
+                            {{ 'lov_workstation_role field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.employeeNumber.$invalid }">
+                      <label for="employeeNumber" class="col-md-4 control-label">{{ 'employeeNumber' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="employeeNumber" type="text" class="form-control" data-ng-model="workstation.employeeNumber" id="employeeNumber" placeholder="{{ 'employeeNumber' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && workstationForm.employeeNumber.$invalid" class="help-block">
+                          <p ng-show="workstationForm.employeeNumber.$error.required">
+                            {{ 'employeeNumber field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                              <label for="parent" class="col-md-4 control-label">{{ 'workarea' | translate }}</label>
+                              <div class="col-md-8">
+                                  <ui-select required ng-model="selectedWorkarea.selected" theme="bootstrap" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="{{ 'Select Workarea' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in workareas | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                  </ui-select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                                      <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.status.$invalid }">
+                      <label for="status" class="col-md-4 control-label">{{ 'status' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="status" type="text" class="form-control" data-ng-model="workstation.status" id="status" placeholder="{{ 'status' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && workstationForm.status.$invalid" class="help-block">
+                          <p ng-show="workstationForm.status.$error.required">
+                            {{ 'status field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                              <label for="parent" class="col-md-4 control-label">{{ 'parentWorkstation' | translate }}</label>
+                              <div class="col-md-8">
+                                  <ui-select  ng-model="selectedWorkstation.selected" theme="bootstrap" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="{{ 'Select Workstation' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in workstations | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                  </ui-select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+                              <label for="parent" class="col-md-4 control-label">{{ 'building' | translate }}</label>
+                              <div class="col-md-8">
+                                  <ui-select  ng-model="selectedBuilding.selected" theme="bootstrap" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="{{ 'Select Building' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in buildings | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                  </ui-select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                                      <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.description.$invalid }">
+                      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="description" type="text" class="form-control" data-ng-model="workstation.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+                        <span ng-show="submitted && workstationForm.description.$invalid" class="help-block">
+                          <p ng-show="workstationForm.description.$error.required">
+                            {{ 'description field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 
+                    <div class="form-actions">
+                      <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                              <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
+                              <a ui-sref="workstationsList" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    

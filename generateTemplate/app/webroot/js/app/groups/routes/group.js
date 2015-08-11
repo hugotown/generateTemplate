@@ -11,7 +11,7 @@ function($stateProvider) {
         templateUrl: '/js/app/groups/views/list.html'
     });
     $stateProvider.state('groupsView', {
-        url: '/groups/view/:id',
+        url: '/groups/view/:groupId',
         templateUrl: '/js/app/groups/views/view.html'
     });
     $stateProvider.state('groupsCreate', {
@@ -19,7 +19,7 @@ function($stateProvider) {
         templateUrl: '/js/app/groups/views/add.html'
     });
     $stateProvider.state('groupsEdit', {
-        url: '/groups/edit/:id',
+        url: '/groups/edit/:groupId',
         templateUrl: '/js/app/groups/views/edit.html'
     });
 }

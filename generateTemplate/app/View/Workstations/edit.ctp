@@ -8,9 +8,9 @@
 		echo $this->Form->input('createdBy');
 		echo $this->Form->input('updatedBy');
 		echo $this->Form->input('name');
-		echo $this->Form->input('role');
+		echo $this->Form->input('lov_workstation_role');
 		echo $this->Form->input('employeeNumber');
-		echo $this->Form->input('workarea');
+		echo $this->Form->input('workarea_id');
 		echo $this->Form->input('status');
 		echo $this->Form->input('parent_id');
 		echo $this->Form->input('building_id');

@@ -11,7 +11,7 @@ function($stateProvider) {
         templateUrl: '/js/app/lovs/views/list.html'
     });
     $stateProvider.state('lovsView', {
-        url: '/lovs/view/:id',
+        url: '/lovs/view/:lovId',
         templateUrl: '/js/app/lovs/views/view.html'
     });
     $stateProvider.state('lovsCreate', {
@@ -19,7 +19,7 @@ function($stateProvider) {
         templateUrl: '/js/app/lovs/views/add.html'
     });
     $stateProvider.state('lovsEdit', {
-        url: '/lovs/edit/:id',
+        url: '/lovs/edit/:lovId',
         templateUrl: '/js/app/lovs/views/edit.html'
     });
 }

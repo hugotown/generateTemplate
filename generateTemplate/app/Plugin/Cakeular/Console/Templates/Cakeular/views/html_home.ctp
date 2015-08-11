@@ -22,5 +22,5 @@
 <?php $singularVar = strtolower($singularVar); ?>
 <div ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller">
 	<h1>Welcome to the <?php echo $pluralVar; ?></h1>
-	<a href="/#/users/list">Go To List</a>
+	<a href="/#/<?php echo $pluralVar; ?>/list">Go To List</a>
 </div>

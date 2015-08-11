@@ -23,15 +23,11 @@
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller" data-ng-init="prepareData()">
-  	<div class="panel ">
-  		<div class="panel-heading bg-blue-madison text-center">
-  			<h2 class="panel-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h2>
-  		</div>
-  	</div>
+    <h3 class="page-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
   	<div class="portlet box blue-madison">
   		<div class="portlet-title">
   			<div class="caption">
-  				{{ 'Edit' | translate }}
+  				{{ 'View' | translate }}
   			</div>
   			<div class="tools">
   				<a href="javascript:;" ng-click="prepareData()" class="reload"></a>
@@ -52,28 +48,36 @@
   							} else {
   								$required = '';
   							}
-  							foreach ($associations['belongsTo'] as $alias => $details)
+  							if(!isset($associations['belongsTo']))
   							{
-  								if($details['foreignKey'] == $field)
+  								if(!empty($associations['belongsTo']))
   								{
-  									$fieldAlreadyPainted = true;
-  									$otherSingularVar = Inflector::variable($alias);
-  									$otherPluralHumanName = Inflector::humanize($details['controller']);
-  									$otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-  									$otherPluralVar = Inflector::variable($details['controller']);
-  									?>
-  									<div class="row">
-  										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  											<div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
-  												<label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
-  												<div class="col-md-8">
-  													<input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>.name" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
-  												</div>
-  											</div>
-  										</div>
-  									</div>
-  									<?php
+		  							foreach ($associations['belongsTo'] as $alias => $details)
+		  							{
+		  								if($details['foreignKey'] == $field)
+		  								{
+		  									$fieldAlreadyPainted = true;
+		  									$otherSingularVar = Inflector::variable($alias);
+		  									$otherPluralHumanName = Inflector::humanize($details['controller']);
+		  									$otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+		  									$otherPluralVar = Inflector::variable($details['controller']);
+		  									?>
+		  									<div class="row">
+		  										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		  											<div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
+		  												<label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+		  												<div class="col-md-8">
+		  													<input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>.name" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+		  												</div>
+		  											</div>
+		  										</div>
+		  									</div>
+		  									<?php
+		  								}
+		  							}
+
   								}
+
   							}
   							if(!$fieldAlreadyPainted)
   							{
@@ -106,7 +110,7 @@
   								<div class="row">
   									<div class="col-md-offset-3 col-md-9">
   										<a href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn btn-circle blue-madison">{{ 'Edit' | translate }}</a>
-  										<a ui-sref="<?php echo $pluralVar; ?>List" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+  										<a ui-sref="<?php echo $pluralVar; ?>List" class="btn btn-circle default">{{ 'Back to list' | translate }}</a>
   									</div>
   								</div>
   							</div>

@@ -11,7 +11,7 @@ function($stateProvider) {
         templateUrl: '/js/app/workstations/views/list.html'
     });
     $stateProvider.state('workstationsView', {
-        url: '/workstations/view/:id',
+        url: '/workstations/view/:workstationId',
         templateUrl: '/js/app/workstations/views/view.html'
     });
     $stateProvider.state('workstationsCreate', {
@@ -19,7 +19,7 @@ function($stateProvider) {
         templateUrl: '/js/app/workstations/views/add.html'
     });
     $stateProvider.state('workstationsEdit', {
-        url: '/workstations/edit/:id',
+        url: '/workstations/edit/:workstationId',
         templateUrl: '/js/app/workstations/views/edit.html'
     });
 }

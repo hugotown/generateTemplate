@@ -1,16 +1,5 @@
-              <style media="screen">
-  /**Added in order to autocomplete works fine*/
-  .md-scroll-mask
-  {
-    position: initial;
-  }
-  </style>
-  <section ng-controller="BuildingsController" data-ng-init="prepareData()">
-    <div class="panel ">
-      <div class="panel-heading bg-blue-madison text-center">
-        <h2 class="panel-title">{{ 'Buildings' | translate }}</h2>
-      </div>
-    </div>
+              <section ng-controller="BuildingsController" data-ng-init="prepareData()">
+    <h3 class="page-title"></i>{{ 'Buildings' | translate }}</h3>
     
             <div class="portlet box blue-madison">
               <div class="portlet-title">
@@ -23,5 +12,118 @@
               </div>
               <div class="portlet-body form">
                 <!-- BEGIN FORM-->
+                <form name="buildingForm" class="form-horizontal" role="form" data-ng-submit="update(buildingForm.$valid)" novalidate>
+                  <div class="form-body">
+                                    <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.name.$invalid }">
+                      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="name" type="text" class="form-control" data-ng-model="building.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && buildingForm.name.$invalid" class="help-block">
+                          <p ng-show="buildingForm.name.$error.required">
+                            {{ 'name field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.alias.$invalid }">
+                      <label for="alias" class="col-md-4 control-label">{{ 'alias' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="alias" type="text" class="form-control" data-ng-model="building.alias" id="alias" placeholder="{{ 'alias' | translate }}" autocomplete="off"  >
+                        <span ng-show="submitted && buildingForm.alias.$invalid" class="help-block">
+                          <p ng-show="buildingForm.alias.$error.required">
+                            {{ 'alias field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.taxNumber.$invalid }">
+                      <label for="taxNumber" class="col-md-4 control-label">{{ 'taxNumber' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="taxNumber" type="text" class="form-control" data-ng-model="building.taxNumber" id="taxNumber" placeholder="{{ 'taxNumber' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && buildingForm.taxNumber.$invalid" class="help-block">
+                          <p ng-show="buildingForm.taxNumber.$error.required">
+                            {{ 'taxNumber field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.manager.$invalid }">
+                      <label for="manager" class="col-md-4 control-label">{{ 'manager' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="manager" type="text" class="form-control" data-ng-model="building.manager" id="manager" placeholder="{{ 'manager' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && buildingForm.manager.$invalid" class="help-block">
+                          <p ng-show="buildingForm.manager.$error.required">
+                            {{ 'manager field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.lov_building_status.$invalid }">
+                      <label for="lov_building_status" class="col-md-4 control-label">{{ 'lov_building_status' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="lov_building_status" type="text" class="form-control" data-ng-model="building.lov_building_status" id="lov_building_status" placeholder="{{ 'lov_building_status' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && buildingForm.lov_building_status.$invalid" class="help-block">
+                          <p ng-show="buildingForm.lov_building_status.$error.required">
+                            {{ 'lov_building_status field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.description.$invalid }">
+                      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="description" type="text" class="form-control" data-ng-model="building.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+                        <span ng-show="submitted && buildingForm.description.$invalid" class="help-block">
+                          <p ng-show="buildingForm.description.$error.required">
+                            {{ 'description field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 
+                    <div class="form-actions">
+                      <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                              <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
+                              <a ui-sref="buildingsList" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    
