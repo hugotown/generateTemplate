@@ -100,7 +100,7 @@
 								'Group.createdBy',
 								'Group.updatedBy',
 								'Group.name',
-								'Group.status',
+								'Group.lov_group_status',
 								'Group.description',
 								'Group.id',
 							);

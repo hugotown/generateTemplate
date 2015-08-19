@@ -1,8 +1,8 @@
-              <section ng-controller="GroupsController" data-ng-init="prepareData()">
-    <h3 class="page-title"></i>{{ 'Groups' | translate }}</h3>
-        <div class="portlet box blue-madison">
+              <section ng-controller="RolesController" data-ng-init="prepareData()">
+    <h3 class="page-title"></i>{{ 'Roles' | translate }}</h3>
+        <div class="portlet light bordered">
       <div class="portlet-title">
-        <div class="caption">
+        <div class="caption font-green-sharp">
           {{ 'Create' | translate }}
         </div>
         <div class="tools">
@@ -11,16 +11,16 @@
       </div>
       <div class="portlet-body form">
         <!-- BEGIN FORM-->
-        <form name="groupForm" class="form-horizontal" role="form" data-ng-submit="create(groupForm.$valid)" novalidate>
+        <form name="roleForm" class="form-horizontal" role="form" data-ng-submit="create(roleForm.$valid)" novalidate>
           <div class="form-body">
                             <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && groupForm.name.$invalid }">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.name.$invalid }">
                       <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
                       <div class="col-md-8">
                         <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && groupForm.name.$invalid" class="help-block">
-                          <p ng-show="groupForm.name.$error.required">
+                        <span ng-show="submitted && roleForm.name.$invalid" class="help-block">
+                          <p ng-show="roleForm.name.$error.required">
                             {{ 'name field is required' | translate }}
                           </p>
                         </span>
@@ -31,12 +31,12 @@
 
                                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && groupForm.lov_group_status.$invalid }">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_group_status.$invalid }">
                       <label for="lov_group_status" class="col-md-4 control-label">{{ 'lov_group_status' | translate }}</label>
                       <div class="col-md-8">
                         <input name="lov_group_status" type="text" class="form-control" data-ng-model="lov_group_status" id="lov_group_status" placeholder="{{ 'lov_group_status' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && groupForm.lov_group_status.$invalid" class="help-block">
-                          <p ng-show="groupForm.lov_group_status.$error.required">
+                        <span ng-show="submitted && roleForm.lov_group_status.$invalid" class="help-block">
+                          <p ng-show="roleForm.lov_group_status.$error.required">
                             {{ 'lov_group_status field is required' | translate }}
                           </p>
                         </span>
@@ -47,12 +47,12 @@
 
                                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && groupForm.description.$invalid }">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.description.$invalid }">
                       <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
                       <div class="col-md-8">
                         <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
-                        <span ng-show="submitted && groupForm.description.$invalid" class="help-block">
-                          <p ng-show="groupForm.description.$error.required">
+                        <span ng-show="submitted && roleForm.description.$invalid" class="help-block">
+                          <p ng-show="roleForm.description.$error.required">
                             {{ 'description field is required' | translate }}
                           </p>
                         </span>
@@ -70,7 +70,7 @@
                   <div class="row">
                     <div class="col-md-offset-3 col-md-9">
                       <button type="submit" class="btn btn-circle blue-madison">{{ 'Save' | translate }}</button>
-                      <a ui-sref="groupsList" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
+                      <a ui-sref="rolesList" class="btn btn-circle default">{{ 'Cancel' | translate }}</a>
                     </div>
                   </div>
                 </div>

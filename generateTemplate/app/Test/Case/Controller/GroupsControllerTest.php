@@ -16,6 +16,7 @@ class GroupsControllerTest extends ControllerTestCase {
 		'app.group',
 		'app.user',
 		'app.workstation',
+		'app.workarea',
 		'app.building'
 	);
 

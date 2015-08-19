@@ -62,11 +62,11 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => '127.0.0.1',
+		'host' => 'sql3.freesqldatabase.com',
 		'port' => 3306,
-		'login' => 'admin',
-		'password' => 'admin',
-		'database' => 'project0001_db',
+		'login' => 'sql386557',
+		'password' => 'iK2!kM1*',
+		'database' => 'sql386557',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);

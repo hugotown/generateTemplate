@@ -103,7 +103,7 @@
 								'Building.alias',
 								'Building.taxNumber',
 								'Building.manager',
-								'Building.status',
+								'Building.lov_building_status',
 								'Building.description',
 								'Building.id',
 							);

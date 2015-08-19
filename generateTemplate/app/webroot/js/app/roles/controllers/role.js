@@ -1,6 +1,6 @@
 
 project0001App
-.controller('GroupsController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('RolesController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
     $scope.prepareData = function()
@@ -10,7 +10,7 @@ project0001App
         {
         $log.info('list mode');
             $scope.find();
-            $scope.ngtGroupResource = {
+            $scope.ngtRoleResource = {
                 header: [
                                         {name: $translate.instant('name')}
                                 , {lov_group_status: $translate.instant('lov_group_status')}
@@ -23,7 +23,7 @@ project0001App
                 , pagination: {}
             };
 
-            $scope.groupFilters = '';
+            $scope.roleFilters = '';
             $scope.ngTitemsPerPage = 10;
             $scope.ngTlistItemsPerPage = [10, 20, 40, 80];
             
@@ -58,33 +58,33 @@ project0001App
     };
 
 
-    var Groups = $injector.get('Groups');
+    var Roles = $injector.get('Roles');
 
-    $scope.groups = [];
+    $scope.roles = [];
     $scope.find = function()
     {
-        Groups.query(function(groups)
+        Roles.query(function(roles)
         {
-            $scope.groups = groups;
-            $scope.$emit('findLoaded', { data: groups });
+            $scope.roles = roles;
+            $scope.$emit('findLoaded', { data: roles });
 
-            $scope.ngtGroupResource.rows = $scope.groups;
-            $scope.ngtGroupResource.pagination = {
+            $scope.ngtRoleResource.rows = $scope.roles;
+            $scope.ngtRoleResource.pagination = {
                 page: 1,
-                size: $scope.groups.length
+                size: $scope.roles.length
             };
         });
     };
 
-    $scope.group = {};
+    $scope.role = {};
     $scope.findOne = function()
     {
-        Groups.get({
-            groupId: $stateParams.groupId
-        }, function(group)
+        Roles.get({
+            roleId: $stateParams.roleId
+        }, function(role)
         {
-            $scope.group = group;
-            $scope.$emit('findOneLoaded', group);
+            $scope.role = role;
+            $scope.$emit('findOneLoaded', role);
         });
     };
 
@@ -94,7 +94,7 @@ project0001App
     {
         if (isValid)
         {
-            var group = new Groups({
+            var role = new Roles({
 
                                 
  name: this.name
@@ -103,17 +103,17 @@ project0001App
                                 
 , description: this.description
                                             });
-            $log.info('group to save');
-            $log.info(group);
+            $log.info('role to save');
+            $log.info(role);
 
-            group.$save(function(response)
+            role.$save(function(response)
             {
-                $log.info('response save group');
+                $log.info('response save role');
                 $log.info(response);
-                $location.path('groups/view/' + response.id);
+                $location.path('roles/view/' + response.id);
                 Notification.success({
-                    title:'Group',
-                    message: 'Group has been saved',
+                    title:'Role',
+                    message: 'Role has been saved',
                     delay: 4000
                 });
             });
@@ -125,13 +125,13 @@ project0001App
 
     $scope.update = function(isValid) {
       if (isValid) {
-      var group = $scope.group;
+      var role = $scope.role;
                 
-        group.$update(function() {
-          $location.path('groups/view/' + group.id);
+        role.$update(function() {
+          $location.path('roles/view/' + role.id);
           Notification.success({
-                    title:'Group',
-                    message: 'Group has been updated',
+                    title:'Role',
+                    message: 'Role has been updated',
                     delay: 4000
                 });
         });
@@ -142,13 +142,13 @@ project0001App
     };
 
 
-    $scope.editableUpdate = function(group)
+    $scope.editableUpdate = function(role)
     {
-        group.$update(function(response)
+        role.$update(function(response)
         {
             Notification.success({
-                title:'Group',
-                message: 'Group has been updated',
+                title:'Role',
+                message: 'Role has been updated',
                 delay: 4000
             });
         });

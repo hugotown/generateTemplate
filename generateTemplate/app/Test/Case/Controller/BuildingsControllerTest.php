@@ -15,6 +15,7 @@ class BuildingsControllerTest extends ControllerTestCase {
 	public $fixtures = array(
 		'app.building',
 		'app.workstation',
+		'app.workarea',
 		'app.user',
 		'app.group'
 	);

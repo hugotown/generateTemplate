@@ -25,9 +25,9 @@
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller" data-ng-init="prepareData()">
     <h3 class="page-title"></i>{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
     <?php if (strpos($action, 'html_add') !== false){ ?>
-    <div class="portlet box blue-madison">
+    <div class="portlet light bordered">
       <div class="portlet-title">
-        <div class="caption">
+        <div class="caption font-green-sharp">
           {{ 'Create' | translate }}
         </div>
         <div class="tools">
@@ -126,9 +126,9 @@
             </div>
             <?php }else{ ?>
 
-            <div class="portlet box blue-madison">
+            <div class="portlet light bordered">
               <div class="portlet-title">
-                <div class="caption">
+                <div class="caption font-green-sharp">
                   {{ 'Edit' | translate }}
                 </div>
                 <div class="tools">

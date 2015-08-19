@@ -11,7 +11,7 @@
 		echo $this->Form->input('alias');
 		echo $this->Form->input('taxNumber');
 		echo $this->Form->input('manager');
-		echo $this->Form->input('status');
+		echo $this->Form->input('lov_building_status');
 		echo $this->Form->input('description');
 	?>
 	</fieldset>

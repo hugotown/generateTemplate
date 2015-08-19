@@ -8,7 +8,7 @@
 		echo $this->Form->input('createdBy');
 		echo $this->Form->input('updatedBy');
 		echo $this->Form->input('name');
-		echo $this->Form->input('status');
+		echo $this->Form->input('lov_group_status');
 		echo $this->Form->input('description');
 		echo $this->Form->input('id');
 	?>

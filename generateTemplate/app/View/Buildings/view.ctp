@@ -41,9 +41,9 @@
 			<?php echo h($building['Building']['manager']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Status'); ?></dt>
+		<dt><?php echo __('Lov Building Status'); ?></dt>
 		<dd>
-			<?php echo h($building['Building']['status']); ?>
+			<?php echo h($building['Building']['lov_building_status']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Description'); ?></dt>
@@ -79,9 +79,9 @@
 		<th><?php echo __('CreatedBy'); ?></th>
 		<th><?php echo __('UpdatedBy'); ?></th>
 		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Role'); ?></th>
+		<th><?php echo __('Lov Workstation Role'); ?></th>
 		<th><?php echo __('EmployeeNumber'); ?></th>
-		<th><?php echo __('Workarea'); ?></th>
+		<th><?php echo __('Workarea Id'); ?></th>
 		<th><?php echo __('Status'); ?></th>
 		<th><?php echo __('Parent Id'); ?></th>
 		<th><?php echo __('Building Id'); ?></th>
@@ -96,9 +96,9 @@
 			<td><?php echo $workstation['createdBy']; ?></td>
 			<td><?php echo $workstation['updatedBy']; ?></td>
 			<td><?php echo $workstation['name']; ?></td>
-			<td><?php echo $workstation['role']; ?></td>
+			<td><?php echo $workstation['lov_workstation_role']; ?></td>
 			<td><?php echo $workstation['employeeNumber']; ?></td>
-			<td><?php echo $workstation['workarea']; ?></td>
+			<td><?php echo $workstation['workarea_id']; ?></td>
 			<td><?php echo $workstation['status']; ?></td>
 			<td><?php echo $workstation['parent_id']; ?></td>
 			<td><?php echo $workstation['building_id']; ?></td>

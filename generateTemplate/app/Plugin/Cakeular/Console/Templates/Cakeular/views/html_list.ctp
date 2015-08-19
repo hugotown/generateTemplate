@@ -20,9 +20,9 @@
 <section data-ng-init="prepareData()" data-ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller">
 <h3 class="page-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
-  <div class="portlet box blue-madison">
+  <div class="portlet light bordered">
     <div class="portlet-title">
-      <div class="caption">
+      <div class="caption font-green-sharp">
         {{ 'List' | translate }}
       </div>
       <div class="actions">

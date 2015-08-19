@@ -19,7 +19,7 @@ project0001App
                                 , {firstName: $translate.instant('firstName')}
                                 , {lastName: $translate.instant('lastName')}
                                 , {lov_user_gender: $translate.instant('lov_user_gender')}
-                                , {group_id: $translate.instant('group_id')}
+                                , {role_id: $translate.instant('role_id')}
                                 , {workstation_id: $translate.instant('workstation_id')}
                                 , {lov_user_status: $translate.instant('lov_user_status')}
                                 , {Actions: $translate.instant('Actions')}
@@ -48,8 +48,8 @@ project0001App
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                    if(data.group_id){
-        $scope.selectedGroup.selected = data.group_id;
+                    if(data.role_id){
+        $scope.selectedRole.selected = data.role_id;
         }
 
                                     if(data.workstation_id){
@@ -67,8 +67,8 @@ project0001App
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                    if(data.group_id){
-        $scope.selectedGroup.selected = data.group_id;
+                    if(data.role_id){
+        $scope.selectedRole.selected = data.role_id;
         }
 
                                     if(data.workstation_id){
@@ -112,20 +112,20 @@ project0001App
     };
 
                                 
-        $scope.groups = [];
-        $scope.group = {};
-        $scope.selectedGroup = {};
-        var Groups = $injector.get('Groups');
-            $scope.findGroups = function()
+        $scope.roles = [];
+        $scope.role = {};
+        $scope.selectedRole = {};
+        var Roles = $injector.get('Roles');
+            $scope.findRoles = function()
             {
-                Groups.query(function(groups)
+                Roles.query(function(roles)
                 {
-                    $scope.groups = groups;
-                    $scope.$emit('findGroupsLoaded', { data: groups });
+                    $scope.roles = roles;
+                    $scope.$emit('findRolesLoaded', { data: roles });
                 });
             };
 
-            $scope.findGroups();
+            $scope.findRoles();
 
                                     
         $scope.workstations = [];
@@ -166,7 +166,7 @@ project0001App
                                 
 , lov_user_gender: this.lov_user_gender
                                 
-        , group_id: $scope.selectedGroup.selected ? $scope.selectedGroup.selected.id : null
+        , role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null
 
                                             
         , workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null
@@ -198,7 +198,7 @@ project0001App
       if (isValid) {
       var user = $scope.user;
                 
-     user.group_id = $scope.selectedGroup.selected ? $scope.selectedGroup.selected.id : null
+     user.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null
 
                                         
      user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null

@@ -26,9 +26,9 @@
 			<?php echo h($group['Group']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Status'); ?></dt>
+		<dt><?php echo __('Lov Group Status'); ?></dt>
 		<dd>
-			<?php echo h($group['Group']['status']); ?>
+			<?php echo h($group['Group']['lov_group_status']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Description'); ?></dt>
@@ -69,10 +69,10 @@
 		<th><?php echo __('Name'); ?></th>
 		<th><?php echo __('FirstName'); ?></th>
 		<th><?php echo __('LastName'); ?></th>
-		<th><?php echo __('Gender'); ?></th>
+		<th><?php echo __('Lov User Gender'); ?></th>
 		<th><?php echo __('Group Id'); ?></th>
 		<th><?php echo __('Workstation Id'); ?></th>
-		<th><?php echo __('Status'); ?></th>
+		<th><?php echo __('Lov User Status'); ?></th>
 		<th><?php echo __('Id'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -88,10 +88,10 @@
 			<td><?php echo $user['name']; ?></td>
 			<td><?php echo $user['firstName']; ?></td>
 			<td><?php echo $user['lastName']; ?></td>
-			<td><?php echo $user['gender']; ?></td>
+			<td><?php echo $user['lov_user_gender']; ?></td>
 			<td><?php echo $user['group_id']; ?></td>
 			<td><?php echo $user['workstation_id']; ?></td>
-			<td><?php echo $user['status']; ?></td>
+			<td><?php echo $user['lov_user_status']; ?></td>
 			<td><?php echo $user['id']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'users', 'action' => 'view', $user['id'])); ?>

@@ -17,7 +17,7 @@ class WorkareasControllerTest extends ControllerTestCase {
 		'app.workstation',
 		'app.building',
 		'app.user',
-		'app.group'
+		'app.role'
 	);
 
 /**

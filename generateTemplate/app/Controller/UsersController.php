@@ -105,12 +105,12 @@
 								'User.name',
 								'User.firstName',
 								'User.lastName',
-								'User.gender',
-								'Group.name',
-								'User.group_id',
+								'User.lov_user_gender',
+								'Role.name',
+								'User.role_id',
 								'Workstation.name',
 								'User.workstation_id',
-								'User.status',
+								'User.lov_user_status',
 								'User.id',
 							);
 					        $this->paginate = array(
