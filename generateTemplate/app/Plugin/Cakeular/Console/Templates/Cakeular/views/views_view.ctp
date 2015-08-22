@@ -23,9 +23,9 @@
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller" data-ng-init="prepareData()">
-    <h3 class="page-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
+    <h3 class="page-title">{{ '<?php echo Inflector::humanize($singularVar); ?>' | translate }}</h3>
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <div class="portlet light bordered">
           <div class="portlet-title">
             <div class="caption font-green-sharp">
@@ -106,13 +106,11 @@
                 ?>
                 <div class="form-actions">
                   <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="row">
-                        <div class="col-md-offset-3 col-md-9">
-                          <a href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn btn-circle blue-madison">{{ 'Edit' | translate }}</a>
-                          <a ui-sref="<?php echo $pluralVar; ?>List" class="btn btn-circle default">{{ 'Back to list' | translate }}</a>
+                        <div class="col-md-12">
+                          <a href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison">{{ 'Edit' | translate }}</a>
+                          <a ui-sref="<?php echo $pluralVar; ?>List" class="btn default">{{ 'Back to list' | translate }}</a>
                         </div>
                       </div>
                     </div>
@@ -123,12 +121,20 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        REL TABS
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          CONTENT REL TAB
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <tabset vertical="false" type="pills">
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+          </tabset>
         </div>
       </div>
-    </div>
   </section>
 
