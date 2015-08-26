@@ -31,13 +31,13 @@
 
                                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_group_status.$invalid }">
-                      <label for="lov_group_status" class="col-md-4 control-label">{{ 'lov_group_status' | translate }}</label>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_role_status.$invalid }">
+                      <label for="lov_role_status" class="col-md-4 control-label">{{ 'lov_role_status' | translate }}</label>
                       <div class="col-md-8">
-                        <input name="lov_group_status" type="text" class="form-control" data-ng-model="lov_group_status" id="lov_group_status" placeholder="{{ 'lov_group_status' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && roleForm.lov_group_status.$invalid" class="help-block">
-                          <p ng-show="roleForm.lov_group_status.$error.required">
-                            {{ 'lov_group_status field is required' | translate }}
+                        <input name="lov_role_status" type="text" class="form-control" data-ng-model="lov_role_status" id="lov_role_status" placeholder="{{ 'lov_role_status' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && roleForm.lov_role_status.$invalid" class="help-block">
+                          <p ng-show="roleForm.lov_role_status.$error.required">
+                            {{ 'lov_role_status field is required' | translate }}
                           </p>
                         </span>
                       </div>

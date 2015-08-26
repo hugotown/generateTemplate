@@ -1,8 +1,9 @@
 
 project0001App
-.controller('WorkareasController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('WorkareasController', 
+[ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
+function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-
     $scope.prepareData = function()
     {
         var path = $location.path();
@@ -154,4 +155,4 @@ project0001App
 
 
 
-});
+}]);

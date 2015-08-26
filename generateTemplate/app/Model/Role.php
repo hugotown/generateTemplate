@@ -3,6 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * Role Model
  *
+ * @property Rolesctrl $Rolesctrl
  * @property User $User
  */
 class Role extends AppModel {
@@ -23,7 +24,7 @@ class Role extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'lov_group_status' => array(
+		'lov_role_status' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -43,6 +44,19 @@ class Role extends AppModel {
  * @var array
  */
 	public $hasMany = array(
+		'Rolesctrl' => array(
+			'className' => 'Rolesctrl',
+			'foreignKey' => 'role_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'role_id',

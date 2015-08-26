@@ -1,8 +1,9 @@
 
 project0001App
-.controller('LovsController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('LovsController', 
+[ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
+function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-
     $scope.prepareData = function()
     {
         var path = $location.path();
@@ -197,4 +198,4 @@ project0001App
 
 
 
-});
+}]);

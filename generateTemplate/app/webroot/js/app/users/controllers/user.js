@@ -1,8 +1,9 @@
 
 project0001App
-.controller('UsersController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('UsersController', 
+[ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
+function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-
     $scope.prepareData = function()
     {
         var path = $location.path();
@@ -234,4 +235,4 @@ project0001App
 
 
 
-});
+}]);

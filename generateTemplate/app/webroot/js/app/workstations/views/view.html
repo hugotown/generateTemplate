@@ -77,13 +77,13 @@
                       </div>
                                             <div class="row">
                         <div class="col-md-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.status.$invalid }">
-                            <label for="status" class="col-md-4 control-label">{{ 'status' | translate }}</label>
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.lov_workstation_status.$invalid }">
+                            <label for="lov_workstation_status" class="col-md-4 control-label">{{ 'lov_workstation_status' | translate }}</label>
                             <div class="col-md-8">
-                              <input name="status" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.status" id="status" placeholder="{{ 'status' | translate }}" autocomplete="off" required >
-                              <span ng-show="submitted && workstationForm.status.$invalid" class="help-block">
-                                <p ng-show="workstationForm.status.$error.required">
-                                  {{ 'status field is required' | translate }}
+                              <input name="lov_workstation_status" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.lov_workstation_status" id="lov_workstation_status" placeholder="{{ 'lov_workstation_status' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && workstationForm.lov_workstation_status.$invalid" class="help-block">
+                                <p ng-show="workstationForm.lov_workstation_status.$error.required">
+                                  {{ 'lov_workstation_status field is required' | translate }}
                                 </p>
                               </span>
                             </div>
@@ -137,9 +137,7 @@
                       </div>
                                       <div class="form-actions">
                   <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="row">
                         <div class="col-md-12">
                           <a href="/#/workstations/edit/{{workstation.id}}" class="btn blue-madison">{{ 'Edit' | translate }}</a>

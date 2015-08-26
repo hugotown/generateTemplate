@@ -14,8 +14,9 @@ class RolesControllerTest extends ControllerTestCase {
  */
 	public $fixtures = array(
 		'app.role',
+		'app.rolesctrl',
+		'app.ctrl',
 		'app.user',
-		'app.group',
 		'app.workstation',
 		'app.workarea',
 		'app.building'

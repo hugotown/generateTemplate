@@ -100,7 +100,7 @@
 								'Role.createdBy',
 								'Role.updatedBy',
 								'Role.name',
-								'Role.lov_group_status',
+								'Role.lov_role_status',
 								'Role.description',
 								'Role.id',
 							);

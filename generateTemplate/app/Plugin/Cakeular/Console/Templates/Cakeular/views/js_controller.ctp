@@ -4,9 +4,10 @@
 <?php $singularVar = strtolower($singularVar); ?>
 
 project0001App
-.controller('<?php echo Inflector::humanize($pluralVar); ?>Controller', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('<?php echo Inflector::humanize($pluralVar); ?>Controller', 
+[ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
+function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-
     $scope.prepareData = function()
     {
         var path = $location.path();
@@ -365,4 +366,4 @@ if (isset($associations['belongsTo']))
 
 
 
-});
+}]);

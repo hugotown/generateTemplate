@@ -1,8 +1,9 @@
 
 project0001App
-.controller('RolesController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('RolesController', 
+[ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
+function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-
     $scope.prepareData = function()
     {
         var path = $location.path();
@@ -13,7 +14,7 @@ project0001App
             $scope.ngtRoleResource = {
                 header: [
                                         {name: $translate.instant('name')}
-                                , {lov_group_status: $translate.instant('lov_group_status')}
+                                , {lov_role_status: $translate.instant('lov_role_status')}
                                 , {description: $translate.instant('description')}
                                 , {Actions: $translate.instant('Actions')}
                 ]
@@ -99,7 +100,7 @@ project0001App
                                 
  name: this.name
                                 
-, lov_group_status: this.lov_group_status
+, lov_role_status: this.lov_role_status
                                 
 , description: this.description
                                             });
@@ -157,4 +158,4 @@ project0001App
 
 
 
-});
+}]);

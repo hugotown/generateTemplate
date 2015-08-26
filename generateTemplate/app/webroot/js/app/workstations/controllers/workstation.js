@@ -1,8 +1,9 @@
 
 project0001App
-.controller('WorkstationsController', function ($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
+.controller('WorkstationsController', 
+[ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
+function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-
     $scope.prepareData = function()
     {
         var path = $location.path();
@@ -16,7 +17,7 @@ project0001App
                                 , {lov_workstation_role: $translate.instant('lov_workstation_role')}
                                 , {employeeNumber: $translate.instant('employeeNumber')}
                                 , {workarea_id: $translate.instant('workarea_id')}
-                                , {status: $translate.instant('status')}
+                                , {lov_workstation_status: $translate.instant('lov_workstation_status')}
                                 , {parent_id: $translate.instant('parent_id')}
                                 , {building_id: $translate.instant('building_id')}
                                 , {description: $translate.instant('description')}
@@ -183,7 +184,7 @@ project0001App
         , workarea_id: $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null
 
                                             
-, status: this.status
+, lov_workstation_status: this.lov_workstation_status
                                 
         , parent_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null
 
@@ -256,4 +257,4 @@ project0001App
 
 
 
-});
+}]);
