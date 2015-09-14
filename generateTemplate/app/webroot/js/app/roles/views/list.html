@@ -22,7 +22,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="rolesCreate" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.roles.postAction" ui-sref="rolesCreate" class="btn btn-sm green-haze {{(!session.acl.roles.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -64,16 +64,10 @@
 
                                                                   <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="roleView({roleId: 'role.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="roleEdit({roleId: 'role.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/roles/view/{{role.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.roles.getAction" href="/#/roles/view/{{role.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.roles.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/roles/edit/{{role.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.roles.putAction" href="/#/roles/edit/{{role.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.roles.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

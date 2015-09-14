@@ -9,12 +9,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtWorkstationResource = {
                 header: [
                                         {name: $translate.instant('name')}
-                                , {lov_workstation_role: $translate.instant('lov_workstation_role')}
                                 , {employeeNumber: $translate.instant('employeeNumber')}
                                 , {workarea_id: $translate.instant('workarea_id')}
                                 , {lov_workstation_status: $translate.instant('lov_workstation_status')}
@@ -37,12 +35,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -65,7 +61,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -177,8 +173,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 
  name: this.name
                                 
-, lov_workstation_role: this.lov_workstation_role
-                                
 , employeeNumber: this.employeeNumber
                                 
         , workarea_id: $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null
@@ -194,14 +188,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                             
 , description: this.description
                                             });
-            $log.info('workstation to save');
-            $log.info(workstation);
 
             workstation.$save(function(response)
             {
-                $log.info('response save workstation');
-                $log.info(response);
-                $location.path('workstations/view/' + response.id);
+            $location.path('workstations/view/' + response.id);
                 Notification.success({
                     title:'Workstation',
                     message: 'Workstation has been saved',
@@ -218,13 +208,13 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
       if (isValid) {
       var workstation = $scope.workstation;
                 
-     workstation.workarea_id = $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null
+     workstation.workarea_id = $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null;
 
                                         
-     workstation.parent_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null
+     workstation.parent_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
 
                                         
-     workstation.building_id = $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null
+     workstation.building_id = $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null;
 
                                         
         workstation.$update(function() {
@@ -240,21 +230,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(workstation)
-    {
-        workstation.$update(function(response)
-        {
-            Notification.success({
-                title:'Workstation',
-                message: 'Workstation has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

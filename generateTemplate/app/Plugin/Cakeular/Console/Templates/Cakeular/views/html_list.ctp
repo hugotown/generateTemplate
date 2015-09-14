@@ -26,7 +26,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="<?php echo strtolower($pluralVar);?>Create" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.postAction" ui-sref="<?php echo strtolower($pluralVar);?>Create" class="btn btn-sm green-haze {{(!session.acl.<?php echo $pluralVar; ?>.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -92,16 +92,10 @@
                               }?>
                               <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="<?php echo $singularVar; ?>View({<?php echo $singularVar; ?>Id: '<?php echo $singularVar; ?>.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="<?php echo $singularVar; ?>Edit({<?php echo $singularVar; ?>Id: '<?php echo $singularVar; ?>.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/<?php echo $pluralVar; ?>/view/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.getAction" href="/#/<?php echo $pluralVar; ?>/view/{{<?php echo $singularVar; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.<?php echo $pluralVar; ?>.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.putAction" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.<?php echo $pluralVar; ?>.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

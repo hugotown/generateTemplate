@@ -9,12 +9,12 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtWorkareaResource = {
                 header: [
                                         {name: $translate.instant('name')}
                                 , {description: $translate.instant('description')}
+                                , {lov_workarea_status: $translate.instant('lov_workarea_status')}
                                 , {Actions: $translate.instant('Actions')}
                 ]
                 , rows: new Array()
@@ -31,12 +31,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -47,7 +45,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -100,15 +98,13 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
  name: this.name
                                 
 , description: this.description
+                                
+, lov_workarea_status: this.lov_workarea_status
                                             });
-            $log.info('workarea to save');
-            $log.info(workarea);
 
             workarea.$save(function(response)
             {
-                $log.info('response save workarea');
-                $log.info(response);
-                $location.path('workareas/view/' + response.id);
+            $location.path('workareas/view/' + response.id);
                 Notification.success({
                     title:'Workarea',
                     message: 'Workarea has been saved',
@@ -138,21 +134,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(workarea)
-    {
-        workarea.$update(function(response)
-        {
-            Notification.success({
-                title:'Workarea',
-                message: 'Workarea has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

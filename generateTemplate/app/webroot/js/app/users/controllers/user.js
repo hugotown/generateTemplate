@@ -9,7 +9,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtUserResource = {
                 header: [
@@ -23,6 +22,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 , {role_id: $translate.instant('role_id')}
                                 , {workstation_id: $translate.instant('workstation_id')}
                                 , {lov_user_status: $translate.instant('lov_user_status')}
+                                , {avatar: $translate.instant('avatar')}
                                 , {Actions: $translate.instant('Actions')}
                 ]
                 , rows: new Array()
@@ -39,12 +39,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -63,7 +61,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -174,15 +172,13 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
                                             
 , lov_user_status: this.lov_user_status
+                                
+, avatar: this.avatar
                                             });
-            $log.info('user to save');
-            $log.info(user);
 
             user.$save(function(response)
             {
-                $log.info('response save user');
-                $log.info(response);
-                $location.path('users/view/' + response.id);
+            $location.path('users/view/' + response.id);
                 Notification.success({
                     title:'User',
                     message: 'User has been saved',
@@ -199,10 +195,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
       if (isValid) {
       var user = $scope.user;
                 
-     user.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null
+     user.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
 
                                         
-     user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null
+     user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
 
                                         
         user.$update(function() {
@@ -218,21 +214,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(user)
-    {
-        user.$update(function(response)
-        {
-            Notification.success({
-                title:'User',
-                message: 'User has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

@@ -22,7 +22,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="requestsCreate" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.requests.postAction" ui-sref="requestsCreate" class="btn btn-sm green-haze {{(!session.acl.requests.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -51,6 +51,10 @@
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="request in rows">
                                                                   <td class="tasty-table-td">
+                                        {{ ( request.folio || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
                                         {{ ( request.name || '...' ) | translate  }}
                                       </td>
 
@@ -84,16 +88,10 @@
 
                                                                   <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="requestView({requestId: 'request.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="requestEdit({requestId: 'request.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/requests/view/{{request.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.requests.getAction" href="/#/requests/view/{{request.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.requests.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/requests/edit/{{request.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.requests.putAction" href="/#/requests/edit/{{request.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.requests.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

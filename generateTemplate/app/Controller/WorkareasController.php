@@ -102,6 +102,7 @@
 								'Workarea.updatedAt',
 								'Workarea.name',
 								'Workarea.description',
+								'Workarea.lov_workarea_status',
 							);
 					        $this->paginate = array(
 					            'fields' => $fields,

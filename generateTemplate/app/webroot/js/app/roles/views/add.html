@@ -14,7 +14,7 @@
         <form name="roleForm" class="form-horizontal" role="form" data-ng-submit="create(roleForm.$valid)" novalidate>
           <div class="form-body">
                             <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.name.$invalid }">
                       <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
                       <div class="col-md-8">
@@ -30,7 +30,7 @@
                 </div>
 
                                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_role_status.$invalid }">
                       <label for="lov_role_status" class="col-md-4 control-label">{{ 'lov_role_status' | translate }}</label>
                       <div class="col-md-8">
@@ -46,7 +46,7 @@
                 </div>
 
                                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.description.$invalid }">
                       <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
                       <div class="col-md-8">
@@ -64,16 +64,20 @@
                 
             <div class="form-actions">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-md-6 col-sm-12 col-xs-12">
                   <div class="row">
-                    <div class="col-md-12">
-                      <button type="submit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-                      <a ui-sref="rolesList" class="btn default">{{ 'Cancel' | translate }}</a>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <button type="submit" ng-disabled="!session.acl.roles.postAction" class="btn blue-madison">{{ 'Save' | translate }}</button>
+                      <a ui-sref="rolesList" ng-disabled="!session.acl.roles.getAction" class="btn default {{(!session.acl.roles.getAction) ? 'disabled' : ''}}">{{ 'Cancel' | translate }}</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            
+          </div>
+        </form>
+      </div>
+    </div>
+            </section>

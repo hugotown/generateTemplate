@@ -22,7 +22,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="usersCreate" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.users.postAction" ui-sref="usersCreate" class="btn btn-sm green-haze {{(!session.acl.users.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -90,18 +90,16 @@
                                         {{ ( user.lov_user_status || '...' ) | translate  }}
                                       </td>
 
+                                                                          <td class="tasty-table-td">
+                                        {{ ( user.avatar || '...' ) | translate  }}
+                                      </td>
+
                                                                   <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="userView({userId: 'user.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="userEdit({userId: 'user.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/users/view/{{user.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.users.getAction" href="/#/users/view/{{user.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.users.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/users/edit/{{user.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.users.putAction" href="/#/users/edit/{{user.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.users.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

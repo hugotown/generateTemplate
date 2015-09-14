@@ -9,7 +9,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtRoleResource = {
                 header: [
@@ -32,12 +31,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -48,7 +45,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -104,14 +101,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 
 , description: this.description
                                             });
-            $log.info('role to save');
-            $log.info(role);
 
             role.$save(function(response)
             {
-                $log.info('response save role');
-                $log.info(response);
-                $location.path('roles/view/' + response.id);
+            $location.path('roles/view/' + response.id);
                 Notification.success({
                     title:'Role',
                     message: 'Role has been saved',
@@ -141,21 +134,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(role)
-    {
-        role.$update(function(response)
-        {
-            Notification.success({
-                title:'Role',
-                message: 'Role has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

@@ -9,7 +9,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtRolesctrlResource = {
                 header: [
@@ -42,12 +41,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -66,7 +63,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -184,14 +181,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 
 , purgeAction: this.purgeAction
                                             });
-            $log.info('rolesctrl to save');
-            $log.info(rolesctrl);
 
             rolesctrl.$save(function(response)
             {
-                $log.info('response save rolesctrl');
-                $log.info(response);
-                $location.path('rolesctrls/view/' + response.id);
+            $location.path('rolesctrls/view/' + response.id);
                 Notification.success({
                     title:'Rolesctrl',
                     message: 'Rolesctrl has been saved',
@@ -208,10 +201,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
       if (isValid) {
       var rolesctrl = $scope.rolesctrl;
                 
-     rolesctrl.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null
+     rolesctrl.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
 
                                         
-     rolesctrl.ctrl_id = $scope.selectedCtrl.selected ? $scope.selectedCtrl.selected.id : null
+     rolesctrl.ctrl_id = $scope.selectedCtrl.selected ? $scope.selectedCtrl.selected.id : null;
 
                                         
         rolesctrl.$update(function() {
@@ -227,21 +220,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(rolesctrl)
-    {
-        rolesctrl.$update(function(response)
-        {
-            Notification.success({
-                title:'Rolesctrl',
-                message: 'Rolesctrl has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

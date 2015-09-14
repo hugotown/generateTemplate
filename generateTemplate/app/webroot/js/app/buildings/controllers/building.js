@@ -9,12 +9,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtBuildingResource = {
                 header: [
                                         {name: $translate.instant('name')}
-                                , {alias: $translate.instant('alias')}
                                 , {taxNumber: $translate.instant('taxNumber')}
                                 , {manager: $translate.instant('manager')}
                                 , {lov_building_status: $translate.instant('lov_building_status')}
@@ -35,12 +33,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -51,7 +47,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -103,8 +99,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 
  name: this.name
                                 
-, alias: this.alias
-                                
 , taxNumber: this.taxNumber
                                 
 , manager: this.manager
@@ -113,14 +107,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 
 , description: this.description
                                             });
-            $log.info('building to save');
-            $log.info(building);
 
             building.$save(function(response)
             {
-                $log.info('response save building');
-                $log.info(response);
-                $location.path('buildings/view/' + response.id);
+            $location.path('buildings/view/' + response.id);
                 Notification.success({
                     title:'Building',
                     message: 'Building has been saved',
@@ -150,21 +140,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(building)
-    {
-        building.$update(function(response)
-        {
-            Notification.success({
-                title:'Building',
-                message: 'Building has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

@@ -22,7 +22,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="rolesctrlsCreate" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.rolesctrls.postAction" ui-sref="rolesctrlsCreate" class="btn btn-sm green-haze {{(!session.acl.rolesctrls.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -104,16 +104,10 @@
 
                                                                   <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="rolesctrlView({rolesctrlId: 'rolesctrl.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="rolesctrlEdit({rolesctrlId: 'rolesctrl.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/rolesctrls/view/{{rolesctrl.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.rolesctrls.getAction" href="/#/rolesctrls/view/{{rolesctrl.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.rolesctrls.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/rolesctrls/edit/{{rolesctrl.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.rolesctrls.putAction" href="/#/rolesctrls/edit/{{rolesctrl.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.rolesctrls.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

@@ -22,7 +22,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="workstationsCreate" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.workstations.postAction" ui-sref="workstationsCreate" class="btn btn-sm green-haze {{(!session.acl.workstations.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -55,10 +55,6 @@
                                       </td>
 
                                                                           <td class="tasty-table-td">
-                                        {{ ( workstation.lov_workstation_role || '...' ) | translate  }}
-                                      </td>
-
-                                                                          <td class="tasty-table-td">
                                         {{ ( workstation.employeeNumber || '...' ) | translate  }}
                                       </td>
 
@@ -84,16 +80,10 @@
 
                                                                   <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="workstationView({workstationId: 'workstation.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="workstationEdit({workstationId: 'workstation.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/workstations/view/{{workstation.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.workstations.getAction" href="/#/workstations/view/{{workstation.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.workstations.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/workstations/edit/{{workstation.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.workstations.putAction" href="/#/workstations/edit/{{workstation.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.workstations.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

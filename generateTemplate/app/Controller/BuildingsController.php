@@ -100,7 +100,6 @@
 								'Building.createdBy',
 								'Building.updatedBy',
 								'Building.name',
-								'Building.alias',
 								'Building.taxNumber',
 								'Building.manager',
 								'Building.lov_building_status',

@@ -25,7 +25,7 @@
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller" data-ng-init="prepareData()">
     <h3 class="page-title">{{ '<?php echo Inflector::humanize($singularVar); ?>' | translate }}</h3>
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="portlet light bordered">
           <div class="portlet-title">
             <div class="caption font-green-sharp">
@@ -85,7 +85,7 @@
                     {
                       ?>
                       <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
                             <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
                             <div class="col-md-8">
@@ -106,11 +106,11 @@
                 ?>
                 <div class="form-actions">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
-                        <div class="col-md-12">
-                          <a href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison">{{ 'Edit' | translate }}</a>
-                          <a ui-sref="<?php echo $pluralVar; ?>List" class="btn default">{{ 'Back to list' | translate }}</a>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.putAction" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison {{(!session.acl.<?php echo $pluralVar; ?>.postAction) ? 'disabled' : ''}}">{{ 'Edit' | translate }}</a>
+                          <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.getAction" ui-sref="<?php echo $pluralVar; ?>List" class="btn default {{(!session.acl.<?php echo $pluralVar; ?>.getAction) ? 'disabled' : ''}}">{{ 'Back to list' | translate }}</a>
                         </div>
                       </div>
                     </div>
@@ -121,7 +121,7 @@
           </div>
         </div>
       </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <tabset vertical="false" type="pills">
                 <tab heading="{{'Object'|translate}}">
                     <div class="jumbotron">

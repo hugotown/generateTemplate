@@ -111,6 +111,7 @@
 								'Workstation.name',
 								'User.workstation_id',
 								'User.lov_user_status',
+								'User.avatar',
 								'User.id',
 							);
 					        $this->paginate = array(

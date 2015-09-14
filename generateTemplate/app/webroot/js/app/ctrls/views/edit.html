@@ -15,7 +15,7 @@
                 <form name="ctrlForm" class="form-horizontal" role="form" data-ng-submit="update(ctrlForm.$valid)" novalidate>
                   <div class="form-body">
                                     <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && ctrlForm.name.$invalid }">
                       <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
                       <div class="col-md-8">
@@ -33,17 +33,22 @@
                 
                     <div class="form-actions">
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                           <div class="row">
-                            <div class="col-md-12">
-                              <button type="submit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-                              <a ui-sref="ctrlsList" class="btn default">{{ 'Cancel' | translate }}</a>
+                            <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
+                              <button type="submit" ng-disabled="!session.acl.ctrls.putAction" class="btn blue-madison">{{ 'Save' | translate }}</button>
+                              <a ui-sref="ctrlsList" ng-disabled="!session.acl.ctrls.getAction" class="btn default {{(!session.acl.ctrls.getAction) ? 'disabled' : ''}}">{{ 'Cancel' | translate }}</a>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    
+          </div>
+        </form>
+      </div>
+    </div>
+
+                    </section>

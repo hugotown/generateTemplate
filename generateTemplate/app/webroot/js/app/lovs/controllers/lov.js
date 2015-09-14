@@ -9,7 +9,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtLovResource = {
                 header: [
@@ -36,12 +35,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -56,7 +53,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -141,14 +138,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         , parent_id: $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null
 
                                                         });
-            $log.info('lov to save');
-            $log.info(lov);
 
             lov.$save(function(response)
             {
-                $log.info('response save lov');
-                $log.info(response);
-                $location.path('lovs/view/' + response.id);
+            $location.path('lovs/view/' + response.id);
                 Notification.success({
                     title:'Lov',
                     message: 'Lov has been saved',
@@ -165,7 +158,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
       if (isValid) {
       var lov = $scope.lov;
                 
-     lov.parent_id = $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null
+     lov.parent_id = $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null;
 
                                         
         lov.$update(function() {
@@ -181,21 +174,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(lov)
-    {
-        lov.$update(function(response)
-        {
-            Notification.success({
-                title:'Lov',
-                message: 'Lov has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

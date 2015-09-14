@@ -16,7 +16,22 @@
             <form name="requestForm" class="form-horizontal" role="form" >
               <div class="form-body">
                                       <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.folio.$invalid }">
+                            <label for="folio" class="col-md-4 control-label">{{ 'folio' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="folio" readonly="readonly" type="text" class="form-control" data-ng-model="request.folio" id="folio" placeholder="{{ 'folio' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && requestForm.folio.$invalid" class="help-block">
+                                <p ng-show="requestForm.folio.$error.required">
+                                  {{ 'folio field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.name.$invalid }">
                             <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
                             <div class="col-md-8">
@@ -31,7 +46,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.description.$invalid }">
                             <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
                             <div class="col-md-8">
@@ -46,7 +61,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_status.$invalid }">
                             <label for="lov_request_status" class="col-md-4 control-label">{{ 'lov_request_status' | translate }}</label>
                             <div class="col-md-8">
@@ -61,7 +76,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_type.$invalid }">
                             <label for="lov_request_type" class="col-md-4 control-label">{{ 'lov_request_type' | translate }}</label>
                             <div class="col-md-8">
@@ -76,7 +91,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_subtype.$invalid }">
                             <label for="lov_request_subtype" class="col-md-4 control-label">{{ 'lov_request_subtype' | translate }}</label>
                             <div class="col-md-8">
@@ -91,7 +106,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_priority.$invalid }">
                             <label for="lov_request_priority" class="col-md-4 control-label">{{ 'lov_request_priority' | translate }}</label>
                             <div class="col-md-8">
@@ -106,7 +121,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_severity.$invalid }">
                             <label for="lov_request_severity" class="col-md-4 control-label">{{ 'lov_request_severity' | translate }}</label>
                             <div class="col-md-8">
@@ -121,7 +136,7 @@
                         </div>
                       </div>
                                             <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.owner.$invalid }">
                             <label for="owner" class="col-md-4 control-label">{{ 'owner' | translate }}</label>
                             <div class="col-md-8">
@@ -137,11 +152,11 @@
                       </div>
                                       <div class="form-actions">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
-                        <div class="col-md-12">
-                          <a href="/#/requests/edit/{{request.id}}" class="btn blue-madison">{{ 'Edit' | translate }}</a>
-                          <a ui-sref="requestsList" class="btn default">{{ 'Back to list' | translate }}</a>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <a ng-disabled="!session.acl.requests.putAction" href="/#/requests/edit/{{request.id}}" class="btn blue-madison {{(!session.acl.requests.postAction) ? 'disabled' : ''}}">{{ 'Edit' | translate }}</a>
+                          <a ng-disabled="!session.acl.requests.getAction" ui-sref="requestsList" class="btn default {{(!session.acl.requests.getAction) ? 'disabled' : ''}}">{{ 'Back to list' | translate }}</a>
                         </div>
                       </div>
                     </div>

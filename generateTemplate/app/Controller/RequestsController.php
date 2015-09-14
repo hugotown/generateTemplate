@@ -99,6 +99,7 @@
 								'Request.updatedAt',
 								'Request.createdBy',
 								'Request.updatedBy',
+								'Request.folio',
 								'Request.name',
 								'Request.description',
 								'Request.lov_request_status',

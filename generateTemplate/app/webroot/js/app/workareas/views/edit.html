@@ -15,7 +15,7 @@
                 <form name="workareaForm" class="form-horizontal" role="form" data-ng-submit="update(workareaForm.$valid)" novalidate>
                   <div class="form-body">
                                     <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.name.$invalid }">
                       <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
                       <div class="col-md-8">
@@ -31,7 +31,7 @@
                 </div>
 
                                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.description.$invalid }">
                       <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
                       <div class="col-md-8">
@@ -46,20 +46,41 @@
                   </div>
                 </div>
 
+                                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.lov_workarea_status.$invalid }">
+                      <label for="lov_workarea_status" class="col-md-4 control-label">{{ 'lov_workarea_status' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="lov_workarea_status" type="text" class="form-control" data-ng-model="workarea.lov_workarea_status" id="lov_workarea_status" placeholder="{{ 'lov_workarea_status' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && workareaForm.lov_workarea_status.$invalid" class="help-block">
+                          <p ng-show="workareaForm.lov_workarea_status.$error.required">
+                            {{ 'lov_workarea_status field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 
                     <div class="form-actions">
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                           <div class="row">
-                            <div class="col-md-12">
-                              <button type="submit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-                              <a ui-sref="workareasList" class="btn default">{{ 'Cancel' | translate }}</a>
+                            <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
+                              <button type="submit" ng-disabled="!session.acl.workareas.putAction" class="btn blue-madison">{{ 'Save' | translate }}</button>
+                              <a ui-sref="workareasList" ng-disabled="!session.acl.workareas.getAction" class="btn default {{(!session.acl.workareas.getAction) ? 'disabled' : ''}}">{{ 'Cancel' | translate }}</a>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    
+          </div>
+        </form>
+      </div>
+    </div>
+
+                    </section>

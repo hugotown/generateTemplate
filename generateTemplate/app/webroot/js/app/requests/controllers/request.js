@@ -9,11 +9,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngtRequestResource = {
                 header: [
-                                        {name: $translate.instant('name')}
+                                        {folio: $translate.instant('folio')}
+                                , {name: $translate.instant('name')}
                                 , {description: $translate.instant('description')}
                                 , {lov_request_status: $translate.instant('lov_request_status')}
                                 , {lov_request_type: $translate.instant('lov_request_type')}
@@ -37,12 +37,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -53,7 +51,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -103,7 +101,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             var request = new Requests({
 
                                 
- name: this.name
+ folio: this.folio
+                                
+, name: this.name
                                 
 , description: this.description
                                 
@@ -119,14 +119,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 
 , owner: this.owner
                                             });
-            $log.info('request to save');
-            $log.info(request);
 
             request.$save(function(response)
             {
-                $log.info('response save request');
-                $log.info(response);
-                $location.path('requests/view/' + response.id);
+            $location.path('requests/view/' + response.id);
                 Notification.success({
                     title:'Request',
                     message: 'Request has been saved',
@@ -156,21 +152,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(request)
-    {
-        request.$update(function(response)
-        {
-            Notification.success({
-                title:'Request',
-                message: 'Request has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);

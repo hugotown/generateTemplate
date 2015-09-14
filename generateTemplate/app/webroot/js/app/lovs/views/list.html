@@ -22,7 +22,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ui-sref="lovsCreate" class="btn btn-sm green-haze">
+        <a ng-disabled="!session.acl.lovs.postAction" ui-sref="lovsCreate" class="btn btn-sm green-haze {{(!session.acl.lovs.postAction) ? 'disabled' : ''}}">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -80,16 +80,10 @@
 
                                                                               <td>
                                 <div class="actions">
-                                    <!-- <a ui-sref="lovView({lovId: 'lov.id'})" class="btn btn-xs btn-circle btn-block blue ">
-                                    <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a ui-sref="lovEdit({lovId: 'lov.id'})" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
-                                    <i class="fa fa-pencil"></i>
-                                  </a> -->
-                                  <a href="/#/lovs/view/{{lov.id}}" class="btn btn-xs btn-circle btn-block blue ">
+                                  <a ng-disabled="!session.acl.lovs.getAction" href="/#/lovs/view/{{lov.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.lovs.getAction) ? 'disabled' : ''}}">
                                     <i class="fa fa-eye"></i>
                                   </a>
-                                  <a href="/#/lovs/edit/{{lov.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca " >
+                                  <a ng-disabled="!session.acl.lovs.putAction" href="/#/lovs/edit/{{lov.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.lovs.putAction) ? 'disabled' : ''}}" >
                                     <i class="fa fa-pencil"></i>
                                   </a>
                                 </div>

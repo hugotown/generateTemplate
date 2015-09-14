@@ -13,7 +13,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         var path = $location.path();
         if(path.indexOf('list') !== -1)
         {
-        $log.info('list mode');
             $scope.find();
             $scope.ngt<?php echo Inflector::humanize($singularVar); ?>Resource = {
                 header: [
@@ -51,12 +50,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         if(path.indexOf('create') !== -1)
         {
 
-        $log.info('create mode');
-            
         }
         if (path.indexOf('edit') !== -1)
         {
-        $log.info('edit mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -94,7 +91,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
         if(path.indexOf('view') !== -1)
         {
-        $log.info('view mode');
+
             $scope.findOne();
 
         $scope.$on('findOneLoaded', function(event, data)
@@ -282,14 +279,10 @@ if (isset($associations['belongsTo']))
                     }
                 } ?>
             });
-            $log.info('<?php echo $singularVar; ?> to save');
-            $log.info(<?php echo $singularVar; ?>);
 
             <?php echo $singularVar; ?>.$save(function(response)
             {
-                $log.info('response save <?php echo $singularVar; ?>');
-                $log.info(response);
-                $location.path('<?php echo $pluralVar; ?>/view/' + response.id);
+            $location.path('<?php echo $pluralVar; ?>/view/' + response.id);
                 Notification.success({
                     title:'<?php echo $singularHumanName; ?>',
                     message: '<?php echo $singularHumanName; ?> has been saved',
@@ -324,7 +317,7 @@ if (isset($associations['belongsTo']))
                                     $otherPluralVar = Inflector::variable($details['controller']);
                                         ?>
 
-     <?php echo $singularVar; ?>.<?php echo $field; ?> = $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null
+     <?php echo $singularVar; ?>.<?php echo $field; ?> = $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null;
 
                                         <?
 
@@ -349,21 +342,6 @@ if (isset($associations['belongsTo']))
         $scope.submitted = true;
       }
     };
-
-
-    $scope.editableUpdate = function(<?php echo $singularVar; ?>)
-    {
-        <?php echo $singularVar; ?>.$update(function(response)
-        {
-            Notification.success({
-                title:'<?php echo $singularHumanName; ?>',
-                message: '<?php echo $singularHumanName; ?> has been updated',
-                delay: 4000
-            });
-        });
-
-    };
-
 
 
 }]);
