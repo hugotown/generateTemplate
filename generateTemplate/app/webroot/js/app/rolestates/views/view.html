@@ -1,0 +1,96 @@
+              <section ng-controller="RolestatesController" data-ng-init="prepareData()">
+    <h3 class="page-title">{{ 'Rolestate' | translate }}</h3>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="portlet light bordered">
+          <div class="portlet-title">
+            <div class="caption font-green-sharp">
+              {{ 'View' | translate }}
+            </div>
+            <div class="tools">
+              <a href="javascript:;" ng-click="prepareData()" class="reload"></a>
+            </div>
+          </div>
+          <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form name="rolestateForm" class="form-horizontal" role="form" >
+              <div class="form-body">
+                                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.role_id.$invalid }">
+                            <label for="role_id" class="col-md-4 control-label">{{ 'role_id' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="role_id" readonly="readonly" type="text" class="form-control" data-ng-model="rolestate.role_id" id="role_id" placeholder="{{ 'role_id' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && rolestateForm.role_id.$invalid" class="help-block">
+                                <p ng-show="rolestateForm.role_id.$error.required">
+                                  {{ 'role_id field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.statename.$invalid }">
+                            <label for="statename" class="col-md-4 control-label">{{ 'statename' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="statename" readonly="readonly" type="text" class="form-control" data-ng-model="rolestate.statename" id="statename" placeholder="{{ 'statename' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && rolestateForm.statename.$invalid" class="help-block">
+                                <p ng-show="rolestateForm.statename.$error.required">
+                                  {{ 'statename field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.accessit.$invalid }">
+                            <label for="accessit" class="col-md-4 control-label">{{ 'accessit' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="accessit" readonly="readonly" type="text" class="form-control" data-ng-model="rolestate.accessit" id="accessit" placeholder="{{ 'accessit' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && rolestateForm.accessit.$invalid" class="help-block">
+                                <p ng-show="rolestateForm.accessit.$error.required">
+                                  {{ 'accessit field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                      <div class="form-actions">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <a ng-disabled="!session.acl.rolestates.putAction" href="/#/rolestates/edit/{{rolestate.id}}" class="btn blue-madison {{(!session.acl.rolestates.postAction) ? 'disabled' : ''}}">{{ 'Edit' | translate }}</a>
+                          <a ng-disabled="!session.acl.rolestates.getAction" ui-sref="rolestatesList" class="btn default {{(!session.acl.rolestates.getAction) ? 'disabled' : ''}}">{{ 'Back to list' | translate }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <tabset vertical="false" type="pills">
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+          </tabset>
+        </div>
+      </div>
+  </section>
+
