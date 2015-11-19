@@ -22,7 +22,7 @@
   <?php $singularVar = strtolower($singularVar); ?>
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
-  <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller" data-ng-init="prepareData()">
+  <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Ctrl" data-ng-init="findOne()">
     <h3 class="page-title">{{ '<?php echo Inflector::humanize($singularVar); ?>' | translate }}</h3>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -30,9 +30,6 @@
           <div class="portlet-title">
             <div class="caption font-green-sharp">
               {{ 'View' | translate }}
-            </div>
-            <div class="tools">
-              <a href="javascript:;" ng-click="prepareData()" class="reload"></a>
             </div>
           </div>
           <div class="portlet-body form">
@@ -109,8 +106,8 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.putAction" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison {{(!session.acl.<?php echo $pluralVar; ?>.postAction) ? 'disabled' : ''}}">{{ 'Edit' | translate }}</a>
-                          <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.getAction" ui-sref="<?php echo $pluralVar; ?>List" class="btn default {{(!session.acl.<?php echo $pluralVar; ?>.getAction) ? 'disabled' : ''}}">{{ 'Back to list' | translate }}</a>
+                          <a acl-check="<?php echo $pluralVar; ?>Edit" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
+                          <a acl-check="<?php echo $pluralVar; ?>List" ui-sref="<?php echo $pluralVar; ?>List" class="btn default ">{{ 'Back to list' | translate }}</a>
                         </div>
                       </div>
                     </div>

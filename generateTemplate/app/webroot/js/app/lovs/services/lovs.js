@@ -1,0 +1,30 @@
+'use strict';
+
+/**
+ * @ngdoc service
+ * @name appviewproject0001App.Lovs
+ * @description
+ * # Lovs 
+ * Service in the appviewproject0001App.
+ */
+//Lovs service used for lovs REST endpoint
+angular.module('appviewproject0001App')
+.service('Lovs',
+['$resource', 'API_URL_BASE',
+function($resource, API_URL_BASE)
+{
+    //var $resource = $injector.get('$resource');
+    return $resource( API_URL_BASE.url + '/lovs/:lovId', {
+        lovId: '@id'
+    }, {
+        get: {
+            method:'GET', isArray:false
+        },
+        query:{
+            method:'GET', isArray:false
+        },
+        update: {
+            method: 'PUT'
+        }
+    });
+}]);

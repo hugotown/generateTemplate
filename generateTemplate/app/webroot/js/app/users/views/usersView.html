@@ -1,0 +1,213 @@
+              <section ng-controller="UsersCtrl" data-ng-init="findOne()">
+    <h3 class="page-title">{{ 'User' | translate }}</h3>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="portlet light bordered">
+          <div class="portlet-title">
+            <div class="caption font-green-sharp">
+              {{ 'View' | translate }}
+            </div>
+          </div>
+          <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form name="userForm" class="form-horizontal" role="form" >
+              <div class="form-body">
+                                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.username.$invalid }">
+                            <label for="username" class="col-md-4 control-label">{{ 'username' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="username" readonly="readonly" type="text" class="form-control" data-ng-model="user.username" id="username" placeholder="{{ 'username' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.username.$invalid" class="help-block">
+                                <p ng-show="userForm.username.$error.required">
+                                  {{ 'username field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.email.$invalid }">
+                            <label for="email" class="col-md-4 control-label">{{ 'email' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="email" readonly="readonly" type="text" class="form-control" data-ng-model="user.email" id="email" placeholder="{{ 'email' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.email.$invalid" class="help-block">
+                                <p ng-show="userForm.email.$error.required">
+                                  {{ 'email field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.password.$invalid }">
+                            <label for="password" class="col-md-4 control-label">{{ 'password' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="password" readonly="readonly" type="text" class="form-control" data-ng-model="user.password" id="password" placeholder="{{ 'password' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.password.$invalid" class="help-block">
+                                <p ng-show="userForm.password.$error.required">
+                                  {{ 'password field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.name.$invalid }">
+                            <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="user.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.name.$invalid" class="help-block">
+                                <p ng-show="userForm.name.$error.required">
+                                  {{ 'name field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.firstName.$invalid }">
+                            <label for="firstName" class="col-md-4 control-label">{{ 'firstName' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="firstName" readonly="readonly" type="text" class="form-control" data-ng-model="user.firstName" id="firstName" placeholder="{{ 'firstName' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.firstName.$invalid" class="help-block">
+                                <p ng-show="userForm.firstName.$error.required">
+                                  {{ 'firstName field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lastName.$invalid }">
+                            <label for="lastName" class="col-md-4 control-label">{{ 'lastName' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="lastName" readonly="readonly" type="text" class="form-control" data-ng-model="user.lastName" id="lastName" placeholder="{{ 'lastName' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.lastName.$invalid" class="help-block">
+                                <p ng-show="userForm.lastName.$error.required">
+                                  {{ 'lastName field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_gender.$invalid }">
+                            <label for="lov_user_gender" class="col-md-4 control-label">{{ 'lov_user_gender' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="lov_user_gender" readonly="readonly" type="text" class="form-control" data-ng-model="user.lov_user_gender" id="lov_user_gender" placeholder="{{ 'lov_user_gender' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.lov_user_gender.$invalid" class="help-block">
+                                <p ng-show="userForm.lov_user_gender.$error.required">
+                                  {{ 'lov_user_gender field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.role_id.$invalid }">
+                            <label for="role_id" class="col-md-4 control-label">{{ 'role_id' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="role_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.role_id" id="role_id" placeholder="{{ 'role_id' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.role_id.$invalid" class="help-block">
+                                <p ng-show="userForm.role_id.$error.required">
+                                  {{ 'role_id field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.workstation_id.$invalid }">
+                            <label for="workstation_id" class="col-md-4 control-label">{{ 'workstation_id' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="workstation_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.workstation_id" id="workstation_id" placeholder="{{ 'workstation_id' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.workstation_id.$invalid" class="help-block">
+                                <p ng-show="userForm.workstation_id.$error.required">
+                                  {{ 'workstation_id field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_status.$invalid }">
+                            <label for="lov_user_status" class="col-md-4 control-label">{{ 'lov_user_status' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="lov_user_status" readonly="readonly" type="text" class="form-control" data-ng-model="user.lov_user_status" id="lov_user_status" placeholder="{{ 'lov_user_status' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.lov_user_status.$invalid" class="help-block">
+                                <p ng-show="userForm.lov_user_status.$error.required">
+                                  {{ 'lov_user_status field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.avatar.$invalid }">
+                            <label for="avatar" class="col-md-4 control-label">{{ 'avatar' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="avatar" readonly="readonly" type="text" class="form-control" data-ng-model="user.avatar" id="avatar" placeholder="{{ 'avatar' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && userForm.avatar.$invalid" class="help-block">
+                                <p ng-show="userForm.avatar.$error.required">
+                                  {{ 'avatar field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                      <div class="form-actions">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <a acl-check="usersEdit" href="/#/users/edit/{{user.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
+                          <a acl-check="usersList" ui-sref="usersList" class="btn default ">{{ 'Back to list' | translate }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <tabset vertical="false" type="pills">
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+          </tabset>
+        </div>
+      </div>
+  </section>
+

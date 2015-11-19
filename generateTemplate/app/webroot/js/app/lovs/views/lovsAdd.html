@@ -1,0 +1,156 @@
+              <section ng-controller="LovsCtrl" >
+    <h3 class="page-title"></i>{{ 'Lovs' | translate }}</h3>
+        <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-green-sharp">
+          {{ 'Create' | translate }}
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form name="lovForm" class="form-horizontal" role="form" data-ng-submit="create(lovForm.$valid)" novalidate>
+          <div class="form-body">
+                            <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.orderShow.$invalid }">
+                      <label for="orderShow" class="col-md-4 control-label">{{ 'orderShow' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="orderShow" type="text" class="form-control" data-ng-model="orderShow" id="orderShow" placeholder="{{ 'orderShow' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && lovForm.orderShow.$invalid" class="help-block">
+                          <p ng-show="lovForm.orderShow.$error.required">
+                            {{ 'orderShow field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.lovType.$invalid }">
+                      <label for="lovType" class="col-md-4 control-label">{{ 'lovType' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="lovType" type="text" class="form-control" data-ng-model="lovType" id="lovType" placeholder="{{ 'lovType' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && lovForm.lovType.$invalid" class="help-block">
+                          <p ng-show="lovForm.lovType.$error.required">
+                            {{ 'lovType field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.name_.$invalid }">
+                      <label for="name_" class="col-md-4 control-label">{{ 'name_' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="name_" type="text" class="form-control" data-ng-model="name_" id="name_" placeholder="{{ 'name_' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && lovForm.name_.$invalid" class="help-block">
+                          <p ng-show="lovForm.name_.$error.required">
+                            {{ 'name_ field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.name_es_MX.$invalid }">
+                      <label for="name_es_MX" class="col-md-4 control-label">{{ 'name_es_MX' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="name_es_MX" type="text" class="form-control" data-ng-model="name_es_MX" id="name_es_MX" placeholder="{{ 'name_es_MX' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && lovForm.name_es_MX.$invalid" class="help-block">
+                          <p ng-show="lovForm.name_es_MX.$error.required">
+                            {{ 'name_es_MX field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.name_en_US.$invalid }">
+                      <label for="name_en_US" class="col-md-4 control-label">{{ 'name_en_US' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="name_en_US" type="text" class="form-control" data-ng-model="name_en_US" id="name_en_US" placeholder="{{ 'name_en_US' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && lovForm.name_en_US.$invalid" class="help-block">
+                          <p ng-show="lovForm.name_en_US.$error.required">
+                            {{ 'name_en_US field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.status.$invalid }">
+                      <label for="status" class="col-md-4 control-label">{{ 'status' | translate }}</label>
+                      <div class="col-md-8">
+                        <input name="status" type="text" class="form-control" data-ng-model="status" id="status" placeholder="{{ 'status' | translate }}" autocomplete="off" required >
+                        <span ng-show="submitted && lovForm.status.$invalid" class="help-block">
+                          <p ng-show="lovForm.status.$error.required">
+                            {{ 'status field is required' | translate }}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && lovForm.parent_id.$invalid }">
+                              <label for="parent_id" class="col-md-4 control-label">{{ 'parentLov' | translate }}</label>
+                              <div class="col-md-8">
+                                <div class="input-group">
+                                    <ui-select  ng-model="selectedLov.selected" name="parent_id" reset-search-input="false" theme="bootstrap" >
+                                      <ui-select-match placeholder="{{ 'Select Lov' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                                      <ui-select-choices repeat="item in lovs | limitTo: 10 track by $index"  refresh="findLov()" refresh-delay="500" >
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                      </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn btn-right">
+                                        <a class="btn grey" type="button" ng-click="selectedLov.selected = undefined">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                  <span ng-show="submitted && lovForm.parent_id.$invalid" class="help-block">
+                                      <p ng-show="lovForm.parent_id.$error.required">
+                                          {{ 'parent_id field is required' | translate }}
+                                      </p>
+                                  </span>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </div>
+                <div class="col-md-6 col-md-6 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <button type="submit" acl-check="lovsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
+                      <a ui-sref="lovsList" acl-check="lovsList" class="btn default ">{{ 'Cancel' | translate }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+            </section>

@@ -360,14 +360,14 @@ class CakeularTask extends BakeTask {
 		switch ($checkAction[0]) {
 			case 'html':{
 				$action = str_replace('html_', '', $action);
-				$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . Inflector::underscore($action) . '.html';
+				$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(Inflector::underscore($action)) . '.html';
 				break;
 			}
 			case 'views':{
 				$action = str_replace('views_', '', $action);
 				switch($action){
 					case 'view':{
-						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($action) . '.html';
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
 						break;
 					}
 					default:
@@ -383,13 +383,13 @@ class CakeularTask extends BakeTask {
 				}
 				elseif($action == "controller")
 					{
-						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'controllers' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.js';
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'controllers' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} elseif($action == "service")
 					{
-						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'services' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.js';
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'services' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} elseif($action == "route")
 					{
-						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.js';
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} else{
 						$filename = WWW_ROOT . DS . 'js' . DS . 'ui-states' . DS . strtolower($this->controllerName) . '.js';	
 					}

@@ -1,0 +1,106 @@
+<style>
+/* Contextual table row variants */
+/* Override from template */
+.table > thead > tr > td,
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    background: #FFFFFF !important;
+    color: #004b54 !important;
+    cursor: pointer;
+}
+.editable-click, a.editable-click {
+    cursor: pointer;
+}
+</style>
+<section data-ng-controller="RequestsCtrl">
+<h3 class="page-title">{{ 'Requests' | translate }}</h3>
+  <!-- BEGIN Portlet PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption font-green-sharp">
+        {{ 'List' | translate }}
+      </div>
+      <div class="actions">
+        <a acl-check="requestsCreate" ui-sref="requestsCreate" class="btn btn-sm green-haze ">
+          <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
+        </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group form-md-line-input has-info">
+                  <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="requestFilters" value="">
+                          <div class="form-control-focus">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="table-responsive">
+            <div tasty-table bind-resource-callback="getRequests" bind-filters="requestFilters" >
+                  <table class="table table-striped table-condensed">
+                      <thead tasty-thead></thead>
+                      <tbody>
+                          <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
+                          <tr ng-repeat="request in rows">
+                                                                  <td class="tasty-table-td">
+                                        {{ ( request.name || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.description || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.lov_request_status || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.lov_request_type || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.lov_request_subtype || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.lov_request_priority || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.lov_request_severity || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( request.owner || '...' ) | translate  }}
+                                      </td>
+
+                                                                  <td>
+                                <div class="actions">
+                                    <a acl-check="requestsView" href="/#/requests/view/{{request.id}}" class="btn btn-xs btn-circle btn-block blue">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a acl-check="requestsEdit" href="/#/requests/edit/{{request.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca" >
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                <div tasty-pagination ></div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Portlet PORTLET-->
+</section>

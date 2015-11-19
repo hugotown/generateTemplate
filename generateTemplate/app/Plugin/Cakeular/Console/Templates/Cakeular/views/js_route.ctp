@@ -1,26 +1,34 @@
 'use strict';
 
-project0001App.config(['$stateProvider',
+/**
+ * @ngdoc function
+ * @name appviewproject0001App.route:<?php echo strtolower($pluralVar);?>Route
+ * @description
+ * # <?php echo strtolower($pluralVar);?>Route
+ * Route of the <?php echo strtolower($pluralVar);?> appviewproject0001App
+ */
+angular.module('appviewproject0001App')
+.config(['$stateProvider',
 function($stateProvider) {
     $stateProvider.state('<?php echo strtolower($pluralVar);?>', {
         url: '/<?php echo strtolower($pluralVar);?>',
-        templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/home.html'
+        templateUrl: 'views/<?php echo strtolower($pluralVar);?>Home.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>List', {
         url: '/<?php echo strtolower($pluralVar);?>/list',
-        templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/list.html'
+        templateUrl: 'views/<?php echo strtolower($pluralVar);?>List.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>View', {
         url: '/<?php echo strtolower($pluralVar);?>/view/:<?php echo $singularVar; ?>Id',
-        templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/view.html'
+        templateUrl: 'views/<?php echo strtolower($pluralVar);?>View.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>Create', {
         url: '/<?php echo strtolower($pluralVar);?>/create',
-        templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/add.html'
+        templateUrl: 'views/<?php echo strtolower($pluralVar);?>Add.html'
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>Edit', {
         url: '/<?php echo strtolower($pluralVar);?>/edit/:<?php echo $singularVar; ?>Id',
-        templateUrl: '/js/app/<?php echo strtolower($pluralVar);?>/views/edit.html'
+        templateUrl: 'views/<?php echo strtolower($pluralVar);?>Edit.html'
     });
 }
 ]);

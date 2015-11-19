@@ -1,2 +1,2 @@
-1443025339
-a:2:{i:0;b:0;s:4:"name";a:3:{s:32:"ac954452e0f83ba342de9b230caf36a0";s:11:"`sql386557`";s:32:"7e3d821ce2949bb2f08750accee6e40f";s:12:"`rolestates`";s:32:"4bf8c442beb0250572f3070bda9f4074";s:7:"`roles`";}}
+1447975526
+a:2:{i:0;b:0;s:4:"name";a:11:{s:32:"ac954452e0f83ba342de9b230caf36a0";s:11:"`sql386557`";s:32:"015dec2ff18e8763f66f4e789b724863";s:11:"`buildings`";s:32:"0e4e7c5012245cc53d48c1dc133bc729";s:14:"`workstations`";s:32:"89a154a8c7599b36383c82be8395eb6a";s:7:"`ctrls`";s:32:"ceb668a509bb1fc149137ec7ce121dbb";s:12:"`rolesctrls`";s:32:"22c7f9869fc8408b515258f41efe4a7a";s:6:"`lovs`";s:32:"ccf5171bb4e0ce04df93ba328dfe4ee6";s:10:"`requests`";s:32:"4bf8c442beb0250572f3070bda9f4074";s:7:"`roles`";s:32:"f94a437fb7858e092079378f93ef2c71";s:7:"`users`";s:32:"7e3d821ce2949bb2f08750accee6e40f";s:12:"`rolestates`";s:32:"a0f8f41dcfa6a754acd6d7562d548916";s:11:"`workareas`";}}

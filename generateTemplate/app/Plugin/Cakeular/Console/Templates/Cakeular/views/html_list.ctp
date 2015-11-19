@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 </style>
-<section data-ng-init="prepareData()" data-ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Controller">
+<section data-ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Ctrl">
 <h3 class="page-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
@@ -26,7 +26,7 @@
         {{ 'List' | translate }}
       </div>
       <div class="actions">
-        <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.postAction" ui-sref="<?php echo strtolower($pluralVar);?>Create" class="btn btn-sm green-haze {{(!session.acl.<?php echo $pluralVar; ?>.postAction) ? 'disabled' : ''}}">
+        <a acl-check="<?php echo $pluralVar; ?>Create" ui-sref="<?php echo strtolower($pluralVar);?>Create" class="btn btn-sm green-haze ">
           <i class="fa fa-plus"></i>&nbsp;{{'Add' | translate}}
         </a>
       </div>
@@ -47,8 +47,8 @@
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div tasty-table bind-resource="ngt<?php echo $singularHumanName; ?>Resource" watch-resource="collection" bind-filters="<?php echo $singularVar; ?>Filters">
-              <div class="table-responsive">
+          <div class="table-responsive">
+            <div tasty-table bind-resource-callback="get<?php echo Inflector::camelize($pluralVar); ?>" bind-filters="<?php echo $singularVar; ?>Filters" >
                   <table class="table table-striped table-condensed">
                       <thead tasty-thead></thead>
                       <tbody>
@@ -67,11 +67,19 @@
                                           {
                                               if($details['foreignKey'] == $field)
                                               {
+                                                $otherSingularVar = Inflector::variable($alias);
+                                                $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                                $otherPluralVar = Inflector::variable($details['controller']);
                                                 $fieldAlreadyPainted = true;
                                                 
                                                 ?>
                                                   <td class="tasty-table-td">
-                                                    {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?>.name || '...' ) | translate  }}
+                                                    <a ng-if="<?php echo $singularVar; ?>.<?php echo $field; ?>.id" ng-disabled="!session.aclstates.<?php echo $otherPluralVar; ?>View" href="/#/<?php echo $otherPluralVar; ?>/view/{{<?php echo $singularVar; ?>.<?php echo $field; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.<?php echo $otherPluralVar; ?>View) ? 'disabled' : ''}}">
+                                                        {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?>.name || '...' ) | translate  }}
+                                                        <i class="fa fa-share"></i>
+                                                    </a>
+                                                    <a ng-if="!<?php echo $singularVar; ?>.<?php echo $field; ?>.id" href="javascript:;">...</a>
                                                   </td>
 
                                                 <?php
@@ -92,19 +100,19 @@
                               }?>
                               <td>
                                 <div class="actions">
-                                  <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.getAction" href="/#/<?php echo $pluralVar; ?>/view/{{<?php echo $singularVar; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.acl.<?php echo $pluralVar; ?>.getAction) ? 'disabled' : ''}}">
-                                    <i class="fa fa-eye"></i>
-                                  </a>
-                                  <a ng-disabled="!session.acl.<?php echo $pluralVar; ?>.putAction" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca {{(!session.acl.<?php echo $pluralVar; ?>.putAction) ? 'disabled' : ''}}" >
-                                    <i class="fa fa-pencil"></i>
-                                  </a>
+                                    <a acl-check="<?php echo $pluralVar; ?>View" href="/#/<?php echo $pluralVar; ?>/view/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block blue">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a acl-check="<?php echo $pluralVar; ?>Edit" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block yellow-casablanca" >
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
                                 </div>
                               </td>
                           </tr>
                       </tbody>
                   </table>
+                <div tasty-pagination ></div>
               </div>
-              <div tasty-pagination bind-items-per-page="ngTitemsPerPage" bind-list-items-per-page="ngTlistItemsPerPage"></div>
           </div>
         </div>
       </div>

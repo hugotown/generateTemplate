@@ -2,131 +2,117 @@
 <?php $singularHumanName = Inflector::classify($singularHumanName); ?>
 <?php $pluralVar = strtolower($pluralVar); ?>
 <?php $singularVar = strtolower($singularVar); ?>
+'use strict';
 
-project0001App
-.controller('<?php echo Inflector::humanize($pluralVar); ?>Controller', 
+/**
+ * @ngdoc function
+ * @name appviewproject0001App.controller:<?php echo Inflector::humanize($pluralVar); ?>Ctrl
+ * @description
+ * # <?php echo Inflector::humanize($pluralVar); ?>Ctrl
+ * Controller of the appviewproject0001App
+ */
+angular.module('appviewproject0001App')
+ .controller('<?php echo Inflector::humanize($pluralVar); ?>Ctrl', 
 [ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
-    $scope.prepareData = function()
-    {
-        var path = $location.path();
-        if(path.indexOf('list') !== -1)
+
+        $scope.$on('findOneLoaded', function(event, data)
         {
-            $scope.find();
-            $scope.ngt<?php echo Inflector::humanize($singularVar); ?>Resource = {
-                header: [
-                    <?php $sidxp = false; $countIdx = 0; ?>
+            <?php 
+            foreach ($fields as $key => $field)
+            {
+                if(isset($associations['belongsTo']))
+                {
+                    if(!empty($associations['belongsTo']))
+                    {
+                        foreach ($associations['belongsTo'] as $alias => $details)
+                        {
+                            if($details['foreignKey'] == $field)
+                            {
+                                $otherSingularVar = Inflector::variable($alias);
+                                $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                $otherPluralVar = Inflector::variable($details['controller']);
+                                ?>
+    if(data.<?php echo $otherSingularVar; ?>_id){
+                $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
+            }
+
+                            <?php
+                            }
+                        }
+                    }
+
+                }
+
+                  if(strpos($field,'lov_') !== false){
+                    $fieldNameWLov = str_replace('lov_', '', $field);
+                    $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                    ?>
+if (data.<?php echo $field; ?> && data.<?php echo $field; ?> !== '') {
+    var lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?> = $scope.findLovs('equals', '', '<?php echo strtoupper($fieldNameWLov); ?>', 'lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>', data.<?php echo $field; ?>);
+    lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected = datapromise.items[0];
+        }
+    });
+}
+                    <?php
+                  }
+            }
+            ?>
+            event = null;
+            data = null;
+        });
+
+
+    $scope.get<?php echo Inflector::humanize($pluralVar); ?> = function(params, paramsObj) {
+
+      var urlApi = $rootScope.api_url_base +'/<?php echo $pluralVar; ?>?';
+
+      if(typeof paramsObj.count !== 'undefined'){
+          var skip = (paramsObj.count * (paramsObj.page - 1));
+          urlApi += 'limit=' + paramsObj.count + '&skip=' + skip;
+      }
+
+      if(typeof paramsObj.sortBy !== 'undefined'){
+        urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
+      }
+
+      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
+        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      }
+
+      return $http.get(urlApi).then(function (r) {
+          var data = {
+              'rows': r.data.items,
+              'header': [
+                    <?php $countIdx = 0; ?>
                     <?php foreach ($fields as $key => $field)
                     {
                         if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
                         {
-                            if($sidxp){
                                 ?>
-, {<?php echo $field; ?>: $translate.instant('<?php echo $field; ?>')}
+{<?php echo $field; ?>: $translate.instant('<?php echo $field; ?>')} ,
                                 <?
-                            } else {
-                                ?>
-{<?php echo $field; ?>: $translate.instant('<?php echo $field; ?>')}
-                                <?
-                                $sidxp = true;
-                            }
                         $countIdx ++;
                         }
                     } ?>
-, {Actions: $translate.instant('Actions')}
-                ]
-                , rows: new Array()
-                //, sortBy: "name"
-                , sortOrder: "asc"
-                , pagination: {}
-            };
-
-            $scope.<?php echo $singularVar; ?>Filters = '';
-            $scope.ngTitemsPerPage = 10;
-            $scope.ngTlistItemsPerPage = [10, 20, 40, 80];
-            
-        }
-        if(path.indexOf('create') !== -1)
-        {
-
-        }
-        if (path.indexOf('edit') !== -1)
-        {
-
-            $scope.findOne();
-
-        $scope.$on('findOneLoaded', function(event, data)
-        {
-            <?php foreach ($fields as $key => $field)
-            {
-                if(isset($associations['belongsTo']))
-                {
-                    if(!empty($associations['belongsTo']))
-                    {
-                        foreach ($associations['belongsTo'] as $alias => $details)
-                        {
-                            if($details['foreignKey'] == $field)
-                            {
-                                $otherSingularVar = Inflector::variable($alias);
-                                $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                $otherPluralVar = Inflector::variable($details['controller']);
-                                ?>
-        if(data.<?php echo $otherSingularVar; ?>_id){
-        $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
-        }
-
-                            <?php
-                            }
-                        }
-                    }
-
-                }
-            }
-            ?>
-
-    });
-            
-        }
-        if(path.indexOf('view') !== -1)
-        {
-
-            $scope.findOne();
-
-        $scope.$on('findOneLoaded', function(event, data)
-        {
-            <?php foreach ($fields as $key => $field)
-            {
-                if(isset($associations['belongsTo']))
-                {
-                    if(!empty($associations['belongsTo']))
-                    {
-                        foreach ($associations['belongsTo'] as $alias => $details)
-                        {
-                            if($details['foreignKey'] == $field)
-                            {
-                                $otherSingularVar = Inflector::variable($alias);
-                                $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                $otherPluralVar = Inflector::variable($details['controller']);
-                                ?>
-        if(data.<?php echo $otherSingularVar; ?>_id){
-        $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
-        }
-
-                            <?php
-                            }
-                        }
-                    }
-
-                }
-            }
-            ?>
-
-    });
-        }
-    };
+{Actions: $translate.instant('Actions')}
+              ],
+              'pagination': {
+                  'count': r.data.items.length,
+                  'page': paramsObj.page,
+                  'pages': Math.ceil(r.data.info.total / paramsObj.count),
+                  'size': r.data.info.total
+              },
+              'sortBy': paramsObj.sortBy,
+              'sortOrder': paramsObj.sortOrder
+          };
+          return data;
+      });
+  };
 
 
     var <?php echo Inflector::humanize($pluralVar); ?> = $injector.get('<?php echo Inflector::humanize($pluralVar); ?>');
@@ -134,28 +120,24 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
     $scope.<?php echo $pluralVar; ?> = [];
     $scope.find = function()
     {
-        <?php echo Inflector::humanize($pluralVar); ?>.query(function(<?php echo $pluralVar; ?>)
+        return <?php echo Inflector::humanize($pluralVar); ?>.query(function(<?php echo $pluralVar; ?>)
         {
             $scope.<?php echo $pluralVar; ?> = <?php echo $pluralVar; ?>;
             $scope.$emit('findLoaded', { data: <?php echo $pluralVar; ?> });
-
-            $scope.ngt<?php echo Inflector::humanize($singularVar); ?>Resource.rows = $scope.<?php echo $pluralVar; ?>;
-            $scope.ngt<?php echo Inflector::humanize($singularVar); ?>Resource.pagination = {
-                page: 1,
-                size: $scope.<?php echo $pluralVar; ?>.length
-            };
+            return $scope.<?php echo $pluralVar; ?>;
         });
     };
 
     $scope.<?php echo $singularVar; ?> = {};
     $scope.findOne = function()
     {
-        <?php echo Inflector::humanize($pluralVar); ?>.get({
+        return <?php echo Inflector::humanize($pluralVar); ?>.get({
             <?php echo $singularVar; ?>Id: $stateParams.<?php echo $singularVar; ?>Id
         }, function(<?php echo $singularVar; ?>)
         {
             $scope.<?php echo $singularVar; ?> = <?php echo $singularVar; ?>;
             $scope.$emit('findOneLoaded', <?php echo $singularVar; ?>);
+            return $scope.<?php echo $singularVar; ?>;
         });
     };
 
@@ -168,30 +150,86 @@ if (isset($associations['belongsTo']))
         {
             ?>
         <?php $otherSingularVar = Inflector::variable($alias); ?>
+        <?php $otherPluralVar = Inflector::variable($details['controller']); ?>
         <?php $otherPluralHumanName = Inflector::humanize($details['controller']); ?>
         <?php $otherSingularHumanName = Inflector::singularize($otherPluralHumanName); ?>
-        <?php $otherPluralVar = Inflector::variable($details['controller']); ?>
 
         $scope.<?php echo $otherPluralVar; ?> = [];
         $scope.<?php echo $otherSingularVar; ?> = {};
         $scope.selected<?php echo $otherSingularHumanName; ?> = {};
+        <?php
+        if($pluralVar != $otherPluralVar)
+        {
+        ?>
         var <?php echo $otherPluralHumanName; ?> = $injector.get('<?php echo $otherPluralHumanName; ?>');
-            $scope.find<?php echo $otherPluralHumanName; ?> = function()
+            <?php
+        }
+        ?>
+
+        $scope.find<?php echo $otherPluralHumanName; ?> = function($param)
             {
-                <?php echo $otherPluralHumanName; ?>.query(function(<?php echo $otherPluralVar; ?>)
+                return <?php echo $otherPluralHumanName; ?>.query({
+                  where: {
+                      name: {
+                        contains: $param
+                    }
+                  } , 
+                  sort: 'orderShow ASC'
+              },function(<?php echo $otherPluralVar; ?>)
                 {
                     $scope.<?php echo $otherPluralVar; ?> = <?php echo $otherPluralVar; ?>;
                     $scope.$emit('find<?php echo $otherPluralHumanName; ?>Loaded', { data: <?php echo $otherPluralVar; ?> });
+                    return $scope.<?php echo $otherPluralVar; ?>;
                 });
             };
-
-            $scope.find<?php echo $otherPluralHumanName; ?>();
 
     <?php
         }
     }
 }
 ?>
+
+<?php 
+foreach ($fields as $key => $field)
+{
+  if(strpos($field,'lov_') !== false){
+    $fieldNameWLov = str_replace('lov_', '', $field);
+    $upperFieldNameWLov = strtoupper($fieldNameWLov);
+    ?>
+$scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?> = {};
+    <?php
+  }
+}
+?>
+
+var Lovs = $injector.get('Lovs');
+$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+    var whereStmnt = {
+        lovType: $type,
+        status: 'active'
+    };
+    switch ($typeSearch) {
+        case 'contains':
+            if ($param !== '' && $fieldLang !== '') {
+                whereStmnt[$fieldLang] = {
+                    contains: $param
+                };
+            }
+            break;
+        default:
+            if ($param !== '') {
+                whereStmnt.name_ = $param;
+            }
+            break;
+    }
+    return Lovs.query({
+        where: whereStmnt,
+        sort: 'orderShow ASC'
+    }, function(lovs) {
+        $scope[$svar] = lovs.items;
+        return $scope[$svar];
+    });
+};
 
 
     $scope.create = function(isValid)
@@ -200,14 +238,12 @@ if (isset($associations['belongsTo']))
         {
             var <?php echo $singularVar; ?> = new <?php echo Inflector::humanize($pluralVar); ?>({
 
-                <?php $sidxp = false; $countIdx = 0; ?>
+                <?php $countIdx = 0; ?>
                 <?php foreach ($fields as $key => $field)
                 {
                     $fieldAlreadyPainted = false;
                     if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
                     {
-                        if($sidxp)
-                        {
                             if(isset($associations['belongsTo']))
                             {
                                 if(!empty($associations['belongsTo']))
@@ -222,41 +258,7 @@ if (isset($associations['belongsTo']))
                                         $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                         $otherPluralVar = Inflector::variable($details['controller']);
                                             ?>
-
-        , <?php echo $field; ?>: $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null
-
-                                            <?
-
-                                        }
-                                    }
-                                }
-
-                            }
-                            if(!$fieldAlreadyPainted)
-                            {
-                                ?>
-
-, <?php echo $field; ?>: this.<?php echo $field; ?>
-
-                                <?php
-                            }
-                        } else {
-                            if(isset($associations['belongsTo']))
-                            {
-                                if(!empty($associations['belongsTo']))
-                                {
-                                    foreach ($associations['belongsTo'] as $alias => $details)
-                                    {
-                                        if($details['foreignKey'] == $field)
-                                        {
-                                        $fieldAlreadyPainted = true;
-                                        $otherSingularVar = Inflector::variable($alias);
-                                        $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                        $otherPluralVar = Inflector::variable($details['controller']);
-                                            ?>
-
-         <?php echo $field; ?>: $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null
+<?php echo $field; ?>: $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null,
 
                                             <?
 
@@ -267,17 +269,23 @@ if (isset($associations['belongsTo']))
                             }
                             if(!$fieldAlreadyPainted)
                             {
+                                  if(strpos($field,'lov_') !== false){
+                                    $fieldNameWLov = str_replace('lov_', '', $field);
+                                    $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                                    ?>
+<?php echo $field; ?>: ($scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected) ? $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected.name_ : '',
+
+                                    <?php
+                                  } else{
                                 ?>
-
- <?php echo $field; ?>: this.<?php echo $field; ?>
-
+<?php echo $field; ?>: this.<?php echo $field; ?>,
                                 <?php
+                                }
                             }
-                            $sidxp = true;
-                        }
                     $countIdx ++;
                     }
                 } ?>
+                forctrl: 'ok'
             });
 
             <?php echo $singularVar; ?>.$save(function(response)
@@ -316,8 +324,7 @@ if (isset($associations['belongsTo']))
                                     $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                     $otherPluralVar = Inflector::variable($details['controller']);
                                         ?>
-
-     <?php echo $singularVar; ?>.<?php echo $field; ?> = $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null;
+<?php echo $singularVar; ?>.<?php echo $field; ?> = $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null;
 
                                         <?
 
@@ -326,6 +333,16 @@ if (isset($associations['belongsTo']))
                             }
 
                         }
+                          if(strpos($field,'lov_') !== false){
+                            $fieldNameWLov = str_replace('lov_', '', $field);
+                            $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                            ?>
+<?php echo $singularVar; ?>.<?php echo $field; ?> = ($scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected) ? $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected.name_ : '';
+
+                            <?php
+                          } else {
+
+                          }
                     }
                 } ?>
 

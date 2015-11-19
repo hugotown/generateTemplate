@@ -1,0 +1,153 @@
+              <section ng-controller="WorkstationsCtrl" data-ng-init="findOne()">
+    <h3 class="page-title">{{ 'Workstation' | translate }}</h3>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="portlet light bordered">
+          <div class="portlet-title">
+            <div class="caption font-green-sharp">
+              {{ 'View' | translate }}
+            </div>
+          </div>
+          <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form name="workstationForm" class="form-horizontal" role="form" >
+              <div class="form-body">
+                                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.name.$invalid }">
+                            <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && workstationForm.name.$invalid" class="help-block">
+                                <p ng-show="workstationForm.name.$error.required">
+                                  {{ 'name field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.employeeNumber.$invalid }">
+                            <label for="employeeNumber" class="col-md-4 control-label">{{ 'employeeNumber' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="employeeNumber" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.employeeNumber" id="employeeNumber" placeholder="{{ 'employeeNumber' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && workstationForm.employeeNumber.$invalid" class="help-block">
+                                <p ng-show="workstationForm.employeeNumber.$error.required">
+                                  {{ 'employeeNumber field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.workarea_id.$invalid }">
+                            <label for="workarea_id" class="col-md-4 control-label">{{ 'workarea_id' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="workarea_id" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.workarea_id" id="workarea_id" placeholder="{{ 'workarea_id' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && workstationForm.workarea_id.$invalid" class="help-block">
+                                <p ng-show="workstationForm.workarea_id.$error.required">
+                                  {{ 'workarea_id field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.lov_workstation_status.$invalid }">
+                            <label for="lov_workstation_status" class="col-md-4 control-label">{{ 'lov_workstation_status' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="lov_workstation_status" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.lov_workstation_status" id="lov_workstation_status" placeholder="{{ 'lov_workstation_status' | translate }}" autocomplete="off" required >
+                              <span ng-show="submitted && workstationForm.lov_workstation_status.$invalid" class="help-block">
+                                <p ng-show="workstationForm.lov_workstation_status.$error.required">
+                                  {{ 'lov_workstation_status field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent_id.$invalid }">
+                            <label for="parent_id" class="col-md-4 control-label">{{ 'parent_id' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="parent_id" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.parent_id" id="parent_id" placeholder="{{ 'parent_id' | translate }}" autocomplete="off"  >
+                              <span ng-show="submitted && workstationForm.parent_id.$invalid" class="help-block">
+                                <p ng-show="workstationForm.parent_id.$error.required">
+                                  {{ 'parent_id field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.building_id.$invalid }">
+                            <label for="building_id" class="col-md-4 control-label">{{ 'building_id' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="building_id" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.building_id" id="building_id" placeholder="{{ 'building_id' | translate }}" autocomplete="off"  >
+                              <span ng-show="submitted && workstationForm.building_id.$invalid" class="help-block">
+                                <p ng-show="workstationForm.building_id.$error.required">
+                                  {{ 'building_id field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                            <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.description.$invalid }">
+                            <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+                            <div class="col-md-8">
+                              <input name="description" readonly="readonly" type="text" class="form-control" data-ng-model="workstation.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+                              <span ng-show="submitted && workstationForm.description.$invalid" class="help-block">
+                                <p ng-show="workstationForm.description.$error.required">
+                                  {{ 'description field is required' | translate }}
+                                </p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                      <div class="form-actions">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <a acl-check="workstationsEdit" href="/#/workstations/edit/{{workstation.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
+                          <a acl-check="workstationsList" ui-sref="workstationsList" class="btn default ">{{ 'Back to list' | translate }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <tabset vertical="false" type="pills">
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+                <tab heading="{{'Object'|translate}}">
+                    <div class="jumbotron">
+                        <span>Related Object</span>
+                    </div>
+                </tab>
+          </tabset>
+        </div>
+      </div>
+  </section>
+
