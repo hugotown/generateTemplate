@@ -15,6 +15,7 @@ class RolesctrlsControllerTest extends ControllerTestCase {
 	public $fixtures = array(
 		'app.rolesctrl',
 		'app.role',
+		'app.rolestate',
 		'app.user',
 		'app.workstation',
 		'app.workarea',

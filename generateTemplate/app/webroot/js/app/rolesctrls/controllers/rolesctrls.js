@@ -65,7 +65,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
-                  'count': r.data.items.length,
+                  'count': paramsObj.count,
                   'page': paramsObj.page,
                   'pages': Math.ceil(r.data.info.total / paramsObj.count),
                   'size': r.data.info.total
@@ -112,19 +112,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             
         $scope.findRoles = function($param)
             {
-                return Roles.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(roles)
-                {
-                    $scope.roles = roles;
-                    $scope.$emit('findRolesLoaded', { data: roles });
-                    return $scope.roles;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Roles.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(roles)
+                        {
+                            $scope.roles = roles.items;
+                            $scope.$emit('findRolesLoaded', { data: roles });
+                            return $scope.roles;
+                        });
+                } else {
+                    return Roles.query({
+                      },function(roles)
+                        {
+                            $scope.roles = roles.items;
+                            $scope.$emit('findRolesLoaded', { data: roles });
+                            return $scope.roles;
+                        });
+                }
             };
 
                                     
@@ -135,19 +144,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             
         $scope.findCtrls = function($param)
             {
-                return Ctrls.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(ctrls)
-                {
-                    $scope.ctrls = ctrls;
-                    $scope.$emit('findCtrlsLoaded', { data: ctrls });
-                    return $scope.ctrls;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Ctrls.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(ctrls)
+                        {
+                            $scope.ctrls = ctrls.items;
+                            $scope.$emit('findCtrlsLoaded', { data: ctrls });
+                            return $scope.ctrls;
+                        });
+                } else {
+                    return Ctrls.query({
+                      },function(ctrls)
+                        {
+                            $scope.ctrls = ctrls.items;
+                            $scope.$emit('findCtrlsLoaded', { data: ctrls });
+                            return $scope.ctrls;
+                        });
+                }
             };
 
     

@@ -57,7 +57,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
-                  'count': r.data.items.length,
+                  'count': paramsObj.count,
                   'page': paramsObj.page,
                   'pages': Math.ceil(r.data.info.total / paramsObj.count),
                   'size': r.data.info.total

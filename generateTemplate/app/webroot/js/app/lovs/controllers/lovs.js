@@ -55,7 +55,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
-                  'count': r.data.items.length,
+                  'count': paramsObj.count,
                   'page': paramsObj.page,
                   'pages': Math.ceil(r.data.info.total / paramsObj.count),
                   'size': r.data.info.total
@@ -101,19 +101,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         
         $scope.findLovs = function($param)
             {
-                return Lovs.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(lovs)
-                {
-                    $scope.lovs = lovs;
-                    $scope.$emit('findLovsLoaded', { data: lovs });
-                    return $scope.lovs;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Lovs.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(lovs)
+                        {
+                            $scope.lovs = lovs.items;
+                            $scope.$emit('findLovsLoaded', { data: lovs });
+                            return $scope.lovs;
+                        });
+                } else {
+                    return Lovs.query({
+                      },function(lovs)
+                        {
+                            $scope.lovs = lovs.items;
+                            $scope.$emit('findLovsLoaded', { data: lovs });
+                            return $scope.lovs;
+                        });
+                }
             };
 
     

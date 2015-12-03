@@ -51,7 +51,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
-                  'count': r.data.items.length,
+                  'count': paramsObj.count,
                   'page': paramsObj.page,
                   'pages': Math.ceil(r.data.info.total / paramsObj.count),
                   'size': r.data.info.total
@@ -98,19 +98,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             
         $scope.findRoles = function($param)
             {
-                return Roles.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(roles)
-                {
-                    $scope.roles = roles;
-                    $scope.$emit('findRolesLoaded', { data: roles });
-                    return $scope.roles;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Roles.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(roles)
+                        {
+                            $scope.roles = roles.items;
+                            $scope.$emit('findRolesLoaded', { data: roles });
+                            return $scope.roles;
+                        });
+                } else {
+                    return Roles.query({
+                      },function(roles)
+                        {
+                            $scope.roles = roles.items;
+                            $scope.$emit('findRolesLoaded', { data: roles });
+                            return $scope.roles;
+                        });
+                }
             };
 
     

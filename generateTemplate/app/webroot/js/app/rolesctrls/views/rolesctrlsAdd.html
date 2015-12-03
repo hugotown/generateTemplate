@@ -10,253 +10,265 @@
         <!-- BEGIN FORM-->
         <form name="rolesctrlForm" class="form-horizontal" role="form" data-ng-submit="create(rolesctrlForm.$valid)" novalidate>
           <div class="form-body">
-                                  <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.role_id.$invalid }">
-                              <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
-                              <div class="col-md-8">
-                                <div class="input-group">
-                                    <ui-select required ng-model="selectedRole.selected" name="role_id" reset-search-input="false" theme="bootstrap" >
-                                      <ui-select-match placeholder="{{ 'Select Role' || translate }}...">{{$select.selected.name}}</ui-select-match>
-                                      <ui-select-choices repeat="item in roles | limitTo: 10 track by $index"  refresh="findRole()" refresh-delay="500" >
-                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                      </ui-select-choices>
-                                    </ui-select>
-                                    <span class="input-group-btn btn-right">
-                                        <a class="btn grey" type="button" ng-click="selectedRole.selected = undefined">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                  <span ng-show="submitted && rolesctrlForm.role_id.$invalid" class="help-block">
-                                      <p ng-show="rolesctrlForm.role_id.$error.required">
-                                          {{ 'role_id field is required' | translate }}
-                                      </p>
-                                  </span>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-                                            <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.ctrl_id.$invalid }">
-                              <label for="ctrl_id" class="col-md-4 control-label">{{ 'ctrl' | translate }}</label>
-                              <div class="col-md-8">
-                                <div class="input-group">
-                                    <ui-select required ng-model="selectedCtrl.selected" name="ctrl_id" reset-search-input="false" theme="bootstrap" >
-                                      <ui-select-match placeholder="{{ 'Select Ctrl' || translate }}...">{{$select.selected.name}}</ui-select-match>
-                                      <ui-select-choices repeat="item in ctrls | limitTo: 10 track by $index"  refresh="findCtrl()" refresh-delay="500" >
-                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                      </ui-select-choices>
-                                    </ui-select>
-                                    <span class="input-group-btn btn-right">
-                                        <a class="btn grey" type="button" ng-click="selectedCtrl.selected = undefined">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                  <span ng-show="submitted && rolesctrlForm.ctrl_id.$invalid" class="help-block">
-                                      <p ng-show="rolesctrlForm.ctrl_id.$error.required">
-                                          {{ 'ctrl_id field is required' | translate }}
-                                      </p>
-                                  </span>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-                                      <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.getAction.$invalid }">
-                      <label for="getAction" class="col-md-4 control-label">{{ 'getAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="getAction" type="text" class="form-control" data-ng-model="getAction" id="getAction" placeholder="{{ 'getAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.getAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.getAction.$error.required">
-                            {{ 'getAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.postAction.$invalid }">
-                      <label for="postAction" class="col-md-4 control-label">{{ 'postAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="postAction" type="text" class="form-control" data-ng-model="postAction" id="postAction" placeholder="{{ 'postAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.postAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.postAction.$error.required">
-                            {{ 'postAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.putAction.$invalid }">
-                      <label for="putAction" class="col-md-4 control-label">{{ 'putAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="putAction" type="text" class="form-control" data-ng-model="putAction" id="putAction" placeholder="{{ 'putAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.putAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.putAction.$error.required">
-                            {{ 'putAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.patchAction.$invalid }">
-                      <label for="patchAction" class="col-md-4 control-label">{{ 'patchAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="patchAction" type="text" class="form-control" data-ng-model="patchAction" id="patchAction" placeholder="{{ 'patchAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.patchAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.patchAction.$error.required">
-                            {{ 'patchAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.deleteAction.$invalid }">
-                      <label for="deleteAction" class="col-md-4 control-label">{{ 'deleteAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="deleteAction" type="text" class="form-control" data-ng-model="deleteAction" id="deleteAction" placeholder="{{ 'deleteAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.deleteAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.deleteAction.$error.required">
-                            {{ 'deleteAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.copyAction.$invalid }">
-                      <label for="copyAction" class="col-md-4 control-label">{{ 'copyAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="copyAction" type="text" class="form-control" data-ng-model="copyAction" id="copyAction" placeholder="{{ 'copyAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.copyAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.copyAction.$error.required">
-                            {{ 'copyAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.headAction.$invalid }">
-                      <label for="headAction" class="col-md-4 control-label">{{ 'headAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="headAction" type="text" class="form-control" data-ng-model="headAction" id="headAction" placeholder="{{ 'headAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.headAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.headAction.$error.required">
-                            {{ 'headAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.optionsAction.$invalid }">
-                      <label for="optionsAction" class="col-md-4 control-label">{{ 'optionsAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="optionsAction" type="text" class="form-control" data-ng-model="optionsAction" id="optionsAction" placeholder="{{ 'optionsAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.optionsAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.optionsAction.$error.required">
-                            {{ 'optionsAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.linkAction.$invalid }">
-                      <label for="linkAction" class="col-md-4 control-label">{{ 'linkAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="linkAction" type="text" class="form-control" data-ng-model="linkAction" id="linkAction" placeholder="{{ 'linkAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.linkAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.linkAction.$error.required">
-                            {{ 'linkAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.unlinkAction.$invalid }">
-                      <label for="unlinkAction" class="col-md-4 control-label">{{ 'unlinkAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="unlinkAction" type="text" class="form-control" data-ng-model="unlinkAction" id="unlinkAction" placeholder="{{ 'unlinkAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.unlinkAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.unlinkAction.$error.required">
-                            {{ 'unlinkAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.purgeAction.$invalid }">
-                      <label for="purgeAction" class="col-md-4 control-label">{{ 'purgeAction' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="purgeAction" type="text" class="form-control" data-ng-model="purgeAction" id="purgeAction" placeholder="{{ 'purgeAction' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && rolesctrlForm.purgeAction.$invalid" class="help-block">
-                          <p ng-show="rolesctrlForm.purgeAction.$error.required">
-                            {{ 'purgeAction field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.role_id.$invalid }">
+        <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
+        <div class="col-md-8">
+          <div class="input-group">
+              <ui-select required ng-model="selectedRole.selected" name="role_id" reset-search-input="false" theme="bootstrap" >
+                <ui-select-match placeholder="{{ 'Select Role' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="item in roles | limitTo: 10 track by $index"  refresh="findRoles($select.search)" refresh-delay="500" >
+                  <div ng-bind-html="item.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <span class="input-group-btn btn-right">
+                  <a class="btn grey" type="button" ng-click="selectedRole.selected = undefined">
+                      <i class="fa fa-times"></i>
+                  </a>
+              </span>
+          </div>
+            <span ng-show="submitted && rolesctrlForm.role_id.$invalid" class="help-block">
+                <p ng-show="rolesctrlForm.role_id.$error.required">
+                    {{ 'role_id field is required' | translate }}
+                </p>
+            </span>
+        </div>
+    </div>
+  </div>
+</div>
+                      
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.ctrl_id.$invalid }">
+        <label for="ctrl_id" class="col-md-4 control-label">{{ 'ctrl' | translate }}</label>
+        <div class="col-md-8">
+          <div class="input-group">
+              <ui-select required ng-model="selectedCtrl.selected" name="ctrl_id" reset-search-input="false" theme="bootstrap" >
+                <ui-select-match placeholder="{{ 'Select Ctrl' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="item in ctrls | limitTo: 10 track by $index"  refresh="findCtrls($select.search)" refresh-delay="500" >
+                  <div ng-bind-html="item.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <span class="input-group-btn btn-right">
+                  <a class="btn grey" type="button" ng-click="selectedCtrl.selected = undefined">
+                      <i class="fa fa-times"></i>
+                  </a>
+              </span>
+          </div>
+            <span ng-show="submitted && rolesctrlForm.ctrl_id.$invalid" class="help-block">
+                <p ng-show="rolesctrlForm.ctrl_id.$error.required">
+                    {{ 'ctrl_id field is required' | translate }}
+                </p>
+            </span>
+        </div>
+    </div>
+  </div>
+</div>
+                      
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.getAction.$invalid }">
+      <label for="getAction" class="col-md-4 control-label">{{ 'getAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="getAction" type="text" class="form-control" data-ng-model="getAction" id="getAction" placeholder="{{ 'getAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.getAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.getAction.$error.required">
+            {{ 'getAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
                 
-            <div class="form-actions">
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                </div>
-                <div class="col-md-6 col-md-6 col-sm-12 col-xs-12">
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <button type="submit" acl-check="rolesctrlsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-                      <a ui-sref="rolesctrlsList" acl-check="rolesctrlsList" class="btn default ">{{ 'Cancel' | translate }}</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.postAction.$invalid }">
+      <label for="postAction" class="col-md-4 control-label">{{ 'postAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="postAction" type="text" class="form-control" data-ng-model="postAction" id="postAction" placeholder="{{ 'postAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.postAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.postAction.$error.required">
+            {{ 'postAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.putAction.$invalid }">
+      <label for="putAction" class="col-md-4 control-label">{{ 'putAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="putAction" type="text" class="form-control" data-ng-model="putAction" id="putAction" placeholder="{{ 'putAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.putAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.putAction.$error.required">
+            {{ 'putAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.patchAction.$invalid }">
+      <label for="patchAction" class="col-md-4 control-label">{{ 'patchAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="patchAction" type="text" class="form-control" data-ng-model="patchAction" id="patchAction" placeholder="{{ 'patchAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.patchAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.patchAction.$error.required">
+            {{ 'patchAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.deleteAction.$invalid }">
+      <label for="deleteAction" class="col-md-4 control-label">{{ 'deleteAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="deleteAction" type="text" class="form-control" data-ng-model="deleteAction" id="deleteAction" placeholder="{{ 'deleteAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.deleteAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.deleteAction.$error.required">
+            {{ 'deleteAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.copyAction.$invalid }">
+      <label for="copyAction" class="col-md-4 control-label">{{ 'copyAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="copyAction" type="text" class="form-control" data-ng-model="copyAction" id="copyAction" placeholder="{{ 'copyAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.copyAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.copyAction.$error.required">
+            {{ 'copyAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.headAction.$invalid }">
+      <label for="headAction" class="col-md-4 control-label">{{ 'headAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="headAction" type="text" class="form-control" data-ng-model="headAction" id="headAction" placeholder="{{ 'headAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.headAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.headAction.$error.required">
+            {{ 'headAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.optionsAction.$invalid }">
+      <label for="optionsAction" class="col-md-4 control-label">{{ 'optionsAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="optionsAction" type="text" class="form-control" data-ng-model="optionsAction" id="optionsAction" placeholder="{{ 'optionsAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.optionsAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.optionsAction.$error.required">
+            {{ 'optionsAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.linkAction.$invalid }">
+      <label for="linkAction" class="col-md-4 control-label">{{ 'linkAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="linkAction" type="text" class="form-control" data-ng-model="linkAction" id="linkAction" placeholder="{{ 'linkAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.linkAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.linkAction.$error.required">
+            {{ 'linkAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.unlinkAction.$invalid }">
+      <label for="unlinkAction" class="col-md-4 control-label">{{ 'unlinkAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="unlinkAction" type="text" class="form-control" data-ng-model="unlinkAction" id="unlinkAction" placeholder="{{ 'unlinkAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.unlinkAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.unlinkAction.$error.required">
+            {{ 'unlinkAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.purgeAction.$invalid }">
+      <label for="purgeAction" class="col-md-4 control-label">{{ 'purgeAction' | translate }}</label>
+      <div class="col-md-8">
+        <input name="purgeAction" type="text" class="form-control" data-ng-model="purgeAction" id="purgeAction" placeholder="{{ 'purgeAction' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && rolesctrlForm.purgeAction.$invalid" class="help-block">
+          <p ng-show="rolesctrlForm.purgeAction.$error.required">
+            {{ 'purgeAction field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                
+<div class="form-actions">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    </div>
+    <div class="col-md-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <button type="submit" acl-check="rolesctrlsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
+          <a ui-sref="rolesctrlsList" acl-check="rolesctrlsList" class="btn default ">{{ 'Cancel' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
           </div>
         </form>
       </div>

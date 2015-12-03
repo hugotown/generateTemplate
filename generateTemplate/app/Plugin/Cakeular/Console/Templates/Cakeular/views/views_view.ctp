@@ -36,71 +36,89 @@
             <!-- BEGIN FORM-->
             <form name="<?php echo $singularVar; ?>Form" class="form-horizontal" role="form" >
               <div class="form-body">
+                <?php $countIdx = 0; ?>
                 <?php foreach ($fields as $key => $field)
                 {
-                  $fieldAlreadyPainted = false;
-                  if($field !== "createdAt" && $field !== "updatedAt" 
-                    && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
-                  {
-                    if(!($schema[$field]['null'])) {
-                      $required = 'required';
-                    } else {
-                      $required = '';
-                    }
-                    if(!isset($associations['belongsTo']))
+                    $fieldAlreadyPainted = false;
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
                     {
-                      if(!empty($associations['belongsTo']))
-                      {
-                        foreach ($associations['belongsTo'] as $alias => $details)
-                        {
-                          if($details['foreignKey'] == $field)
-                          {
-                            $fieldAlreadyPainted = true;
-                            $otherSingularVar = Inflector::variable($alias);
-                            $otherPluralHumanName = Inflector::humanize($details['controller']);
-                            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                            $otherPluralVar = Inflector::variable($details['controller']);
-                            ?>
-                            <div class="row">
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-group" ng-class="{ 'has-error' : submitted && workstationForm.parent.$invalid }">
-                                  <label for="parent" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
-                                  <div class="col-md-8">
-                                    <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>.name" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <?php
-                          }
+                        if(!($schema[$field]['null'])) {
+                          $required = 'required';
+                        } else {
+                          $required = '';
                         }
+                            if(isset($associations['belongsTo']))
+                            {
+                                if(!empty($associations['belongsTo']))
+                                {
+                                    foreach ($associations['belongsTo'] as $alias => $details)
+                                    {
+                                        if($details['foreignKey'] == $field)
+                                        {
+                                        $fieldAlreadyPainted = true;
+                                        $otherSingularVar = Inflector::variable($alias);
+                                        $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                        $otherPluralVar = Inflector::variable($details['controller']);
+                                            ?>
 
-                      }
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>.<?php echo $field;?>.$invalid }">
+      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+      <div class="col-md-8">
+        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field; ?>.<?php echo 'name' ; ?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+      </div>
+    </div>
+  </div>
+</div>
 
+                                            <?
+
+                                        }
+                                    }
+                                }
+
+                            }
+                            if(!$fieldAlreadyPainted)
+                            {
+                                  if(strpos($field,'lov_') !== false){
+                                    $fieldNameWLov = str_replace('lov_', '', $field);
+                                    $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                                    ?>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
+      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
+      <div class="col-md-8">
+        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected['name_'+selectedLanguage]" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+      </div>
+    </div>
+  </div>
+</div>
+
+                                    <?php
+                                  } else{
+                                ?>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
+      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
+      <div class="col-md-8">
+        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+      </div>
+    </div>
+  </div>
+</div>
+                                <?php
+                                }
+                            }
+                    $countIdx ++;
                     }
-                    if(!$fieldAlreadyPainted)
-                    {
-                      ?>
-                      <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
-                            <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
-                            <div class="col-md-8">
-                              <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
-                              <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
-                                <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
-                                  {{ '<?php echo $field;?> field is required' | translate }}
-                                </p>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <?php
-                    }
-                  }
-                }
-                ?>
+                } ?>
+
                 <div class="form-actions">
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

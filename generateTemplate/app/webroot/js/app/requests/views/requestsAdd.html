@@ -10,39 +10,42 @@
         <!-- BEGIN FORM-->
         <form name="requestForm" class="form-horizontal" role="form" data-ng-submit="create(requestForm.$valid)" novalidate>
           <div class="form-body">
-                            <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.name.$invalid }">
-                      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
-                        <span ng-show="submitted && requestForm.name.$invalid" class="help-block">
-                          <p ng-show="requestForm.name.$error.required">
-                            {{ 'name field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.name.$invalid }">
+      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <div class="col-md-8">
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <span ng-show="submitted && requestForm.name.$invalid" class="help-block">
+          <p ng-show="requestForm.name.$error.required">
+            {{ 'name field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-                                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.description.$invalid }">
-                      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
-                        <span ng-show="submitted && requestForm.description.$invalid" class="help-block">
-                          <p ng-show="requestForm.description.$error.required">
-                            {{ 'description field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.description.$invalid }">
+      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+      <div class="col-md-8">
+        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+        <span ng-show="submitted && requestForm.description.$invalid" class="help-block">
+          <p ng-show="requestForm.description.$error.required">
+            {{ 'description field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-                <div class="row">
+                
+<div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_status.$invalid }">
           <label for="lov_request_status" class="col-md-4 control-label">{{ 'lov_request_status' | translate }}</label>
@@ -69,7 +72,8 @@
       </div>
   </div>
 </div>
-                    <div class="row">
+                    
+<div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_type.$invalid }">
           <label for="lov_request_type" class="col-md-4 control-label">{{ 'lov_request_type' | translate }}</label>
@@ -96,7 +100,8 @@
       </div>
   </div>
 </div>
-                    <div class="row">
+                    
+<div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_subtype.$invalid }">
           <label for="lov_request_subtype" class="col-md-4 control-label">{{ 'lov_request_subtype' | translate }}</label>
@@ -123,7 +128,8 @@
       </div>
   </div>
 </div>
-                    <div class="row">
+                    
+<div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_priority.$invalid }">
           <label for="lov_request_priority" class="col-md-4 control-label">{{ 'lov_request_priority' | translate }}</label>
@@ -150,7 +156,8 @@
       </div>
   </div>
 </div>
-                    <div class="row">
+                    
+<div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_severity.$invalid }">
           <label for="lov_request_severity" class="col-md-4 control-label">{{ 'lov_request_severity' | translate }}</label>
@@ -177,37 +184,39 @@
       </div>
   </div>
 </div>
-                                    <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.owner.$invalid }">
-                      <label for="owner" class="col-md-4 control-label">{{ 'owner' | translate }}</label>
-                      <div class="col-md-8">
-                        <input name="owner" type="text" class="form-control" data-ng-model="owner" id="owner" placeholder="{{ 'owner' | translate }}" autocomplete="off"  >
-                        <span ng-show="submitted && requestForm.owner.$invalid" class="help-block">
-                          <p ng-show="requestForm.owner.$error.required">
-                            {{ 'owner field is required' | translate }}
-                          </p>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                    
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.owner.$invalid }">
+      <label for="owner" class="col-md-4 control-label">{{ 'owner' | translate }}</label>
+      <div class="col-md-8">
+        <input name="owner" type="text" class="form-control" data-ng-model="owner" id="owner" placeholder="{{ 'owner' | translate }}" autocomplete="off"  >
+        <span ng-show="submitted && requestForm.owner.$invalid" class="help-block">
+          <p ng-show="requestForm.owner.$error.required">
+            {{ 'owner field is required' | translate }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
                 
-            <div class="form-actions">
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                </div>
-                <div class="col-md-6 col-md-6 col-sm-12 col-xs-12">
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <button type="submit" acl-check="requestsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-                      <a ui-sref="requestsList" acl-check="requestsList" class="btn default ">{{ 'Cancel' | translate }}</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<div class="form-actions">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    </div>
+    <div class="col-md-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <button type="submit" acl-check="requestsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
+          <a ui-sref="requestsList" acl-check="requestsList" class="btn default ">{{ 'Cancel' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
           </div>
         </form>
       </div>

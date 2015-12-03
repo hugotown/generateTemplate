@@ -4,6 +4,7 @@ App::uses('AppModel', 'Model');
  * Role Model
  *
  * @property Rolesctrl $Rolesctrl
+ * @property Rolestate $Rolestate
  * @property User $User
  */
 class Role extends AppModel {
@@ -46,6 +47,19 @@ class Role extends AppModel {
 	public $hasMany = array(
 		'Rolesctrl' => array(
 			'className' => 'Rolesctrl',
+			'foreignKey' => 'role_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Rolestate' => array(
+			'className' => 'Rolestate',
 			'foreignKey' => 'role_id',
 			'dependent' => false,
 			'conditions' => '',

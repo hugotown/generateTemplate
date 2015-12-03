@@ -17,6 +17,7 @@ class UsersControllerTest extends ControllerTestCase {
 		'app.role',
 		'app.rolesctrl',
 		'app.ctrl',
+		'app.rolestate',
 		'app.workstation',
 		'app.workarea',
 		'app.building'

@@ -102,7 +102,7 @@ if (data.<?php echo $field; ?> && data.<?php echo $field; ?> !== '') {
 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
-                  'count': r.data.items.length,
+                  'count': paramsObj.count,
                   'page': paramsObj.page,
                   'pages': Math.ceil(r.data.info.total / paramsObj.count),
                   'size': r.data.info.total
@@ -168,19 +168,28 @@ if (isset($associations['belongsTo']))
 
         $scope.find<?php echo $otherPluralHumanName; ?> = function($param)
             {
-                return <?php echo $otherPluralHumanName; ?>.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(<?php echo $otherPluralVar; ?>)
-                {
-                    $scope.<?php echo $otherPluralVar; ?> = <?php echo $otherPluralVar; ?>;
-                    $scope.$emit('find<?php echo $otherPluralHumanName; ?>Loaded', { data: <?php echo $otherPluralVar; ?> });
-                    return $scope.<?php echo $otherPluralVar; ?>;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return <?php echo $otherPluralHumanName; ?>.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(<?php echo $otherPluralVar; ?>)
+                        {
+                            $scope.<?php echo $otherPluralVar; ?> = <?php echo $otherPluralVar; ?>.items;
+                            $scope.$emit('find<?php echo $otherPluralHumanName; ?>Loaded', { data: <?php echo $otherPluralVar; ?> });
+                            return $scope.<?php echo $otherPluralVar; ?>;
+                        });
+                } else {
+                    return <?php echo $otherPluralHumanName; ?>.query({
+                      },function(<?php echo $otherPluralVar; ?>)
+                        {
+                            $scope.<?php echo $otherPluralVar; ?> = <?php echo $otherPluralVar; ?>.items;
+                            $scope.$emit('find<?php echo $otherPluralHumanName; ?>Loaded', { data: <?php echo $otherPluralVar; ?> });
+                            return $scope.<?php echo $otherPluralVar; ?>;
+                        });
+                }
             };
 
     <?php

@@ -14,6 +14,7 @@ ObelitCRMApp.config(['$stateProvider', '$urlRouterProvider', function($stateProv
 	            files: [
 	                'js/roles.js',
 					'js/rolesctrls.js',
+					'js/rolestates.js',
 					'js/users.js',
  
 	            ]                    
@@ -69,6 +70,18 @@ ObelitCRMApp.config(['$stateProvider', '$urlRouterProvider', function($stateProv
         views: {
             // the child views will be defined here (absolutely named)
             'editTab': { templateUrl: '/view/rolesctrls/list.html' },
+        }
+    }); 
+	
+    $stateProvider.state("roles.edit.rolestates", {
+        url: "/rolestates",
+        templateUrl: '',
+	    data: {pageTitle: 'Roles', 
+	    	pageSubTitle: '',
+	    },
+        views: {
+            // the child views will be defined here (absolutely named)
+            'editTab': { templateUrl: '/view/rolestates/list.html' },
         }
     }); 
 	

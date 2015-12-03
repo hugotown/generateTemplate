@@ -71,7 +71,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
-                  'count': r.data.items.length,
+                  'count': paramsObj.count,
                   'page': paramsObj.page,
                   'pages': Math.ceil(r.data.info.total / paramsObj.count),
                   'size': r.data.info.total
@@ -118,19 +118,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             
         $scope.findWorkareas = function($param)
             {
-                return Workareas.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(workareas)
-                {
-                    $scope.workareas = workareas;
-                    $scope.$emit('findWorkareasLoaded', { data: workareas });
-                    return $scope.workareas;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Workareas.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(workareas)
+                        {
+                            $scope.workareas = workareas.items;
+                            $scope.$emit('findWorkareasLoaded', { data: workareas });
+                            return $scope.workareas;
+                        });
+                } else {
+                    return Workareas.query({
+                      },function(workareas)
+                        {
+                            $scope.workareas = workareas.items;
+                            $scope.$emit('findWorkareasLoaded', { data: workareas });
+                            return $scope.workareas;
+                        });
+                }
             };
 
                                     
@@ -140,19 +149,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         
         $scope.findWorkstations = function($param)
             {
-                return Workstations.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(workstations)
-                {
-                    $scope.workstations = workstations;
-                    $scope.$emit('findWorkstationsLoaded', { data: workstations });
-                    return $scope.workstations;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Workstations.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(workstations)
+                        {
+                            $scope.workstations = workstations.items;
+                            $scope.$emit('findWorkstationsLoaded', { data: workstations });
+                            return $scope.workstations;
+                        });
+                } else {
+                    return Workstations.query({
+                      },function(workstations)
+                        {
+                            $scope.workstations = workstations.items;
+                            $scope.$emit('findWorkstationsLoaded', { data: workstations });
+                            return $scope.workstations;
+                        });
+                }
             };
 
                                     
@@ -163,19 +181,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             
         $scope.findBuildings = function($param)
             {
-                return Buildings.query({
-                  where: {
-                      name: {
-                        contains: $param
-                    }
-                  } , 
-                  sort: 'orderShow ASC'
-              },function(buildings)
-                {
-                    $scope.buildings = buildings;
-                    $scope.$emit('findBuildingsLoaded', { data: buildings });
-                    return $scope.buildings;
-                });
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Buildings.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(buildings)
+                        {
+                            $scope.buildings = buildings.items;
+                            $scope.$emit('findBuildingsLoaded', { data: buildings });
+                            return $scope.buildings;
+                        });
+                } else {
+                    return Buildings.query({
+                      },function(buildings)
+                        {
+                            $scope.buildings = buildings.items;
+                            $scope.$emit('findBuildingsLoaded', { data: buildings });
+                            return $scope.buildings;
+                        });
+                }
             };
 
     

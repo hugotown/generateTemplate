@@ -12,52 +12,42 @@
             <!-- BEGIN FORM-->
             <form name="roleForm" class="form-horizontal" role="form" >
               <div class="form-body">
-                                      <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.name.$invalid }">
-                            <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
-                            <div class="col-md-8">
-                              <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="role.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
-                              <span ng-show="submitted && roleForm.name.$invalid" class="help-block">
-                                <p ng-show="roleForm.name.$error.required">
-                                  {{ 'name field is required' | translate }}
-                                </p>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                                            <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_role_status.$invalid }">
-                            <label for="lov_role_status" class="col-md-4 control-label">{{ 'lov_role_status' | translate }}</label>
-                            <div class="col-md-8">
-                              <input name="lov_role_status" readonly="readonly" type="text" class="form-control" data-ng-model="role.lov_role_status" id="lov_role_status" placeholder="{{ 'lov_role_status' | translate }}" autocomplete="off" required >
-                              <span ng-show="submitted && roleForm.lov_role_status.$invalid" class="help-block">
-                                <p ng-show="roleForm.lov_role_status.$error.required">
-                                  {{ 'lov_role_status field is required' | translate }}
-                                </p>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                                            <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.description.$invalid }">
-                            <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
-                            <div class="col-md-8">
-                              <input name="description" readonly="readonly" type="text" class="form-control" data-ng-model="role.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
-                              <span ng-show="submitted && roleForm.description.$invalid" class="help-block">
-                                <p ng-show="roleForm.description.$error.required">
-                                  {{ 'description field is required' | translate }}
-                                </p>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                                      <div class="form-actions">
+                                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.name.$invalid }">
+      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <div class="col-md-8">
+        <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="role.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+      </div>
+    </div>
+  </div>
+</div>
+                                
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_role_status.$invalid }">
+      <label for="lov_role_status" class="col-md-4 control-label">{{ 'lov_role_status' | translate }}</label>
+      <div class="col-md-8">
+        <input name="lov_role_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovRoleStatus.selected['name_'+selectedLanguage]" id="lov_role_status" placeholder="{{ 'lov_role_status' | translate }}" autocomplete="off" required >
+      </div>
+    </div>
+  </div>
+</div>
+
+                                    
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.description.$invalid }">
+      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+      <div class="col-md-8">
+        <input name="description" readonly="readonly" type="text" class="form-control" data-ng-model="role.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+      </div>
+    </div>
+  </div>
+</div>
+                                
+                <div class="form-actions">
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="row">

@@ -19,7 +19,8 @@ class WorkstationsControllerTest extends ControllerTestCase {
 		'app.user',
 		'app.role',
 		'app.rolesctrl',
-		'app.ctrl'
+		'app.ctrl',
+		'app.rolestate'
 	);
 
 /**
