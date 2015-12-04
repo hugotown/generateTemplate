@@ -1,11 +1,11 @@
 <?php
-App::uses('WorkareasController', 'Controller');
+App::uses('BuildingspotsController', 'Controller');
 
 /**
- * WorkareasController Test Case
+ * BuildingspotsController Test Case
  *
  */
-class WorkareasControllerTest extends ControllerTestCase {
+class BuildingspotsControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
@@ -13,16 +13,16 @@ class WorkareasControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.workarea',
-		'app.workstation',
-		'app.building',
 		'app.buildingspot',
+		'app.building',
+		'app.workstation',
+		'app.workarea',
+		'app.request',
 		'app.user',
 		'app.role',
 		'app.rolesctrl',
 		'app.ctrl',
-		'app.rolestate',
-		'app.request'
+		'app.rolestate'
 	);
 
 /**

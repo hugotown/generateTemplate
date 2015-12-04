@@ -93,6 +93,30 @@
                                     
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_status.$invalid }">
+      <label for="lov_user_status" class="col-md-4 control-label">{{ 'lov_user_status' | translate }}</label>
+      <div class="col-md-8">
+        <input name="lov_user_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovUserStatus.selected['name_'+selectedLanguage]" id="lov_user_status" placeholder="{{ 'lov_user_status' | translate }}" autocomplete="off" required >
+      </div>
+    </div>
+  </div>
+</div>
+
+                                    
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_type.$invalid }">
+      <label for="lov_user_type" class="col-md-4 control-label">{{ 'lov_user_type' | translate }}</label>
+      <div class="col-md-8">
+        <input name="lov_user_type" readonly="readonly" type="text" class="form-control" data-ng-model="lovUserType.selected['name_'+selectedLanguage]" id="lov_user_type" placeholder="{{ 'lov_user_type' | translate }}" autocomplete="off" required >
+      </div>
+    </div>
+  </div>
+</div>
+
+                                    
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && user.role_id.$invalid }">
       <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
       <div class="col-md-8">
@@ -108,7 +132,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && user.workstation_id.$invalid }">
       <label for="workstation_id" class="col-md-4 control-label">{{ 'workstation' | translate }}</label>
       <div class="col-md-8">
-        <input name="workstation_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.workstation_id.name" id="workstation_id" placeholder="{{ 'workstation_id' | translate }}" autocomplete="off" required >
+        <input name="workstation_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.workstation_id.name" id="workstation_id" placeholder="{{ 'workstation_id' | translate }}" autocomplete="off"  >
       </div>
     </div>
   </div>
@@ -117,16 +141,16 @@
                                             
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_status.$invalid }">
-      <label for="lov_user_status" class="col-md-4 control-label">{{ 'lov_user_status' | translate }}</label>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && user.buildingspot_id.$invalid }">
+      <label for="buildingspot_id" class="col-md-4 control-label">{{ 'buildingspot' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_user_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovUserStatus.selected['name_'+selectedLanguage]" id="lov_user_status" placeholder="{{ 'lov_user_status' | translate }}" autocomplete="off" required >
+        <input name="buildingspot_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.buildingspot_id.name" id="buildingspot_id" placeholder="{{ 'buildingspot_id' | translate }}" autocomplete="off"  >
       </div>
     </div>
   </div>
 </div>
 
-                                    
+                                            
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.avatar.$invalid }">

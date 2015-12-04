@@ -16,10 +16,13 @@ class BuildingsControllerTest extends ControllerTestCase {
 		'app.building',
 		'app.workstation',
 		'app.workarea',
+		'app.request',
 		'app.user',
 		'app.role',
 		'app.rolesctrl',
-		'app.ctrl'
+		'app.ctrl',
+		'app.rolestate',
+		'app.buildingspot'
 	);
 
 /**

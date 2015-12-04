@@ -13,7 +13,17 @@ class RequestsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.request'
+		'app.request',
+		'app.workstation',
+		'app.workarea',
+		'app.building',
+		'app.buildingspot',
+		'app.user',
+		'app.role',
+		'app.rolesctrl',
+		'app.ctrl',
+		'app.rolestate',
+		'app.spot'
 	);
 
 /**

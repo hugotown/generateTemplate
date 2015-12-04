@@ -55,7 +55,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
     });
 }
-                                event = null;
+                        if(data.workstation_id){
+                $scope.selectedWorkstation.selected = data.workstation_id;
+            }
+
+                                        event = null;
             data = null;
         });
 
@@ -88,7 +92,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {lov_request_subtype: $translate.instant('lov_request_subtype')} ,
                                 {lov_request_priority: $translate.instant('lov_request_priority')} ,
                                 {lov_request_severity: $translate.instant('lov_request_severity')} ,
-                                {owner: $translate.instant('owner')} ,
+                                {workstation_id: $translate.instant('workstation_id')} ,
                                 {Actions: $translate.instant('Actions')}
               ],
               'pagination': {
@@ -131,7 +135,39 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         });
     };
 
+                                
+        $scope.workstations = [];
+        $scope.workstation = {};
+        $scope.selectedWorkstation = {};
+                var Workstations = $injector.get('Workstations');
+            
+        $scope.findWorkstations = function($param)
+            {
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Workstations.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(workstations)
+                        {
+                            $scope.workstations = workstations.items;
+                            $scope.$emit('findWorkstationsLoaded', { data: workstations });
+                            return $scope.workstations;
+                        });
+                } else {
+                    return Workstations.query({
+                      },function(workstations)
+                        {
+                            $scope.workstations = workstations.items;
+                            $scope.$emit('findWorkstationsLoaded', { data: workstations });
+                            return $scope.workstations;
+                        });
+                }
+            };
 
+    
 $scope.lovRequestStatus = {};
     $scope.lovRequestType = {};
     $scope.lovRequestSubtype = {};
@@ -186,8 +222,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
 
                                     lov_request_severity: ($scope.lovRequestSeverity.selected) ? $scope.lovRequestSeverity.selected.name_ : '',
 
-                                    owner: this.owner,
-                                                forctrl: 'ok'
+                                    workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+
+                                                            forctrl: 'ok'
             });
 
             request.$save(function(response)
@@ -218,7 +255,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
 
                             request.lov_request_severity = ($scope.lovRequestSeverity.selected) ? $scope.lovRequestSeverity.selected.name_ : '';
 
-                            
+                            request.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
+
+                                        
         request.$update(function() {
           $location.path('requests/view/' + request.id);
           Notification.success({

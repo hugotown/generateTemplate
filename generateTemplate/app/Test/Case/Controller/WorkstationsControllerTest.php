@@ -16,11 +16,13 @@ class WorkstationsControllerTest extends ControllerTestCase {
 		'app.workstation',
 		'app.workarea',
 		'app.building',
+		'app.buildingspot',
 		'app.user',
 		'app.role',
 		'app.rolesctrl',
 		'app.ctrl',
-		'app.rolestate'
+		'app.rolestate',
+		'app.request'
 	);
 
 /**

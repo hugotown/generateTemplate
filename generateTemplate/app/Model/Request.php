@@ -3,6 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * Request Model
  *
+ * @property Workstation $Workstation
  */
 class Request extends AppModel {
 
@@ -52,5 +53,22 @@ class Request extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+	);
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Workstation' => array(
+			'className' => 'Workstation',
+			'foreignKey' => 'workstation_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
 }

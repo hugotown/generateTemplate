@@ -16,10 +16,14 @@ class RolesControllerTest extends ControllerTestCase {
 		'app.role',
 		'app.rolesctrl',
 		'app.ctrl',
+		'app.rolestate',
 		'app.user',
 		'app.workstation',
 		'app.workarea',
-		'app.building'
+		'app.building',
+		'app.buildingspot',
+		'app.request',
+		'app.spot'
 	);
 
 /**

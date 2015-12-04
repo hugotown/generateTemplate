@@ -5,6 +5,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Role $Role
  * @property Workstation $Workstation
+ * @property Buildingspot $Buildingspot
  */
 class User extends AppModel {
 
@@ -84,29 +85,29 @@ class User extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'role_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'workstation_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'lov_user_status' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'lov_user_type' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'role_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -144,6 +145,13 @@ class User extends AppModel {
 		'Workstation' => array(
 			'className' => 'Workstation',
 			'foreignKey' => 'workstation_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Buildingspot' => array(
+			'className' => 'Buildingspot',
+			'foreignKey' => 'buildingspot_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

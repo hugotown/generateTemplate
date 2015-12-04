@@ -23,6 +23,22 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         }
     });
 }
+                    if (data.lov_user_status && data.lov_user_status !== '') {
+    var lovUserStatuses = $scope.findLovs('equals', '', 'USER_STATUS', 'lovUserStatuses', data.lov_user_status);
+    lovUserStatuses.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lovUserStatus.selected = datapromise.items[0];
+        }
+    });
+}
+                    if (data.lov_user_type && data.lov_user_type !== '') {
+    var lovUserTypes = $scope.findLovs('equals', '', 'USER_TYPE', 'lovUserTypes', data.lov_user_type);
+    lovUserTypes.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lovUserType.selected = datapromise.items[0];
+        }
+    });
+}
                         if(data.role_id){
                 $scope.selectedRole.selected = data.role_id;
             }
@@ -31,15 +47,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                 $scope.selectedWorkstation.selected = data.workstation_id;
             }
 
-                            if (data.lov_user_status && data.lov_user_status !== '') {
-    var lovUserStatuses = $scope.findLovs('equals', '', 'USER_STATUS', 'lovUserStatuses', data.lov_user_status);
-    lovUserStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovUserStatus.selected = datapromise.items[0];
-        }
-    });
-}
-                                event = null;
+                                if(data.buildingspot_id){
+                $scope.selectedBuildingspot.selected = data.buildingspot_id;
+            }
+
+                                        event = null;
             data = null;
         });
 
@@ -72,9 +84,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 {firstName: $translate.instant('firstName')} ,
                                 {lastName: $translate.instant('lastName')} ,
                                 {lov_user_gender: $translate.instant('lov_user_gender')} ,
+                                {lov_user_status: $translate.instant('lov_user_status')} ,
+                                {lov_user_type: $translate.instant('lov_user_type')} ,
                                 {role_id: $translate.instant('role_id')} ,
                                 {workstation_id: $translate.instant('workstation_id')} ,
-                                {lov_user_status: $translate.instant('lov_user_status')} ,
+                                {buildingspot_id: $translate.instant('buildingspot_id')} ,
                                 {avatar: $translate.instant('avatar')} ,
                                 {Actions: $translate.instant('Actions')}
               ],
@@ -182,9 +196,42 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                 }
             };
 
+                                    
+        $scope.buildingspots = [];
+        $scope.buildingspot = {};
+        $scope.selectedBuildingspot = {};
+                var Buildingspots = $injector.get('Buildingspots');
+            
+        $scope.findBuildingspots = function($param)
+            {
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Buildingspots.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(buildingspots)
+                        {
+                            $scope.buildingspots = buildingspots.items;
+                            $scope.$emit('findBuildingspotsLoaded', { data: buildingspots });
+                            return $scope.buildingspots;
+                        });
+                } else {
+                    return Buildingspots.query({
+                      },function(buildingspots)
+                        {
+                            $scope.buildingspots = buildingspots.items;
+                            $scope.$emit('findBuildingspotsLoaded', { data: buildingspots });
+                            return $scope.buildingspots;
+                        });
+                }
+            };
+
     
 $scope.lovUserGender = {};
     $scope.lovUserStatus = {};
+    $scope.lovUserType = {};
     
 var Lovs = $injector.get('Lovs');
 $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
@@ -230,13 +277,17 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
                                 lastName: this.lastName,
                                 lov_user_gender: ($scope.lovUserGender.selected) ? $scope.lovUserGender.selected.name_ : '',
 
+                                    lov_user_status: ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '',
+
+                                    lov_user_type: ($scope.lovUserType.selected) ? $scope.lovUserType.selected.name_ : '',
+
                                     role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
 
                                             workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
 
-                                            lov_user_status: ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '',
+                                            buildingspot_id: $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null,
 
-                                    avatar: this.avatar,
+                                            avatar: this.avatar,
                                                 forctrl: 'ok'
             });
 
@@ -260,13 +311,17 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
       var user = $scope.user;
                 user.lov_user_gender = ($scope.lovUserGender.selected) ? $scope.lovUserGender.selected.name_ : '';
 
+                            user.lov_user_status = ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '';
+
+                            user.lov_user_type = ($scope.lovUserType.selected) ? $scope.lovUserType.selected.name_ : '';
+
                             user.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
 
                                         user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
 
-                                        user.lov_user_status = ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '';
+                                        user.buildingspot_id = $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null;
 
-                            
+                                        
         user.$update(function() {
           $location.path('users/view/' + user.id);
           Notification.success({

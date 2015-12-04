@@ -47,21 +47,32 @@
                 
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.manager.$invalid }">
-      <label for="manager" class="col-md-4 control-label">{{ 'manager' | translate }}</label>
-      <div class="col-md-8">
-        <input name="manager" type="text" class="form-control" data-ng-model="manager" id="manager" placeholder="{{ 'manager' | translate }}" autocomplete="off" required >
-        <span ng-show="submitted && buildingForm.manager.$invalid" class="help-block">
-          <p ng-show="buildingForm.manager.$error.required">
-            {{ 'manager field is required' | translate }}
-          </p>
-        </span>
-      </div>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.workstation_id.$invalid }">
+        <label for="workstation_id" class="col-md-4 control-label">{{ 'workstation' | translate }}</label>
+        <div class="col-md-8">
+          <div class="input-group">
+              <ui-select required ng-model="selectedWorkstation.selected" name="workstation_id" reset-search-input="false" theme="bootstrap" >
+                <ui-select-match placeholder="{{ 'Select Workstation' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="item in workstations | limitTo: 10 track by $index"  refresh="findWorkstations($select.search)" refresh-delay="500" >
+                  <div ng-bind-html="item.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <span class="input-group-btn btn-right">
+                  <a class="btn grey" type="button" ng-click="selectedWorkstation.selected = undefined">
+                      <i class="fa fa-times"></i>
+                  </a>
+              </span>
+          </div>
+            <span ng-show="submitted && buildingForm.workstation_id.$invalid" class="help-block">
+                <p ng-show="buildingForm.workstation_id.$error.required">
+                    {{ 'workstation_id field is required' | translate }}
+                </p>
+            </span>
+        </div>
     </div>
   </div>
 </div>
-
-                
+                      
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.lov_building_status.$invalid }">

@@ -78,6 +78,14 @@
                                         {{ ( user.lov_user_gender || '...' ) | translate  }}
                                       </td>
 
+                                                                          <td class="tasty-table-td">
+                                        {{ ( user.lov_user_status || '...' ) | translate  }}
+                                      </td>
+
+                                                                          <td class="tasty-table-td">
+                                        {{ ( user.lov_user_type || '...' ) | translate  }}
+                                      </td>
+
                                                                                       <td class="tasty-table-td">
                                                     <a ng-if="user.role_id.id" ng-disabled="!session.aclstates.rolesView" href="/#/roles/view/{{user.role_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.rolesView) ? 'disabled' : ''}}">
                                                         {{ ( user.role_id.name || '...' ) | translate  }}
@@ -94,11 +102,15 @@
                                                     <a ng-if="!user.workstation_id.id" href="javascript:;">...</a>
                                                   </td>
 
-                                                                                      <td class="tasty-table-td">
-                                        {{ ( user.lov_user_status || '...' ) | translate  }}
-                                      </td>
+                                                                                                  <td class="tasty-table-td">
+                                                    <a ng-if="user.buildingspot_id.id" ng-disabled="!session.aclstates.buildingspotsView" href="/#/buildingspots/view/{{user.buildingspot_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.buildingspotsView) ? 'disabled' : ''}}">
+                                                        {{ ( user.buildingspot_id.name || '...' ) | translate  }}
+                                                        <i class="fa fa-share"></i>
+                                                    </a>
+                                                    <a ng-if="!user.buildingspot_id.id" href="javascript:;">...</a>
+                                                  </td>
 
-                                                                          <td class="tasty-table-td">
+                                                                                      <td class="tasty-table-td">
                                         {{ ( user.avatar || '...' ) | translate  }}
                                       </td>
 

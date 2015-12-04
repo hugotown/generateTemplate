@@ -1,17 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Workstation Model
+ * Buildingspot Model
  *
- * @property Workarea $Workarea
- * @property Workstation $ParentWorkstation
  * @property Building $Building
- * @property Building $Building
- * @property Request $Request
  * @property User $User
- * @property Workstation $ChildWorkstation
  */
-class Workstation extends AppModel {
+class Buildingspot extends AppModel {
 
 /**
  * Validation rules
@@ -19,9 +14,9 @@ class Workstation extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+		'createdAt' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -29,9 +24,9 @@ class Workstation extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'employeeNumber' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+		'updatedAt' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -39,7 +34,7 @@ class Workstation extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'workarea_id' => array(
+		'createdBy' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -49,7 +44,27 @@ class Workstation extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'lov_workstation_status' => array(
+		'updatedBy' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'building_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'name' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -69,20 +84,6 @@ class Workstation extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Workarea' => array(
-			'className' => 'Workarea',
-			'foreignKey' => 'workarea_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'ParentWorkstation' => array(
-			'className' => 'Workstation',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
 		'Building' => array(
 			'className' => 'Building',
 			'foreignKey' => 'building_id',
@@ -98,48 +99,9 @@ class Workstation extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Building' => array(
-			'className' => 'Building',
-			'foreignKey' => 'workstation_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Request' => array(
-			'className' => 'Request',
-			'foreignKey' => 'workstation_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'User' => array(
 			'className' => 'User',
-			'foreignKey' => 'workstation_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'ChildWorkstation' => array(
-			'className' => 'Workstation',
-			'foreignKey' => 'parent_id',
+			'foreignKey' => 'buildingspot_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',

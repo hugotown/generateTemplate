@@ -20,7 +20,9 @@ class UsersControllerTest extends ControllerTestCase {
 		'app.rolestate',
 		'app.workstation',
 		'app.workarea',
-		'app.building'
+		'app.building',
+		'app.buildingspot',
+		'app.request'
 	);
 
 /**

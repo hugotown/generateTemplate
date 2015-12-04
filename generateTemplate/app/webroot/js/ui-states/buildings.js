@@ -13,6 +13,7 @@ ObelitCRMApp.config(['$stateProvider', '$urlRouterProvider', function($stateProv
 	            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
 	            files: [
 	                'js/buildings.js',
+					'js/buildingspots.js',
 					'js/workstations.js',
  
 	            ]                    
@@ -58,6 +59,18 @@ ObelitCRMApp.config(['$stateProvider', '$urlRouterProvider', function($stateProv
 
 
 	
+	
+    $stateProvider.state("buildings.edit.buildingspots", {
+        url: "/buildingspots",
+        templateUrl: '',
+	    data: {pageTitle: 'Buildings', 
+	    	pageSubTitle: '',
+	    },
+        views: {
+            // the child views will be defined here (absolutely named)
+            'editTab': { templateUrl: '/view/buildingspots/list.html' },
+        }
+    }); 
 	
     $stateProvider.state("buildings.edit.workstations", {
         url: "/workstations",

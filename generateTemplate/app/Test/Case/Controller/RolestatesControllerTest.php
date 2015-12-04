@@ -20,7 +20,9 @@ class RolestatesControllerTest extends ControllerTestCase {
 		'app.user',
 		'app.workstation',
 		'app.workarea',
-		'app.building'
+		'app.building',
+		'app.buildingspot',
+		'app.request'
 	);
 
 /**

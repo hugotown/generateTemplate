@@ -15,7 +15,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-            if (data.lov_building_status && data.lov_building_status !== '') {
+                if(data.workstation_id){
+                $scope.selectedWorkstation.selected = data.workstation_id;
+            }
+
+                            if (data.lov_building_status && data.lov_building_status !== '') {
     var lovBuildingStatuses = $scope.findLovs('equals', '', 'BUILDING_STATUS', 'lovBuildingStatuses', data.lov_building_status);
     lovBuildingStatuses.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
@@ -51,7 +55,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
               'header': [
                                         {name: $translate.instant('name')} ,
                                 {taxNumber: $translate.instant('taxNumber')} ,
-                                {manager: $translate.instant('manager')} ,
+                                {workstation_id: $translate.instant('workstation_id')} ,
                                 {lov_building_status: $translate.instant('lov_building_status')} ,
                                 {description: $translate.instant('description')} ,
                                 {Actions: $translate.instant('Actions')}
@@ -96,7 +100,39 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         });
     };
 
+                                
+        $scope.workstations = [];
+        $scope.workstation = {};
+        $scope.selectedWorkstation = {};
+                var Workstations = $injector.get('Workstations');
+            
+        $scope.findWorkstations = function($param)
+            {
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Workstations.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            }
+                          }
+                      },function(workstations)
+                        {
+                            $scope.workstations = workstations.items;
+                            $scope.$emit('findWorkstationsLoaded', { data: workstations });
+                            return $scope.workstations;
+                        });
+                } else {
+                    return Workstations.query({
+                      },function(workstations)
+                        {
+                            $scope.workstations = workstations.items;
+                            $scope.$emit('findWorkstationsLoaded', { data: workstations });
+                            return $scope.workstations;
+                        });
+                }
+            };
 
+    
 $scope.lovBuildingStatus = {};
     
 var Lovs = $injector.get('Lovs');
@@ -137,8 +173,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
 
                                 name: this.name,
                                 taxNumber: this.taxNumber,
-                                manager: this.manager,
-                                lov_building_status: ($scope.lovBuildingStatus.selected) ? $scope.lovBuildingStatus.selected.name_ : '',
+                                workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+
+                                            lov_building_status: ($scope.lovBuildingStatus.selected) ? $scope.lovBuildingStatus.selected.name_ : '',
 
                                     description: this.description,
                                                 forctrl: 'ok'
@@ -162,7 +199,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var building = $scope.building;
-                building.lov_building_status = ($scope.lovBuildingStatus.selected) ? $scope.lovBuildingStatus.selected.name_ : '';
+                building.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
+
+                                        building.lov_building_status = ($scope.lovBuildingStatus.selected) ? $scope.lovBuildingStatus.selected.name_ : '';
 
                             
         building.$update(function() {

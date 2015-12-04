@@ -16,10 +16,14 @@ class CtrlsControllerTest extends ControllerTestCase {
 		'app.ctrl',
 		'app.rolesctrl',
 		'app.role',
+		'app.rolestate',
 		'app.user',
 		'app.workstation',
 		'app.workarea',
-		'app.building'
+		'app.building',
+		'app.buildingspot',
+		'app.request',
+		'app.spot'
 	);
 
 /**

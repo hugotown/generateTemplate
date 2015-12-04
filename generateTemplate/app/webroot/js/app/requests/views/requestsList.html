@@ -78,11 +78,15 @@
                                         {{ ( request.lov_request_severity || '...' ) | translate  }}
                                       </td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.owner || '...' ) | translate  }}
-                                      </td>
+                                                                                      <td class="tasty-table-td">
+                                                    <a ng-if="request.workstation_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{request.workstation_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
+                                                        {{ ( request.workstation_id.name || '...' ) | translate  }}
+                                                        <i class="fa fa-share"></i>
+                                                    </a>
+                                                    <a ng-if="!request.workstation_id.id" href="javascript:;">...</a>
+                                                  </td>
 
-                                                                  <td>
+                                                                              <td>
                                 <div class="actions">
                                     <a acl-check="requestsView" href="/#/requests/view/{{request.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>

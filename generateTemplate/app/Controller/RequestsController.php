@@ -106,7 +106,8 @@
 								'Request.lov_request_subtype',
 								'Request.lov_request_priority',
 								'Request.lov_request_severity',
-								'Request.owner',
+								'Workstation.name',
+								'Request.workstation_id',
 								'Request.id',
 							);
 					        $this->paginate = array(
