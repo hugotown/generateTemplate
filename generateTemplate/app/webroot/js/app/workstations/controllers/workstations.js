@@ -15,28 +15,34 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                if(data.workarea_id){
-                $scope.selectedWorkarea.selected = data.workarea_id;
-            }
+            
+if(data.workarea_id){
+    $scope.selectedWorkarea.selected = data.workarea_id;
+}
 
-                            if (data.lov_workstation_status && data.lov_workstation_status !== '') {
-    var lovWorkstationStatuses = $scope.findLovs('equals', '', 'WORKSTATION_STATUS', 'lovWorkstationStatuses', data.lov_workstation_status);
+                            
+if (data.lov_workstation_status && data.lov_workstation_status !== '') {
+    var lovWorkstationStatuses = $scope.fgetLovs('equals', '', 'WORKSTATION_STATUS', 'lovWorkstationStatuses', data.lov_workstation_status);
     lovWorkstationStatuses.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovWorkstationStatus.selected = datapromise.items[0];
         }
     });
 }
-                        if(data.parentWorkstation_id){
-                $scope.selectedWorkstation.selected = data.parentWorkstation_id;
-            }
 
-                                if(data.building_id){
-                $scope.selectedBuilding.selected = data.building_id;
-            }
+                    
+if(data.parentWorkstation_id){
+    $scope.selectedWorkstation.selected = data.parent_id;
+}
 
-                                        event = null;
-            data = null;
+                            
+if(data.building_id){
+    $scope.selectedBuilding.selected = data.building_id;
+}
+
+                            
+event = null;
+data = null;
         });
 
 
@@ -61,14 +67,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {name: $translate.instant('name')} ,
-                                {employeeNumber: $translate.instant('employeeNumber')} ,
-                                {workarea_id: $translate.instant('workarea_id')} ,
-                                {lov_workstation_status: $translate.instant('lov_workstation_status')} ,
-                                {parent_id: $translate.instant('parent_id')} ,
-                                {building_id: $translate.instant('building_id')} ,
-                                {description: $translate.instant('description')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'workstation-name': $translate.instant('workstation-name')} ,
+
+                                
+{'workstation-employeeNumber': $translate.instant('workstation-employeeNumber')} ,
+
+                                
+{'workstation-workarea_id': $translate.instant('workstation-workarea_id')} ,
+
+                                
+{'workstation-lov_workstation_status': $translate.instant('workstation-lov_workstation_status')} ,
+
+                                
+{'workstation-parent_id': $translate.instant('workstation-parent_id')} ,
+
+                                
+{'workstation-building_id': $translate.instant('workstation-building_id')} ,
+
+                                
+{'workstation-description': $translate.instant('workstation-description')} ,
+
+                                {'workstation-actions': $translate.instant('workstation-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -82,7 +102,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Workstations = $injector.get('Workstations');
 
@@ -114,7 +133,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.workareas = [];
         $scope.workarea = {};
         $scope.selectedWorkarea = {};
-                var Workareas = $injector.get('Workareas');
+
+        
+        var Workareas = $injector.get('Workareas');
+
             
         $scope.findWorkareas = function($param)
             {
@@ -123,7 +145,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_workarea_status : 'active'
                           }
                       },function(workareas)
                         {
@@ -133,6 +156,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Workareas.query({
+                          where: {
+                            lov_workarea_status : 'active'
+                          }
                       },function(workareas)
                         {
                             $scope.workareas = workareas.items;
@@ -146,6 +172,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.workstations = [];
         $scope.parentWorkstation = {};
         $scope.selectedWorkstation = {};
+
         
         $scope.findWorkstations = function($param)
             {
@@ -154,7 +181,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_workstation_status : 'active'
                           }
                       },function(workstations)
                         {
@@ -164,6 +192,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Workstations.query({
+                          where: {
+                            lov_workstation_status : 'active'
+                          }
                       },function(workstations)
                         {
                             $scope.workstations = workstations.items;
@@ -177,7 +208,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.buildings = [];
         $scope.building = {};
         $scope.selectedBuilding = {};
-                var Buildings = $injector.get('Buildings');
+
+        
+        var Buildings = $injector.get('Buildings');
+
             
         $scope.findBuildings = function($param)
             {
@@ -186,7 +220,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_building_status : 'active'
                           }
                       },function(buildings)
                         {
@@ -196,6 +231,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Buildings.query({
+                          where: {
+                            lov_building_status : 'active'
+                          }
                       },function(buildings)
                         {
                             $scope.buildings = buildings.items;
@@ -206,10 +244,12 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             };
 
     
+
 $scope.lovWorkstationStatus = {};
+
     
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -233,6 +273,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -244,18 +287,29 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var workstation = new Workstations({
 
-                                name: this.name,
-                                employeeNumber: this.employeeNumber,
-                                workarea_id: $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null,
+                                
+name: this.name,
 
-                                            lov_workstation_status: ($scope.lovWorkstationStatus.selected) ? $scope.lovWorkstationStatus.selected.name_ : '',
+                                
+employeeNumber: this.employeeNumber,
 
-                                    parent_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+                                
+workarea_id: $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null,
 
-                                            building_id: $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null,
+                                            
+lov_workstation_status: ($scope.lovWorkstationStatus.selected) ? $scope.lovWorkstationStatus.selected.name_ : '',
 
-                                            description: this.description,
-                                                forctrl: 'ok'
+                                    
+parent_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+
+                                            
+building_id: $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null,
+
+                                            
+description: this.description,
+
+                                
+forctrl: 'ok'
             });
 
             workstation.$save(function(response)
@@ -276,13 +330,17 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var workstation = $scope.workstation;
-                workstation.workarea_id = $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null;
+                
+workstation.workarea_id = $scope.selectedWorkarea.selected ? $scope.selectedWorkarea.selected.id : null;
 
-                                        workstation.lov_workstation_status = ($scope.lovWorkstationStatus.selected) ? $scope.lovWorkstationStatus.selected.name_ : '';
+                                        
+workstation.lov_workstation_status = ($scope.lovWorkstationStatus.selected) ? $scope.lovWorkstationStatus.selected.name_ : '';
 
-                            workstation.parent_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
+                            
+workstation.parent_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
 
-                                        workstation.building_id = $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null;
+                                        
+workstation.building_id = $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null;
 
                                         
         workstation.$update(function() {

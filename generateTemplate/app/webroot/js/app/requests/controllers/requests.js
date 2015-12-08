@@ -15,52 +15,69 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-            if (data.lov_request_status && data.lov_request_status !== '') {
-    var lovRequestStatuses = $scope.findLovs('equals', '', 'REQUEST_STATUS', 'lovRequestStatuses', data.lov_request_status);
+            
+if(data.buildingspot_id){
+    $scope.selectedBuildingspot.selected = data.buildingspot_id;
+}
+
+                            
+if (data.lov_request_status && data.lov_request_status !== '') {
+    var lovRequestStatuses = $scope.fgetLovs('equals', '', 'REQUEST_STATUS', 'lovRequestStatuses', data.lov_request_status);
     lovRequestStatuses.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovRequestStatus.selected = datapromise.items[0];
         }
     });
 }
-                    if (data.lov_request_type && data.lov_request_type !== '') {
-    var lovRequestTypes = $scope.findLovs('equals', '', 'REQUEST_TYPE', 'lovRequestTypes', data.lov_request_type);
+
+                    
+if (data.lov_request_type && data.lov_request_type !== '') {
+    var lovRequestTypes = $scope.fgetLovs('equals', '', 'REQUEST_TYPE', 'lovRequestTypes', data.lov_request_type);
     lovRequestTypes.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovRequestType.selected = datapromise.items[0];
         }
     });
 }
-                    if (data.lov_request_subtype && data.lov_request_subtype !== '') {
-    var lovRequestSubtypes = $scope.findLovs('equals', '', 'REQUEST_SUBTYPE', 'lovRequestSubtypes', data.lov_request_subtype);
+
+                    
+if (data.lov_request_subtype && data.lov_request_subtype !== '') {
+    var lovRequestSubtypes = $scope.fgetLovs('equals', '', 'REQUEST_SUBTYPE', 'lovRequestSubtypes', data.lov_request_subtype);
     lovRequestSubtypes.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovRequestSubtype.selected = datapromise.items[0];
         }
     });
 }
-                    if (data.lov_request_priority && data.lov_request_priority !== '') {
-    var lovRequestPriorities = $scope.findLovs('equals', '', 'REQUEST_PRIORITY', 'lovRequestPriorities', data.lov_request_priority);
+
+                    
+if (data.lov_request_priority && data.lov_request_priority !== '') {
+    var lovRequestPriorities = $scope.fgetLovs('equals', '', 'REQUEST_PRIORITY', 'lovRequestPriorities', data.lov_request_priority);
     lovRequestPriorities.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovRequestPriority.selected = datapromise.items[0];
         }
     });
 }
-                    if (data.lov_request_severity && data.lov_request_severity !== '') {
-    var lovRequestSeverities = $scope.findLovs('equals', '', 'REQUEST_SEVERITY', 'lovRequestSeverities', data.lov_request_severity);
+
+                    
+if (data.lov_request_severity && data.lov_request_severity !== '') {
+    var lovRequestSeverities = $scope.fgetLovs('equals', '', 'REQUEST_SEVERITY', 'lovRequestSeverities', data.lov_request_severity);
     lovRequestSeverities.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovRequestSeverity.selected = datapromise.items[0];
         }
     });
 }
-                        if(data.workstation_id){
-                $scope.selectedWorkstation.selected = data.workstation_id;
-            }
 
-                                        event = null;
-            data = null;
+                    
+if(data.workstation_id){
+    $scope.selectedWorkstation.selected = data.workstation_id;
+}
+
+                            
+event = null;
+data = null;
         });
 
 
@@ -85,15 +102,34 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {name: $translate.instant('name')} ,
-                                {description: $translate.instant('description')} ,
-                                {lov_request_status: $translate.instant('lov_request_status')} ,
-                                {lov_request_type: $translate.instant('lov_request_type')} ,
-                                {lov_request_subtype: $translate.instant('lov_request_subtype')} ,
-                                {lov_request_priority: $translate.instant('lov_request_priority')} ,
-                                {lov_request_severity: $translate.instant('lov_request_severity')} ,
-                                {workstation_id: $translate.instant('workstation_id')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'request-buildingspot_id': $translate.instant('request-buildingspot_id')} ,
+
+                                
+{'request-name': $translate.instant('request-name')} ,
+
+                                
+{'request-lov_request_status': $translate.instant('request-lov_request_status')} ,
+
+                                
+{'request-lov_request_type': $translate.instant('request-lov_request_type')} ,
+
+                                
+{'request-lov_request_subtype': $translate.instant('request-lov_request_subtype')} ,
+
+                                
+{'request-lov_request_priority': $translate.instant('request-lov_request_priority')} ,
+
+                                
+{'request-lov_request_severity': $translate.instant('request-lov_request_severity')} ,
+
+                                
+{'request-workstation_id': $translate.instant('request-workstation_id')} ,
+
+                                
+{'request-description': $translate.instant('request-description')} ,
+
+                                {'request-actions': $translate.instant('request-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -107,7 +143,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Requests = $injector.get('Requests');
 
@@ -136,10 +171,52 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
     };
 
                                 
+        $scope.buildingspots = [];
+        $scope.buildingspot = {};
+        $scope.selectedBuildingspot = {};
+
+        
+        var Buildingspots = $injector.get('Buildingspots');
+
+            
+        $scope.findBuildingspots = function($param)
+            {
+                if(typeof $param !== 'undefined' && $param !== ''){
+                    return Buildingspots.query({
+                          where: {
+                              name: {
+                                contains: $param
+                            },
+                            lov_buildingspot_status : 'active'
+                          }
+                      },function(buildingspots)
+                        {
+                            $scope.buildingspots = buildingspots.items;
+                            $scope.$emit('findBuildingspotsLoaded', { data: buildingspots });
+                            return $scope.buildingspots;
+                        });
+                } else {
+                    return Buildingspots.query({
+                          where: {
+                            lov_buildingspot_status : 'active'
+                          }
+                      },function(buildingspots)
+                        {
+                            $scope.buildingspots = buildingspots.items;
+                            $scope.$emit('findBuildingspotsLoaded', { data: buildingspots });
+                            return $scope.buildingspots;
+                        });
+                }
+            };
+
+                                    
         $scope.workstations = [];
         $scope.workstation = {};
         $scope.selectedWorkstation = {};
-                var Workstations = $injector.get('Workstations');
+
+        
+        var Workstations = $injector.get('Workstations');
+
             
         $scope.findWorkstations = function($param)
             {
@@ -148,7 +225,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_workstation_status : 'active'
                           }
                       },function(workstations)
                         {
@@ -158,6 +236,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Workstations.query({
+                          where: {
+                            lov_workstation_status : 'active'
+                          }
                       },function(workstations)
                         {
                             $scope.workstations = workstations.items;
@@ -168,14 +249,24 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             };
 
     
+
 $scope.lovRequestStatus = {};
-    $scope.lovRequestType = {};
-    $scope.lovRequestSubtype = {};
-    $scope.lovRequestPriority = {};
-    $scope.lovRequestSeverity = {};
+
+    
+$scope.lovRequestType = {};
+
+    
+$scope.lovRequestSubtype = {};
+
+    
+$scope.lovRequestPriority = {};
+
+    
+$scope.lovRequestSeverity = {};
+
     
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -199,6 +290,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -210,21 +304,35 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var request = new Requests({
 
-                                name: this.name,
-                                description: this.description,
-                                lov_request_status: ($scope.lovRequestStatus.selected) ? $scope.lovRequestStatus.selected.name_ : '',
+                                
+buildingspot_id: $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null,
 
-                                    lov_request_type: ($scope.lovRequestType.selected) ? $scope.lovRequestType.selected.name_ : '',
+                                            
+name: this.name,
 
-                                    lov_request_subtype: ($scope.lovRequestSubtype.selected) ? $scope.lovRequestSubtype.selected.name_ : '',
+                                
+lov_request_status: ($scope.lovRequestStatus.selected) ? $scope.lovRequestStatus.selected.name_ : '',
 
-                                    lov_request_priority: ($scope.lovRequestPriority.selected) ? $scope.lovRequestPriority.selected.name_ : '',
+                                    
+lov_request_type: ($scope.lovRequestType.selected) ? $scope.lovRequestType.selected.name_ : '',
 
-                                    lov_request_severity: ($scope.lovRequestSeverity.selected) ? $scope.lovRequestSeverity.selected.name_ : '',
+                                    
+lov_request_subtype: ($scope.lovRequestSubtype.selected) ? $scope.lovRequestSubtype.selected.name_ : '',
 
-                                    workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+                                    
+lov_request_priority: ($scope.lovRequestPriority.selected) ? $scope.lovRequestPriority.selected.name_ : '',
 
-                                                            forctrl: 'ok'
+                                    
+lov_request_severity: ($scope.lovRequestSeverity.selected) ? $scope.lovRequestSeverity.selected.name_ : '',
+
+                                    
+workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+
+                                            
+description: this.description,
+
+                                
+forctrl: 'ok'
             });
 
             request.$save(function(response)
@@ -245,17 +353,26 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var request = $scope.request;
-                request.lov_request_status = ($scope.lovRequestStatus.selected) ? $scope.lovRequestStatus.selected.name_ : '';
+                
+request.buildingspot_id = $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null;
 
-                            request.lov_request_type = ($scope.lovRequestType.selected) ? $scope.lovRequestType.selected.name_ : '';
+                                        
+request.lov_request_status = ($scope.lovRequestStatus.selected) ? $scope.lovRequestStatus.selected.name_ : '';
 
-                            request.lov_request_subtype = ($scope.lovRequestSubtype.selected) ? $scope.lovRequestSubtype.selected.name_ : '';
+                            
+request.lov_request_type = ($scope.lovRequestType.selected) ? $scope.lovRequestType.selected.name_ : '';
 
-                            request.lov_request_priority = ($scope.lovRequestPriority.selected) ? $scope.lovRequestPriority.selected.name_ : '';
+                            
+request.lov_request_subtype = ($scope.lovRequestSubtype.selected) ? $scope.lovRequestSubtype.selected.name_ : '';
 
-                            request.lov_request_severity = ($scope.lovRequestSeverity.selected) ? $scope.lovRequestSeverity.selected.name_ : '';
+                            
+request.lov_request_priority = ($scope.lovRequestPriority.selected) ? $scope.lovRequestPriority.selected.name_ : '';
 
-                            request.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
+                            
+request.lov_request_severity = ($scope.lovRequestSeverity.selected) ? $scope.lovRequestSeverity.selected.name_ : '';
+
+                            
+request.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
 
                                         
         request.$update(function() {

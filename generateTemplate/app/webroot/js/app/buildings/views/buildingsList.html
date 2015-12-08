@@ -50,29 +50,34 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="building in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( building.name || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  {{ ( building.name || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( building.taxNumber || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( building.taxNumber || '...' ) | translate  }}
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                                    <a ng-if="building.workstation_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{building.workstation_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
-                                                        {{ ( building.workstation_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!building.workstation_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                    
+<td class="tasty-table-td">
+  <a ng-if="building.workstation_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{building.workstation_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
+      {{ ( building.workstation_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!building.workstation_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                        {{ ( building.lov_building_status || '...' ) | translate  }}
-                                      </td>
+                                                
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'BUILDING_STATUS', 'lov_building_status', building.lov_building_status, building)" >
+  {{ ( building.lov_building_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( building.description || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( building.description || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">

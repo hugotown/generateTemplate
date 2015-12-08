@@ -15,12 +15,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.name.$invalid }">
-      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <label for="name" class="col-md-4 control-label">{{ 'workarea-name' | translate }}</label>
       <div class="col-md-8">
         <input name="name" type="text" class="form-control" data-ng-model="workarea.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && workareaForm.name.$invalid" class="help-block">
           <p ng-show="workareaForm.name.$error.required">
-            {{ 'name field is required' | translate }}
+            {{ 'workarea-name field is required' | translate }}
           </p>
         </span>
       </div>
@@ -32,12 +32,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.description.$invalid }">
-      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+      <label for="description" class="col-md-4 control-label">{{ 'workarea-description' | translate }}</label>
       <div class="col-md-8">
         <input name="description" type="text" class="form-control" data-ng-model="workarea.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && workareaForm.description.$invalid" class="help-block">
           <p ng-show="workareaForm.description.$error.required">
-            {{ 'description field is required' | translate }}
+            {{ 'workarea-description field is required' | translate }}
           </p>
         </span>
       </div>
@@ -49,12 +49,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.lov_workarea_status.$invalid }">
-          <label for="lov_workarea_status" class="col-md-4 control-label">{{ 'lov_workarea_status' | translate }}</label>
+          <label for="lov_workarea_status" class="col-md-4 control-label">{{ 'workarea-lov_workarea_status' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select ng-model="lovWorkareaStatus.selected" theme="bootstrap" name="lov_workarea_status" >
-                      <ui-select-match placeholder="Select...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
-                      <ui-select-choices repeat="item in lovWorkareaStatuses" refresh="findLovs( 'contains', 'name_' + selectedLanguage, 'WORKAREA_STATUS', 'lovWorkareaStatuses', $select.search )" refresh-delay="500">
+                  <ui-select required ng-model="lovWorkareaStatus.selected" theme="bootstrap" name="lov_workarea_status" >
+                      <ui-select-match placeholder="{{ 'Select lov_workarea_status' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovWorkareaStatuses" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'WORKAREA_STATUS', 'lovWorkareaStatuses', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
                       </ui-select-choices>
                   </ui-select>
@@ -66,7 +66,7 @@
               </div>
               <span ng-show="submitted && workareaForm.lov_workarea_status.$invalid" class="help-block">
                   <p ng-show="workareaForm.lov_workarea_status.$error.required">
-                      {{ 'lov_workarea_status field is required' | translate }}
+                      {{ 'workarea-lov_workarea_status field is required' | translate }}
                   </p>
               </span>
           </div>
@@ -82,7 +82,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
           <button type="submit" acl-check="workareasEdit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a ui-sref="workareasList" acl-check="workareasList" class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
         </div>
       </div>
     </div>

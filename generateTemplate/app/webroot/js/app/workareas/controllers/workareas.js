@@ -15,16 +15,19 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-            if (data.lov_workarea_status && data.lov_workarea_status !== '') {
-    var lovWorkareaStatuses = $scope.findLovs('equals', '', 'WORKAREA_STATUS', 'lovWorkareaStatuses', data.lov_workarea_status);
+            
+if (data.lov_workarea_status && data.lov_workarea_status !== '') {
+    var lovWorkareaStatuses = $scope.fgetLovs('equals', '', 'WORKAREA_STATUS', 'lovWorkareaStatuses', data.lov_workarea_status);
     lovWorkareaStatuses.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovWorkareaStatus.selected = datapromise.items[0];
         }
     });
 }
-                                event = null;
-            data = null;
+
+                    
+event = null;
+data = null;
         });
 
 
@@ -49,10 +52,16 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {name: $translate.instant('name')} ,
-                                {description: $translate.instant('description')} ,
-                                {lov_workarea_status: $translate.instant('lov_workarea_status')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'workarea-name': $translate.instant('workarea-name')} ,
+
+                                
+{'workarea-description': $translate.instant('workarea-description')} ,
+
+                                
+{'workarea-lov_workarea_status': $translate.instant('workarea-lov_workarea_status')} ,
+
+                                {'workarea-actions': $translate.instant('workarea-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -66,7 +75,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Workareas = $injector.get('Workareas');
 
@@ -95,10 +103,12 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
     };
 
 
+
 $scope.lovWorkareaStatus = {};
+
     
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -122,6 +132,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -133,11 +146,17 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var workarea = new Workareas({
 
-                                name: this.name,
-                                description: this.description,
-                                lov_workarea_status: ($scope.lovWorkareaStatus.selected) ? $scope.lovWorkareaStatus.selected.name_ : '',
+                                
+name: this.name,
 
-                                                    forctrl: 'ok'
+                                
+description: this.description,
+
+                                
+lov_workarea_status: ($scope.lovWorkareaStatus.selected) ? $scope.lovWorkareaStatus.selected.name_ : '',
+
+                                    
+forctrl: 'ok'
             });
 
             workarea.$save(function(response)
@@ -158,7 +177,8 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var workarea = $scope.workarea;
-                workarea.lov_workarea_status = ($scope.lovWorkareaStatus.selected) ? $scope.lovWorkareaStatus.selected.name_ : '';
+                
+workarea.lov_workarea_status = ($scope.lovWorkareaStatus.selected) ? $scope.lovWorkareaStatus.selected.name_ : '';
 
                             
         workarea.$update(function() {

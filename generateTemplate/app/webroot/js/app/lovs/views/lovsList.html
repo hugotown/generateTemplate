@@ -50,37 +50,44 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="lov in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( lov.orderShow || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  {{ ( lov.orderShow || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( lov.lovType || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( lov.lovType || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( lov.name_ || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( lov.name_ || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( lov.name_es_MX || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( lov.name_es_MX || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( lov.name_en_US || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( lov.name_en_US || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( lov.status || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( lov.status || '...' ) | translate  }}
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                                    <a ng-if="lov.parent_id.id" ng-disabled="!session.aclstates.lovsView" href="/#/lovs/view/{{lov.parent_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.lovsView) ? 'disabled' : ''}}">
-                                                        {{ ( lov.parent_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!lov.parent_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                    
+<td class="tasty-table-td">
+  <a ng-if="lov.parent_id.id" ng-disabled="!session.aclstates.lovsView" href="/#/lovs/view/{{lov.parent_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.lovsView) ? 'disabled' : ''}}">
+      {{ ( lov.parent_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!lov.parent_id.id" href="javascript:;">...</a>
+</td>
 
                                                                               <td>
                                 <div class="actions">

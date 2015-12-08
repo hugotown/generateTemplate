@@ -4,6 +4,7 @@ App::uses('AppModel', 'Model');
  * Buildingspot Model
  *
  * @property Building $Building
+ * @property Request $Request
  * @property User $User
  */
 class Buildingspot extends AppModel {
@@ -99,6 +100,19 @@ class Buildingspot extends AppModel {
  * @var array
  */
 	public $hasMany = array(
+		'Request' => array(
+			'className' => 'Request',
+			'foreignKey' => 'buildingspot_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'buildingspot_id',

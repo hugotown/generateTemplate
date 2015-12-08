@@ -15,16 +15,29 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                if(data.role_id){
-                $scope.selectedRole.selected = data.role_id;
-            }
+            
+if(data.role_id){
+    $scope.selectedRole.selected = data.role_id;
+}
 
-                                if(data.ctrl_id){
-                $scope.selectedCtrl.selected = data.ctrl_id;
-            }
+                            
+if(data.ctrl_id){
+    $scope.selectedCtrl.selected = data.ctrl_id;
+}
 
-                                        event = null;
-            data = null;
+                            
+if (data.lov_rolesctrl_status && data.lov_rolesctrl_status !== '') {
+    var lovRolesctrlStatuses = $scope.fgetLovs('equals', '', 'ROLESCTRL_STATUS', 'lovRolesctrlStatuses', data.lov_rolesctrl_status);
+    lovRolesctrlStatuses.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lovRolesctrlStatus.selected = datapromise.items[0];
+        }
+    });
+}
+
+                    
+event = null;
+data = null;
         });
 
 
@@ -49,20 +62,49 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {role_id: $translate.instant('role_id')} ,
-                                {ctrl_id: $translate.instant('ctrl_id')} ,
-                                {getAction: $translate.instant('getAction')} ,
-                                {postAction: $translate.instant('postAction')} ,
-                                {putAction: $translate.instant('putAction')} ,
-                                {patchAction: $translate.instant('patchAction')} ,
-                                {deleteAction: $translate.instant('deleteAction')} ,
-                                {copyAction: $translate.instant('copyAction')} ,
-                                {headAction: $translate.instant('headAction')} ,
-                                {optionsAction: $translate.instant('optionsAction')} ,
-                                {linkAction: $translate.instant('linkAction')} ,
-                                {unlinkAction: $translate.instant('unlinkAction')} ,
-                                {purgeAction: $translate.instant('purgeAction')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'rolesctrl-role_id': $translate.instant('rolesctrl-role_id')} ,
+
+                                
+{'rolesctrl-ctrl_id': $translate.instant('rolesctrl-ctrl_id')} ,
+
+                                
+{'rolesctrl-lov_rolesctrl_status': $translate.instant('rolesctrl-lov_rolesctrl_status')} ,
+
+                                
+{'rolesctrl-getAction': $translate.instant('rolesctrl-getAction')} ,
+
+                                
+{'rolesctrl-postAction': $translate.instant('rolesctrl-postAction')} ,
+
+                                
+{'rolesctrl-putAction': $translate.instant('rolesctrl-putAction')} ,
+
+                                
+{'rolesctrl-patchAction': $translate.instant('rolesctrl-patchAction')} ,
+
+                                
+{'rolesctrl-deleteAction': $translate.instant('rolesctrl-deleteAction')} ,
+
+                                
+{'rolesctrl-copyAction': $translate.instant('rolesctrl-copyAction')} ,
+
+                                
+{'rolesctrl-headAction': $translate.instant('rolesctrl-headAction')} ,
+
+                                
+{'rolesctrl-optionsAction': $translate.instant('rolesctrl-optionsAction')} ,
+
+                                
+{'rolesctrl-linkAction': $translate.instant('rolesctrl-linkAction')} ,
+
+                                
+{'rolesctrl-unlinkAction': $translate.instant('rolesctrl-unlinkAction')} ,
+
+                                
+{'rolesctrl-purgeAction': $translate.instant('rolesctrl-purgeAction')} ,
+
+                                {'rolesctrl-actions': $translate.instant('rolesctrl-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -76,7 +118,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Rolesctrls = $injector.get('Rolesctrls');
 
@@ -108,7 +149,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.roles = [];
         $scope.role = {};
         $scope.selectedRole = {};
-                var Roles = $injector.get('Roles');
+
+        
+        var Roles = $injector.get('Roles');
+
             
         $scope.findRoles = function($param)
             {
@@ -117,7 +161,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_role_status : 'active'
                           }
                       },function(roles)
                         {
@@ -127,6 +172,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Roles.query({
+                          where: {
+                            lov_role_status : 'active'
+                          }
                       },function(roles)
                         {
                             $scope.roles = roles.items;
@@ -140,7 +188,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.ctrls = [];
         $scope.ctrl = {};
         $scope.selectedCtrl = {};
-                var Ctrls = $injector.get('Ctrls');
+
+        
+        var Ctrls = $injector.get('Ctrls');
+
             
         $scope.findCtrls = function($param)
             {
@@ -149,7 +200,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_ctrl_status : 'active'
                           }
                       },function(ctrls)
                         {
@@ -159,6 +211,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Ctrls.query({
+                          where: {
+                            lov_ctrl_status : 'active'
+                          }
                       },function(ctrls)
                         {
                             $scope.ctrls = ctrls.items;
@@ -170,8 +225,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
     
 
+$scope.lovRolesctrlStatus = {};
+
+    
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -195,6 +253,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -206,22 +267,50 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var rolesctrl = new Rolesctrls({
 
-                                role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
+                                
+role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
 
-                                            ctrl_id: $scope.selectedCtrl.selected ? $scope.selectedCtrl.selected.id : null,
+                                            
+ctrl_id: $scope.selectedCtrl.selected ? $scope.selectedCtrl.selected.id : null,
 
-                                            getAction: this.getAction,
-                                postAction: this.postAction,
-                                putAction: this.putAction,
-                                patchAction: this.patchAction,
-                                deleteAction: this.deleteAction,
-                                copyAction: this.copyAction,
-                                headAction: this.headAction,
-                                optionsAction: this.optionsAction,
-                                linkAction: this.linkAction,
-                                unlinkAction: this.unlinkAction,
-                                purgeAction: this.purgeAction,
-                                                forctrl: 'ok'
+                                            
+lov_rolesctrl_status: ($scope.lovRolesctrlStatus.selected) ? $scope.lovRolesctrlStatus.selected.name_ : '',
+
+                                    
+getAction: this.getAction,
+
+                                
+postAction: this.postAction,
+
+                                
+putAction: this.putAction,
+
+                                
+patchAction: this.patchAction,
+
+                                
+deleteAction: this.deleteAction,
+
+                                
+copyAction: this.copyAction,
+
+                                
+headAction: this.headAction,
+
+                                
+optionsAction: this.optionsAction,
+
+                                
+linkAction: this.linkAction,
+
+                                
+unlinkAction: this.unlinkAction,
+
+                                
+purgeAction: this.purgeAction,
+
+                                
+forctrl: 'ok'
             });
 
             rolesctrl.$save(function(response)
@@ -242,11 +331,16 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var rolesctrl = $scope.rolesctrl;
-                rolesctrl.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
-
-                                        rolesctrl.ctrl_id = $scope.selectedCtrl.selected ? $scope.selectedCtrl.selected.id : null;
+                
+rolesctrl.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
 
                                         
+rolesctrl.ctrl_id = $scope.selectedCtrl.selected ? $scope.selectedCtrl.selected.id : null;
+
+                                        
+rolesctrl.lov_rolesctrl_status = ($scope.lovRolesctrlStatus.selected) ? $scope.lovRolesctrlStatus.selected.name_ : '';
+
+                            
         rolesctrl.$update(function() {
           $location.path('rolesctrls/view/' + rolesctrl.id);
           Notification.success({

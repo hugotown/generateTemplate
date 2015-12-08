@@ -16,7 +16,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.username.$invalid }">
-      <label for="username" class="col-md-4 control-label">{{ 'username' | translate }}</label>
+      <label for="username" class="col-md-4 control-label">{{ 'user-username' | translate }}</label>
       <div class="col-md-8">
         <input name="username" readonly="readonly" type="text" class="form-control" data-ng-model="user.username" id="username" placeholder="{{ 'username' | translate }}" autocomplete="off" required >
       </div>
@@ -27,7 +27,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.email.$invalid }">
-      <label for="email" class="col-md-4 control-label">{{ 'email' | translate }}</label>
+      <label for="email" class="col-md-4 control-label">{{ 'user-email' | translate }}</label>
       <div class="col-md-8">
         <input name="email" readonly="readonly" type="text" class="form-control" data-ng-model="user.email" id="email" placeholder="{{ 'email' | translate }}" autocomplete="off" required >
       </div>
@@ -37,19 +37,8 @@
                                 
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.password.$invalid }">
-      <label for="password" class="col-md-4 control-label">{{ 'password' | translate }}</label>
-      <div class="col-md-8">
-        <input name="password" readonly="readonly" type="text" class="form-control" data-ng-model="user.password" id="password" placeholder="{{ 'password' | translate }}" autocomplete="off" required >
-      </div>
-    </div>
-  </div>
-</div>
-                                
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.name.$invalid }">
-      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <label for="name" class="col-md-4 control-label">{{ 'user-name' | translate }}</label>
       <div class="col-md-8">
         <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="user.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
       </div>
@@ -60,7 +49,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.firstName.$invalid }">
-      <label for="firstName" class="col-md-4 control-label">{{ 'firstName' | translate }}</label>
+      <label for="firstName" class="col-md-4 control-label">{{ 'user-firstName' | translate }}</label>
       <div class="col-md-8">
         <input name="firstName" readonly="readonly" type="text" class="form-control" data-ng-model="user.firstName" id="firstName" placeholder="{{ 'firstName' | translate }}" autocomplete="off" required >
       </div>
@@ -71,7 +60,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lastName.$invalid }">
-      <label for="lastName" class="col-md-4 control-label">{{ 'lastName' | translate }}</label>
+      <label for="lastName" class="col-md-4 control-label">{{ 'user-lastName' | translate }}</label>
       <div class="col-md-8">
         <input name="lastName" readonly="readonly" type="text" class="form-control" data-ng-model="user.lastName" id="lastName" placeholder="{{ 'lastName' | translate }}" autocomplete="off" required >
       </div>
@@ -82,7 +71,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_gender.$invalid }">
-      <label for="lov_user_gender" class="col-md-4 control-label">{{ 'lov_user_gender' | translate }}</label>
+      <label for="lov_user_gender" class="col-md-4 control-label">{{ 'user-lov_user_gender' | translate }}</label>
       <div class="col-md-8">
         <input name="lov_user_gender" readonly="readonly" type="text" class="form-control" data-ng-model="lovUserGender.selected['name_'+selectedLanguage]" id="lov_user_gender" placeholder="{{ 'lov_user_gender' | translate }}" autocomplete="off" required >
       </div>
@@ -94,7 +83,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_status.$invalid }">
-      <label for="lov_user_status" class="col-md-4 control-label">{{ 'lov_user_status' | translate }}</label>
+      <label for="lov_user_status" class="col-md-4 control-label">{{ 'user-lov_user_status' | translate }}</label>
       <div class="col-md-8">
         <input name="lov_user_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovUserStatus.selected['name_'+selectedLanguage]" id="lov_user_status" placeholder="{{ 'lov_user_status' | translate }}" autocomplete="off" required >
       </div>
@@ -106,7 +95,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_type.$invalid }">
-      <label for="lov_user_type" class="col-md-4 control-label">{{ 'lov_user_type' | translate }}</label>
+      <label for="lov_user_type" class="col-md-4 control-label">{{ 'user-lov_user_type' | translate }}</label>
       <div class="col-md-8">
         <input name="lov_user_type" readonly="readonly" type="text" class="form-control" data-ng-model="lovUserType.selected['name_'+selectedLanguage]" id="lov_user_type" placeholder="{{ 'lov_user_type' | translate }}" autocomplete="off" required >
       </div>
@@ -118,7 +107,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && user.role_id.$invalid }">
-      <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
+      <label for="role_id" class="col-md-4 control-label">{{ 'user-role' | translate }}</label>
       <div class="col-md-8">
         <input name="role_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.role_id.name" id="role_id" placeholder="{{ 'role_id' | translate }}" autocomplete="off" required >
       </div>
@@ -130,7 +119,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && user.workstation_id.$invalid }">
-      <label for="workstation_id" class="col-md-4 control-label">{{ 'workstation' | translate }}</label>
+      <label for="workstation_id" class="col-md-4 control-label">{{ 'user-workstation' | translate }}</label>
       <div class="col-md-8">
         <input name="workstation_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.workstation_id.name" id="workstation_id" placeholder="{{ 'workstation_id' | translate }}" autocomplete="off"  >
       </div>
@@ -142,7 +131,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && user.buildingspot_id.$invalid }">
-      <label for="buildingspot_id" class="col-md-4 control-label">{{ 'buildingspot' | translate }}</label>
+      <label for="buildingspot_id" class="col-md-4 control-label">{{ 'user-buildingspot' | translate }}</label>
       <div class="col-md-8">
         <input name="buildingspot_id" readonly="readonly" type="text" class="form-control" data-ng-model="user.buildingspot_id.name" id="buildingspot_id" placeholder="{{ 'buildingspot_id' | translate }}" autocomplete="off"  >
       </div>
@@ -154,9 +143,9 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.avatar.$invalid }">
-      <label for="avatar" class="col-md-4 control-label">{{ 'avatar' | translate }}</label>
+      <label for="avatar" class="col-md-4 control-label">{{ 'user-avatar' | translate }}</label>
       <div class="col-md-8">
-        <input name="avatar" readonly="readonly" type="text" class="form-control" data-ng-model="user.avatar" id="avatar" placeholder="{{ 'avatar' | translate }}" autocomplete="off" required >
+        <input name="avatar" readonly="readonly" type="text" class="form-control" data-ng-model="user.avatar" id="avatar" placeholder="{{ 'avatar' | translate }}" autocomplete="off"  >
       </div>
     </div>
   </div>
@@ -168,7 +157,7 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="usersEdit" href="/#/users/edit/{{user.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a acl-check="usersList" ui-sref="usersList" class="btn default ">{{ 'Back to list' | translate }}</a>
+                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
                         </div>
                       </div>
                     </div>

@@ -50,43 +50,60 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="request in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( request.name || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  <a ng-if="request.buildingspot_id.id" ng-disabled="!session.aclstates.buildingspotsView" href="/#/buildingspots/view/{{request.buildingspot_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.buildingspotsView) ? 'disabled' : ''}}">
+      {{ ( request.buildingspot_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!request.buildingspot_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.description || '...' ) | translate  }}
-                                      </td>
+                                                
+<td class="tasty-table-td">
+  {{ ( request.name || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.lov_request_status || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_STATUS', 'lov_request_status', request.lov_request_status, request)" >
+  {{ ( request.lov_request_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.lov_request_type || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_TYPE', 'lov_request_type', request.lov_request_type, request)" >
+  {{ ( request.lov_request_type[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.lov_request_subtype || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_SUBTYPE', 'lov_request_subtype', request.lov_request_subtype, request)" >
+  {{ ( request.lov_request_subtype[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.lov_request_priority || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_PRIORITY', 'lov_request_priority', request.lov_request_priority, request)" >
+  {{ ( request.lov_request_priority[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( request.lov_request_severity || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_SEVERITY', 'lov_request_severity', request.lov_request_severity, request)" >
+  {{ ( request.lov_request_severity[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                                    <a ng-if="request.workstation_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{request.workstation_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
-                                                        {{ ( request.workstation_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!request.workstation_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                    
+<td class="tasty-table-td">
+  <a ng-if="request.workstation_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{request.workstation_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
+      {{ ( request.workstation_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!request.workstation_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                              <td>
+                                                
+<td class="tasty-table-td">
+  {{ ( request.description || '...' ) | translate  }}
+</td>
+
+                                                                  <td>
                                 <div class="actions">
                                     <a acl-check="requestsView" href="/#/requests/view/{{request.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>

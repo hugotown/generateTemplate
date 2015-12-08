@@ -14,12 +14,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.name.$invalid }">
-      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <label for="name" class="col-md-4 control-label">{{ 'role-name' | translate }}</label>
       <div class="col-md-8">
         <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && roleForm.name.$invalid" class="help-block">
           <p ng-show="roleForm.name.$error.required">
-            {{ 'name field is required' | translate }}
+            {{ 'role-name field is required' | translate }}
           </p>
         </span>
       </div>
@@ -31,12 +31,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.lov_role_status.$invalid }">
-          <label for="lov_role_status" class="col-md-4 control-label">{{ 'lov_role_status' | translate }}</label>
+          <label for="lov_role_status" class="col-md-4 control-label">{{ 'role-lov_role_status' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select ng-model="lovRoleStatus.selected" theme="bootstrap" name="lov_role_status" >
-                      <ui-select-match placeholder="Select...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
-                      <ui-select-choices repeat="item in lovRoleStatuses" refresh="findLovs( 'contains', 'name_' + selectedLanguage, 'ROLE_STATUS', 'lovRoleStatuses', $select.search )" refresh-delay="500">
+                  <ui-select required ng-model="lovRoleStatus.selected" theme="bootstrap" name="lov_role_status" >
+                      <ui-select-match placeholder="{{ 'Select lov_role_status' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovRoleStatuses" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'ROLE_STATUS', 'lovRoleStatuses', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
                       </ui-select-choices>
                   </ui-select>
@@ -48,7 +48,7 @@
               </div>
               <span ng-show="submitted && roleForm.lov_role_status.$invalid" class="help-block">
                   <p ng-show="roleForm.lov_role_status.$error.required">
-                      {{ 'lov_role_status field is required' | translate }}
+                      {{ 'role-lov_role_status field is required' | translate }}
                   </p>
               </span>
           </div>
@@ -59,12 +59,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.description.$invalid }">
-      <label for="description" class="col-md-4 control-label">{{ 'description' | translate }}</label>
+      <label for="description" class="col-md-4 control-label">{{ 'role-description' | translate }}</label>
       <div class="col-md-8">
         <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && roleForm.description.$invalid" class="help-block">
           <p ng-show="roleForm.description.$error.required">
-            {{ 'description field is required' | translate }}
+            {{ 'role-description field is required' | translate }}
           </p>
         </span>
       </div>
@@ -81,7 +81,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="rolesCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a ui-sref="rolesList" acl-check="rolesList" class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
         </div>
       </div>
     </div>

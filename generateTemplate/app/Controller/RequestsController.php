@@ -99,8 +99,9 @@
 								'Request.updatedAt',
 								'Request.createdBy',
 								'Request.updatedBy',
+								'Buildingspot.name',
+								'Request.buildingspot_id',
 								'Request.name',
-								'Request.description',
 								'Request.lov_request_status',
 								'Request.lov_request_type',
 								'Request.lov_request_subtype',
@@ -108,6 +109,7 @@
 								'Request.lov_request_severity',
 								'Workstation.name',
 								'Request.workstation_id',
+								'Request.description',
 								'Request.id',
 							);
 					        $this->paginate = array(

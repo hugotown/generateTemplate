@@ -15,11 +15,11 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.building_id.$invalid }">
-        <label for="building_id" class="col-md-4 control-label">{{ 'building' | translate }}</label>
+        <label for="building_id" class="col-md-4 control-label">{{ 'buildingspot-building' | translate }}</label>
         <div class="col-md-8">
           <div class="input-group">
               <ui-select required ng-model="selectedBuilding.selected" name="building_id" reset-search-input="false" theme="bootstrap" >
-                <ui-select-match placeholder="{{ 'Select Building' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="{{ 'Select Building' | translate }}...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="item in buildings | limitTo: 10 track by $index"  refresh="findBuildings($select.search)" refresh-delay="500" >
                   <div ng-bind-html="item.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -32,7 +32,7 @@
           </div>
             <span ng-show="submitted && buildingspotForm.building_id.$invalid" class="help-block">
                 <p ng-show="buildingspotForm.building_id.$error.required">
-                    {{ 'building_id field is required' | translate }}
+                    {{ 'buildingspot-building_id field is required' | translate }}
                 </p>
             </span>
         </div>
@@ -44,12 +44,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.name.$invalid }">
-      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <label for="name" class="col-md-4 control-label">{{ 'buildingspot-name' | translate }}</label>
       <div class="col-md-8">
         <input name="name" type="text" class="form-control" data-ng-model="buildingspot.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && buildingspotForm.name.$invalid" class="help-block">
           <p ng-show="buildingspotForm.name.$error.required">
-            {{ 'name field is required' | translate }}
+            {{ 'buildingspot-name field is required' | translate }}
           </p>
         </span>
       </div>
@@ -61,12 +61,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.spotNumber.$invalid }">
-      <label for="spotNumber" class="col-md-4 control-label">{{ 'spotNumber' | translate }}</label>
+      <label for="spotNumber" class="col-md-4 control-label">{{ 'buildingspot-spotNumber' | translate }}</label>
       <div class="col-md-8">
         <input name="spotNumber" type="text" class="form-control" data-ng-model="buildingspot.spotNumber" id="spotNumber" placeholder="{{ 'spotNumber' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && buildingspotForm.spotNumber.$invalid" class="help-block">
           <p ng-show="buildingspotForm.spotNumber.$error.required">
-            {{ 'spotNumber field is required' | translate }}
+            {{ 'buildingspot-spotNumber field is required' | translate }}
           </p>
         </span>
       </div>
@@ -77,25 +77,53 @@
                 
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.lov_spot_section.$invalid }">
-          <label for="lov_spot_section" class="col-md-4 control-label">{{ 'lov_spot_section' | translate }}</label>
+      <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.lov_buildingspot_section.$invalid }">
+          <label for="lov_buildingspot_section" class="col-md-4 control-label">{{ 'buildingspot-lov_buildingspot_section' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select ng-model="lovSpotSection.selected" theme="bootstrap" name="lov_spot_section" >
-                      <ui-select-match placeholder="Select...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
-                      <ui-select-choices repeat="item in lovSpotSections" refresh="findLovs( 'contains', 'name_' + selectedLanguage, 'SPOT_SECTION', 'lovSpotSections', $select.search )" refresh-delay="500">
+                  <ui-select  ng-model="lovBuildingspotSection.selected" theme="bootstrap" name="lov_buildingspot_section" >
+                      <ui-select-match placeholder="{{ 'Select lov_buildingspot_section' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovBuildingspotSections" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'BUILDINGSPOT_SECTION', 'lovBuildingspotSections', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
                       </ui-select-choices>
                   </ui-select>
                   <span class="input-group-btn btn-right">
-                      <a class="btn grey" type="button" ng-click="lovSpotSection.selected = undefined">
+                      <a class="btn grey" type="button" ng-click="lovBuildingspotSection.selected = undefined">
                           <i class="fa fa-times"></i>
                       </a>
                   </span>
               </div>
-              <span ng-show="submitted && buildingspotForm.lov_spot_section.$invalid" class="help-block">
-                  <p ng-show="buildingspotForm.lov_spot_section.$error.required">
-                      {{ 'lov_spot_section field is required' | translate }}
+              <span ng-show="submitted && buildingspotForm.lov_buildingspot_section.$invalid" class="help-block">
+                  <p ng-show="buildingspotForm.lov_buildingspot_section.$error.required">
+                      {{ 'buildingspot-lov_buildingspot_section field is required' | translate }}
+                  </p>
+              </span>
+          </div>
+      </div>
+  </div>
+</div>
+                    
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.lov_buildingspot_status.$invalid }">
+          <label for="lov_buildingspot_status" class="col-md-4 control-label">{{ 'buildingspot-lov_buildingspot_status' | translate }}</label>
+          <div class="col-md-8">
+              <div class="input-group">
+                  <ui-select  ng-model="lovBuildingspotStatus.selected" theme="bootstrap" name="lov_buildingspot_status" >
+                      <ui-select-match placeholder="{{ 'Select lov_buildingspot_status' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovBuildingspotStatuses" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'BUILDINGSPOT_STATUS', 'lovBuildingspotStatuses', $select.search )" refresh-delay="500">
+                          <div ng-bind-html="item['name_' + selectedLanguage]"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-btn btn-right">
+                      <a class="btn grey" type="button" ng-click="lovBuildingspotStatus.selected = undefined">
+                          <i class="fa fa-times"></i>
+                      </a>
+                  </span>
+              </div>
+              <span ng-show="submitted && buildingspotForm.lov_buildingspot_status.$invalid" class="help-block">
+                  <p ng-show="buildingspotForm.lov_buildingspot_status.$error.required">
+                      {{ 'buildingspot-lov_buildingspot_status field is required' | translate }}
                   </p>
               </span>
           </div>
@@ -111,7 +139,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
           <button type="submit" acl-check="buildingspotsEdit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a ui-sref="buildingspotsList" acl-check="buildingspotsList" class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
         </div>
       </div>
     </div>

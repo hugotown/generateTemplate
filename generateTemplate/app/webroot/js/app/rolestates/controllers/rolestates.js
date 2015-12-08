@@ -15,12 +15,24 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                if(data.role_id){
-                $scope.selectedRole.selected = data.role_id;
-            }
+            
+if(data.role_id){
+    $scope.selectedRole.selected = data.role_id;
+}
 
-                                        event = null;
-            data = null;
+                            
+if (data.lov_rolestate_status && data.lov_rolestate_status !== '') {
+    var lovRolestateStatuses = $scope.fgetLovs('equals', '', 'ROLESTATE_STATUS', 'lovRolestateStatuses', data.lov_rolestate_status);
+    lovRolestateStatuses.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lovRolestateStatus.selected = datapromise.items[0];
+        }
+    });
+}
+
+                    
+event = null;
+data = null;
         });
 
 
@@ -45,10 +57,19 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {role_id: $translate.instant('role_id')} ,
-                                {statename: $translate.instant('statename')} ,
-                                {accessit: $translate.instant('accessit')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'rolestate-role_id': $translate.instant('rolestate-role_id')} ,
+
+                                
+{'rolestate-statename': $translate.instant('rolestate-statename')} ,
+
+                                
+{'rolestate-accessit': $translate.instant('rolestate-accessit')} ,
+
+                                
+{'rolestate-lov_rolestate_status': $translate.instant('rolestate-lov_rolestate_status')} ,
+
+                                {'rolestate-actions': $translate.instant('rolestate-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -62,7 +83,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Rolestates = $injector.get('Rolestates');
 
@@ -94,7 +114,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.roles = [];
         $scope.role = {};
         $scope.selectedRole = {};
-                var Roles = $injector.get('Roles');
+
+        
+        var Roles = $injector.get('Roles');
+
             
         $scope.findRoles = function($param)
             {
@@ -103,7 +126,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_role_status : 'active'
                           }
                       },function(roles)
                         {
@@ -113,6 +137,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Roles.query({
+                          where: {
+                            lov_role_status : 'active'
+                          }
                       },function(roles)
                         {
                             $scope.roles = roles.items;
@@ -124,8 +151,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
     
 
+$scope.lovRolestateStatus = {};
+
+    
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -149,6 +179,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -160,11 +193,20 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var rolestate = new Rolestates({
 
-                                role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
+                                
+role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
 
-                                            statename: this.statename,
-                                accessit: this.accessit,
-                                                forctrl: 'ok'
+                                            
+statename: this.statename,
+
+                                
+accessit: this.accessit,
+
+                                
+lov_rolestate_status: ($scope.lovRolestateStatus.selected) ? $scope.lovRolestateStatus.selected.name_ : '',
+
+                                    
+forctrl: 'ok'
             });
 
             rolestate.$save(function(response)
@@ -185,9 +227,13 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var rolestate = $scope.rolestate;
-                rolestate.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
+                
+rolestate.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
 
                                         
+rolestate.lov_rolestate_status = ($scope.lovRolestateStatus.selected) ? $scope.lovRolestateStatus.selected.name_ : '';
+
+                            
         rolestate.$update(function() {
           $location.path('rolestates/view/' + rolestate.id);
           Notification.success({

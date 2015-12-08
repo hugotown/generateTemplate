@@ -35,9 +35,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                 $otherPluralVar = Inflector::variable($details['controller']);
                                 ?>
-    if(data.<?php echo $otherSingularVar; ?>_id){
-                $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $otherSingularVar; ?>_id;
-            }
+
+if(data.<?php echo $otherSingularVar; ?>_id){
+    $scope.selected<?php echo $otherSingularHumanName; ?>.selected = data.<?php echo $field; ?>;
+}
 
                             <?php
                             }
@@ -50,20 +51,23 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                     $fieldNameWLov = str_replace('lov_', '', $field);
                     $upperFieldNameWLov = strtoupper($fieldNameWLov);
                     ?>
+
 if (data.<?php echo $field; ?> && data.<?php echo $field; ?> !== '') {
-    var lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?> = $scope.findLovs('equals', '', '<?php echo strtoupper($fieldNameWLov); ?>', 'lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>', data.<?php echo $field; ?>);
+    var lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?> = $scope.fgetLovs('equals', '', '<?php echo strtoupper($fieldNameWLov); ?>', 'lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>', data.<?php echo $field; ?>);
     lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected = datapromise.items[0];
         }
     });
 }
+
                     <?php
                   }
             }
             ?>
-            event = null;
-            data = null;
+
+event = null;
+data = null;
         });
 
 
@@ -91,15 +95,17 @@ if (data.<?php echo $field; ?> && data.<?php echo $field; ?> !== '') {
                     <?php $countIdx = 0; ?>
                     <?php foreach ($fields as $key => $field)
                     {
-                        if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                        if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                         {
                                 ?>
-{<?php echo $field; ?>: $translate.instant('<?php echo $field; ?>')} ,
+
+{'<?php echo $singularVar; ?>-<?php echo $field; ?>': $translate.instant('<?php echo $singularVar; ?>-<?php echo $field; ?>')} ,
+
                                 <?
                         $countIdx ++;
                         }
                     } ?>
-{Actions: $translate.instant('Actions')}
+{'<?php echo $singularVar; ?>-actions': $translate.instant('<?php echo $singularVar; ?>-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -113,7 +119,6 @@ if (data.<?php echo $field; ?> && data.<?php echo $field; ?> !== '') {
           return data;
       });
   };
-
 
     var <?php echo Inflector::humanize($pluralVar); ?> = $injector.get('<?php echo Inflector::humanize($pluralVar); ?>');
 
@@ -157,11 +162,15 @@ if (isset($associations['belongsTo']))
         $scope.<?php echo $otherPluralVar; ?> = [];
         $scope.<?php echo $otherSingularVar; ?> = {};
         $scope.selected<?php echo $otherSingularHumanName; ?> = {};
+
         <?php
-        if($pluralVar != $otherPluralVar)
+
+        if($singularHumanName != $otherSingularHumanName)
         {
         ?>
+
         var <?php echo $otherPluralHumanName; ?> = $injector.get('<?php echo $otherPluralHumanName; ?>');
+
             <?php
         }
         ?>
@@ -173,7 +182,8 @@ if (isset($associations['belongsTo']))
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_<?php echo strtolower( $otherSingularHumanName ); ?>_status : 'active'
                           }
                       },function(<?php echo $otherPluralVar; ?>)
                         {
@@ -183,6 +193,9 @@ if (isset($associations['belongsTo']))
                         });
                 } else {
                     return <?php echo $otherPluralHumanName; ?>.query({
+                          where: {
+                            lov_<?php echo strtolower( $otherSingularHumanName ); ?>_status : 'active'
+                          }
                       },function(<?php echo $otherPluralVar; ?>)
                         {
                             $scope.<?php echo $otherPluralVar; ?> = <?php echo $otherPluralVar; ?>.items;
@@ -205,14 +218,16 @@ foreach ($fields as $key => $field)
     $fieldNameWLov = str_replace('lov_', '', $field);
     $upperFieldNameWLov = strtoupper($fieldNameWLov);
     ?>
+
 $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?> = {};
+
     <?php
   }
 }
 ?>
 
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -236,6 +251,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -251,7 +269,7 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
                 <?php foreach ($fields as $key => $field)
                 {
                     $fieldAlreadyPainted = false;
-                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                     {
                             if(isset($associations['belongsTo']))
                             {
@@ -267,6 +285,7 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
                                         $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                         $otherPluralVar = Inflector::variable($details['controller']);
                                             ?>
+
 <?php echo $field; ?>: $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null,
 
                                             <?
@@ -282,19 +301,23 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
                                     $fieldNameWLov = str_replace('lov_', '', $field);
                                     $upperFieldNameWLov = strtoupper($fieldNameWLov);
                                     ?>
+
 <?php echo $field; ?>: ($scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected) ? $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected.name_ : '',
 
                                     <?php
                                   } else{
                                 ?>
+
 <?php echo $field; ?>: this.<?php echo $field; ?>,
+
                                 <?php
                                 }
                             }
                     $countIdx ++;
                     }
                 } ?>
-                forctrl: 'ok'
+
+forctrl: 'ok'
             });
 
             <?php echo $singularVar; ?>.$save(function(response)
@@ -317,7 +340,7 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
       var <?php echo $singularVar; ?> = $scope.<?php echo $singularVar; ?>;
                 <?php foreach ($fields as $key => $field)
                 {
-                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                     {
                         if(isset($associations['belongsTo']))
                         {
@@ -333,6 +356,7 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
                                     $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                     $otherPluralVar = Inflector::variable($details['controller']);
                                         ?>
+
 <?php echo $singularVar; ?>.<?php echo $field; ?> = $scope.selected<?php echo $otherSingularHumanName ?>.selected ? $scope.selected<?php echo $otherSingularHumanName ?>.selected.id : null;
 
                                         <?
@@ -346,6 +370,7 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
                             $fieldNameWLov = str_replace('lov_', '', $field);
                             $upperFieldNameWLov = strtoupper($fieldNameWLov);
                             ?>
+
 <?php echo $singularVar; ?>.<?php echo $field; ?> = ($scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected) ? $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected.name_ : '';
 
                             <?php

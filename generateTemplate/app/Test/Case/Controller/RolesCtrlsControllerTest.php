@@ -22,7 +22,6 @@ class RolesctrlsControllerTest extends ControllerTestCase {
 		'app.building',
 		'app.buildingspot',
 		'app.request',
-		'app.spot',
 		'app.ctrl'
 	);
 

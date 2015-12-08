@@ -100,6 +100,7 @@
 								'Ctrl.createdBy',
 								'Ctrl.updatedBy',
 								'Ctrl.name',
+								'Ctrl.lov_ctrl_status',
 								'Ctrl.id',
 							);
 					        $this->paginate = array(

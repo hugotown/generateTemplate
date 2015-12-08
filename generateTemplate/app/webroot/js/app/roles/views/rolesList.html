@@ -50,17 +50,20 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="role in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( role.name || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  {{ ( role.name || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( role.lov_role_status || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'ROLE_STATUS', 'lov_role_status', role.lov_role_status, role)" >
+  {{ ( role.lov_role_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( role.description || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( role.description || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">

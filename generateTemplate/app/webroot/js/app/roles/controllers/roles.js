@@ -15,16 +15,19 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-            if (data.lov_role_status && data.lov_role_status !== '') {
-    var lovRoleStatuses = $scope.findLovs('equals', '', 'ROLE_STATUS', 'lovRoleStatuses', data.lov_role_status);
+            
+if (data.lov_role_status && data.lov_role_status !== '') {
+    var lovRoleStatuses = $scope.fgetLovs('equals', '', 'ROLE_STATUS', 'lovRoleStatuses', data.lov_role_status);
     lovRoleStatuses.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovRoleStatus.selected = datapromise.items[0];
         }
     });
 }
-                                event = null;
-            data = null;
+
+                    
+event = null;
+data = null;
         });
 
 
@@ -49,10 +52,16 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {name: $translate.instant('name')} ,
-                                {lov_role_status: $translate.instant('lov_role_status')} ,
-                                {description: $translate.instant('description')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'role-name': $translate.instant('role-name')} ,
+
+                                
+{'role-lov_role_status': $translate.instant('role-lov_role_status')} ,
+
+                                
+{'role-description': $translate.instant('role-description')} ,
+
+                                {'role-actions': $translate.instant('role-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -66,7 +75,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Roles = $injector.get('Roles');
 
@@ -95,10 +103,12 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
     };
 
 
+
 $scope.lovRoleStatus = {};
+
     
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -122,6 +132,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -133,11 +146,17 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var role = new Roles({
 
-                                name: this.name,
-                                lov_role_status: ($scope.lovRoleStatus.selected) ? $scope.lovRoleStatus.selected.name_ : '',
+                                
+name: this.name,
 
-                                    description: this.description,
-                                                forctrl: 'ok'
+                                
+lov_role_status: ($scope.lovRoleStatus.selected) ? $scope.lovRoleStatus.selected.name_ : '',
+
+                                    
+description: this.description,
+
+                                
+forctrl: 'ok'
             });
 
             role.$save(function(response)
@@ -158,7 +177,8 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var role = $scope.role;
-                role.lov_role_status = ($scope.lovRoleStatus.selected) ? $scope.lovRoleStatus.selected.name_ : '';
+                
+role.lov_role_status = ($scope.lovRoleStatus.selected) ? $scope.lovRoleStatus.selected.name_ : '';
 
                             
         role.$update(function() {

@@ -40,7 +40,7 @@
                 <?php foreach ($fields as $key => $field)
                 {
                     $fieldAlreadyPainted = false;
-                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                     {
                         if(!($schema[$field]['null'])) {
                           $required = 'required';
@@ -65,7 +65,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>.<?php echo $field;?>.$invalid }">
-      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $otherSingularVar; ?>' | translate }}</label>
+      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $otherSingularVar; ?>' | translate }}</label>
       <div class="col-md-8">
         <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field; ?>.<?php echo 'name' ; ?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
       </div>
@@ -90,7 +90,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
-      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
+      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
       <div class="col-md-8">
         <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected['name_'+selectedLanguage]" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
       </div>
@@ -105,7 +105,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
-      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $field;?>' | translate }}</label>
+      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
       <div class="col-md-8">
         <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
       </div>
@@ -125,7 +125,7 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="<?php echo $pluralVar; ?>Edit" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a acl-check="<?php echo $pluralVar; ?>List" ui-sref="<?php echo $pluralVar; ?>List" class="btn default ">{{ 'Back to list' | translate }}</a>
+                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
                         </div>
                       </div>
                     </div>

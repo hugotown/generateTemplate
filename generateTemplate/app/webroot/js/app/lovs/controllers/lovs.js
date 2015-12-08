@@ -15,12 +15,14 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                if(data.parentLov_id){
-                $scope.selectedLov.selected = data.parentLov_id;
-            }
+            
+if(data.parentLov_id){
+    $scope.selectedLov.selected = data.parent_id;
+}
 
-                                        event = null;
-            data = null;
+                            
+event = null;
+data = null;
         });
 
 
@@ -45,14 +47,28 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {orderShow: $translate.instant('orderShow')} ,
-                                {lovType: $translate.instant('lovType')} ,
-                                {name_: $translate.instant('name_')} ,
-                                {name_es_MX: $translate.instant('name_es_MX')} ,
-                                {name_en_US: $translate.instant('name_en_US')} ,
-                                {status: $translate.instant('status')} ,
-                                {parent_id: $translate.instant('parent_id')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'lov-orderShow': $translate.instant('lov-orderShow')} ,
+
+                                
+{'lov-lovType': $translate.instant('lov-lovType')} ,
+
+                                
+{'lov-name_': $translate.instant('lov-name_')} ,
+
+                                
+{'lov-name_es_MX': $translate.instant('lov-name_es_MX')} ,
+
+                                
+{'lov-name_en_US': $translate.instant('lov-name_en_US')} ,
+
+                                
+{'lov-status': $translate.instant('lov-status')} ,
+
+                                
+{'lov-parent_id': $translate.instant('lov-parent_id')} ,
+
+                                {'lov-actions': $translate.instant('lov-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -66,7 +82,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Lovs = $injector.get('Lovs');
 
@@ -98,6 +113,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.lovs = [];
         $scope.parentLov = {};
         $scope.selectedLov = {};
+
         
         $scope.findLovs = function($param)
             {
@@ -106,7 +122,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_lov_status : 'active'
                           }
                       },function(lovs)
                         {
@@ -116,6 +133,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Lovs.query({
+                          where: {
+                            lov_lov_status : 'active'
+                          }
                       },function(lovs)
                         {
                             $scope.lovs = lovs.items;
@@ -128,7 +148,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
     
 
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -152,6 +172,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -163,15 +186,29 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var lov = new Lovs({
 
-                                orderShow: this.orderShow,
-                                lovType: this.lovType,
-                                name_: this.name_,
-                                name_es_MX: this.name_es_MX,
-                                name_en_US: this.name_en_US,
-                                status: this.status,
-                                parent_id: $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null,
+                                
+orderShow: this.orderShow,
 
-                                                            forctrl: 'ok'
+                                
+lovType: this.lovType,
+
+                                
+name_: this.name_,
+
+                                
+name_es_MX: this.name_es_MX,
+
+                                
+name_en_US: this.name_en_US,
+
+                                
+status: this.status,
+
+                                
+parent_id: $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null,
+
+                                            
+forctrl: 'ok'
             });
 
             lov.$save(function(response)
@@ -192,7 +229,8 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var lov = $scope.lov;
-                lov.parent_id = $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null;
+                
+lov.parent_id = $scope.selectedLov.selected ? $scope.selectedLov.selected.id : null;
 
                                         
         lov.$update(function() {

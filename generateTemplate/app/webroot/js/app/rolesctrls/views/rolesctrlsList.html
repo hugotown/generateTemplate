@@ -50,65 +50,83 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="rolesctrl in rows">
-                                                                              <td class="tasty-table-td">
-                                                    <a ng-if="rolesctrl.role_id.id" ng-disabled="!session.aclstates.rolesView" href="/#/roles/view/{{rolesctrl.role_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.rolesView) ? 'disabled' : ''}}">
-                                                        {{ ( rolesctrl.role_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!rolesctrl.role_id.id" href="javascript:;">...</a>
-                                                  </td>
+                            
+<td class="tasty-table-td">
+  <a ng-if="rolesctrl.role_id.id" ng-disabled="!session.aclstates.rolesView" href="/#/roles/view/{{rolesctrl.role_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.rolesView) ? 'disabled' : ''}}">
+      {{ ( rolesctrl.role_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!rolesctrl.role_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                                  <td class="tasty-table-td">
-                                                    <a ng-if="rolesctrl.ctrl_id.id" ng-disabled="!session.aclstates.ctrlsView" href="/#/ctrls/view/{{rolesctrl.ctrl_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.ctrlsView) ? 'disabled' : ''}}">
-                                                        {{ ( rolesctrl.ctrl_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!rolesctrl.ctrl_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                                
+<td class="tasty-table-td">
+  <a ng-if="rolesctrl.ctrl_id.id" ng-disabled="!session.aclstates.ctrlsView" href="/#/ctrls/view/{{rolesctrl.ctrl_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.ctrlsView) ? 'disabled' : ''}}">
+      {{ ( rolesctrl.ctrl_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!rolesctrl.ctrl_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                        {{ ( rolesctrl.getAction || '...' ) | translate  }}
-                                      </td>
+                                                
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'ROLESCTRL_STATUS', 'lov_rolesctrl_status', rolesctrl.lov_rolesctrl_status, rolesctrl)" >
+  {{ ( rolesctrl.lov_rolesctrl_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.postAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.getAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.putAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.postAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.patchAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.putAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.deleteAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.patchAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.copyAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.deleteAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.headAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.copyAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.optionsAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.headAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.linkAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.optionsAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.unlinkAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.linkAction || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( rolesctrl.purgeAction || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.unlinkAction || '...' ) | translate  }}
+</td>
+
+                                    
+<td class="tasty-table-td">
+  {{ ( rolesctrl.purgeAction || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">

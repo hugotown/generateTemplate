@@ -15,8 +15,19 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                        event = null;
-            data = null;
+            
+if (data.lov_ctrl_status && data.lov_ctrl_status !== '') {
+    var lovCtrlStatuses = $scope.fgetLovs('equals', '', 'CTRL_STATUS', 'lovCtrlStatuses', data.lov_ctrl_status);
+    lovCtrlStatuses.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lovCtrlStatus.selected = datapromise.items[0];
+        }
+    });
+}
+
+                    
+event = null;
+data = null;
         });
 
 
@@ -41,8 +52,13 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {name: $translate.instant('name')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'ctrl-name': $translate.instant('ctrl-name')} ,
+
+                                
+{'ctrl-lov_ctrl_status': $translate.instant('ctrl-lov_ctrl_status')} ,
+
+                                {'ctrl-actions': $translate.instant('ctrl-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -56,7 +72,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Ctrls = $injector.get('Ctrls');
 
@@ -86,8 +101,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
 
 
+$scope.lovCtrlStatus = {};
+
+    
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -111,6 +129,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -122,8 +143,14 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var ctrl = new Ctrls({
 
-                                name: this.name,
-                                                forctrl: 'ok'
+                                
+name: this.name,
+
+                                
+lov_ctrl_status: ($scope.lovCtrlStatus.selected) ? $scope.lovCtrlStatus.selected.name_ : '',
+
+                                    
+forctrl: 'ok'
             });
 
             ctrl.$save(function(response)
@@ -145,6 +172,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
       if (isValid) {
       var ctrl = $scope.ctrl;
                 
+ctrl.lov_ctrl_status = ($scope.lovCtrlStatus.selected) ? $scope.lovCtrlStatus.selected.name_ : '';
+
+                            
         ctrl.$update(function() {
           $location.path('ctrls/view/' + ctrl.id);
           Notification.success({

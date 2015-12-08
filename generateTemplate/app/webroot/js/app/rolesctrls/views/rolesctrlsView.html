@@ -16,7 +16,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrl.role_id.$invalid }">
-      <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
+      <label for="role_id" class="col-md-4 control-label">{{ 'rolesctrl-role' | translate }}</label>
       <div class="col-md-8">
         <input name="role_id" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.role_id.name" id="role_id" placeholder="{{ 'role_id' | translate }}" autocomplete="off" required >
       </div>
@@ -28,7 +28,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrl.ctrl_id.$invalid }">
-      <label for="ctrl_id" class="col-md-4 control-label">{{ 'ctrl' | translate }}</label>
+      <label for="ctrl_id" class="col-md-4 control-label">{{ 'rolesctrl-ctrl' | translate }}</label>
       <div class="col-md-8">
         <input name="ctrl_id" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.ctrl_id.name" id="ctrl_id" placeholder="{{ 'ctrl_id' | translate }}" autocomplete="off" required >
       </div>
@@ -39,8 +39,20 @@
                                             
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.lov_rolesctrl_status.$invalid }">
+      <label for="lov_rolesctrl_status" class="col-md-4 control-label">{{ 'rolesctrl-lov_rolesctrl_status' | translate }}</label>
+      <div class="col-md-8">
+        <input name="lov_rolesctrl_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovRolesctrlStatus.selected['name_'+selectedLanguage]" id="lov_rolesctrl_status" placeholder="{{ 'lov_rolesctrl_status' | translate }}" autocomplete="off"  >
+      </div>
+    </div>
+  </div>
+</div>
+
+                                    
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.getAction.$invalid }">
-      <label for="getAction" class="col-md-4 control-label">{{ 'getAction' | translate }}</label>
+      <label for="getAction" class="col-md-4 control-label">{{ 'rolesctrl-getAction' | translate }}</label>
       <div class="col-md-8">
         <input name="getAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.getAction" id="getAction" placeholder="{{ 'getAction' | translate }}" autocomplete="off" required >
       </div>
@@ -51,7 +63,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.postAction.$invalid }">
-      <label for="postAction" class="col-md-4 control-label">{{ 'postAction' | translate }}</label>
+      <label for="postAction" class="col-md-4 control-label">{{ 'rolesctrl-postAction' | translate }}</label>
       <div class="col-md-8">
         <input name="postAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.postAction" id="postAction" placeholder="{{ 'postAction' | translate }}" autocomplete="off" required >
       </div>
@@ -62,7 +74,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.putAction.$invalid }">
-      <label for="putAction" class="col-md-4 control-label">{{ 'putAction' | translate }}</label>
+      <label for="putAction" class="col-md-4 control-label">{{ 'rolesctrl-putAction' | translate }}</label>
       <div class="col-md-8">
         <input name="putAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.putAction" id="putAction" placeholder="{{ 'putAction' | translate }}" autocomplete="off" required >
       </div>
@@ -73,7 +85,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.patchAction.$invalid }">
-      <label for="patchAction" class="col-md-4 control-label">{{ 'patchAction' | translate }}</label>
+      <label for="patchAction" class="col-md-4 control-label">{{ 'rolesctrl-patchAction' | translate }}</label>
       <div class="col-md-8">
         <input name="patchAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.patchAction" id="patchAction" placeholder="{{ 'patchAction' | translate }}" autocomplete="off" required >
       </div>
@@ -84,7 +96,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.deleteAction.$invalid }">
-      <label for="deleteAction" class="col-md-4 control-label">{{ 'deleteAction' | translate }}</label>
+      <label for="deleteAction" class="col-md-4 control-label">{{ 'rolesctrl-deleteAction' | translate }}</label>
       <div class="col-md-8">
         <input name="deleteAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.deleteAction" id="deleteAction" placeholder="{{ 'deleteAction' | translate }}" autocomplete="off" required >
       </div>
@@ -95,7 +107,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.copyAction.$invalid }">
-      <label for="copyAction" class="col-md-4 control-label">{{ 'copyAction' | translate }}</label>
+      <label for="copyAction" class="col-md-4 control-label">{{ 'rolesctrl-copyAction' | translate }}</label>
       <div class="col-md-8">
         <input name="copyAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.copyAction" id="copyAction" placeholder="{{ 'copyAction' | translate }}" autocomplete="off" required >
       </div>
@@ -106,7 +118,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.headAction.$invalid }">
-      <label for="headAction" class="col-md-4 control-label">{{ 'headAction' | translate }}</label>
+      <label for="headAction" class="col-md-4 control-label">{{ 'rolesctrl-headAction' | translate }}</label>
       <div class="col-md-8">
         <input name="headAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.headAction" id="headAction" placeholder="{{ 'headAction' | translate }}" autocomplete="off" required >
       </div>
@@ -117,7 +129,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.optionsAction.$invalid }">
-      <label for="optionsAction" class="col-md-4 control-label">{{ 'optionsAction' | translate }}</label>
+      <label for="optionsAction" class="col-md-4 control-label">{{ 'rolesctrl-optionsAction' | translate }}</label>
       <div class="col-md-8">
         <input name="optionsAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.optionsAction" id="optionsAction" placeholder="{{ 'optionsAction' | translate }}" autocomplete="off" required >
       </div>
@@ -128,7 +140,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.linkAction.$invalid }">
-      <label for="linkAction" class="col-md-4 control-label">{{ 'linkAction' | translate }}</label>
+      <label for="linkAction" class="col-md-4 control-label">{{ 'rolesctrl-linkAction' | translate }}</label>
       <div class="col-md-8">
         <input name="linkAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.linkAction" id="linkAction" placeholder="{{ 'linkAction' | translate }}" autocomplete="off" required >
       </div>
@@ -139,7 +151,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.unlinkAction.$invalid }">
-      <label for="unlinkAction" class="col-md-4 control-label">{{ 'unlinkAction' | translate }}</label>
+      <label for="unlinkAction" class="col-md-4 control-label">{{ 'rolesctrl-unlinkAction' | translate }}</label>
       <div class="col-md-8">
         <input name="unlinkAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.unlinkAction" id="unlinkAction" placeholder="{{ 'unlinkAction' | translate }}" autocomplete="off" required >
       </div>
@@ -150,7 +162,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolesctrlForm.purgeAction.$invalid }">
-      <label for="purgeAction" class="col-md-4 control-label">{{ 'purgeAction' | translate }}</label>
+      <label for="purgeAction" class="col-md-4 control-label">{{ 'rolesctrl-purgeAction' | translate }}</label>
       <div class="col-md-8">
         <input name="purgeAction" readonly="readonly" type="text" class="form-control" data-ng-model="rolesctrl.purgeAction" id="purgeAction" placeholder="{{ 'purgeAction' | translate }}" autocomplete="off" required >
       </div>
@@ -164,7 +176,7 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="rolesctrlsEdit" href="/#/rolesctrls/edit/{{rolesctrl.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a acl-check="rolesctrlsList" ui-sref="rolesctrlsList" class="btn default ">{{ 'Back to list' | translate }}</a>
+                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
                         </div>
                       </div>
                     </div>

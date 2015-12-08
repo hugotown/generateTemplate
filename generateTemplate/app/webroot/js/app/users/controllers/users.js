@@ -15,44 +15,54 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-            if (data.lov_user_gender && data.lov_user_gender !== '') {
-    var lovUserGenders = $scope.findLovs('equals', '', 'USER_GENDER', 'lovUserGenders', data.lov_user_gender);
+            
+if (data.lov_user_gender && data.lov_user_gender !== '') {
+    var lovUserGenders = $scope.fgetLovs('equals', '', 'USER_GENDER', 'lovUserGenders', data.lov_user_gender);
     lovUserGenders.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovUserGender.selected = datapromise.items[0];
         }
     });
 }
-                    if (data.lov_user_status && data.lov_user_status !== '') {
-    var lovUserStatuses = $scope.findLovs('equals', '', 'USER_STATUS', 'lovUserStatuses', data.lov_user_status);
+
+                    
+if (data.lov_user_status && data.lov_user_status !== '') {
+    var lovUserStatuses = $scope.fgetLovs('equals', '', 'USER_STATUS', 'lovUserStatuses', data.lov_user_status);
     lovUserStatuses.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovUserStatus.selected = datapromise.items[0];
         }
     });
 }
-                    if (data.lov_user_type && data.lov_user_type !== '') {
-    var lovUserTypes = $scope.findLovs('equals', '', 'USER_TYPE', 'lovUserTypes', data.lov_user_type);
+
+                    
+if (data.lov_user_type && data.lov_user_type !== '') {
+    var lovUserTypes = $scope.fgetLovs('equals', '', 'USER_TYPE', 'lovUserTypes', data.lov_user_type);
     lovUserTypes.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
             $scope.lovUserType.selected = datapromise.items[0];
         }
     });
 }
-                        if(data.role_id){
-                $scope.selectedRole.selected = data.role_id;
-            }
 
-                                if(data.workstation_id){
-                $scope.selectedWorkstation.selected = data.workstation_id;
-            }
+                    
+if(data.role_id){
+    $scope.selectedRole.selected = data.role_id;
+}
 
-                                if(data.buildingspot_id){
-                $scope.selectedBuildingspot.selected = data.buildingspot_id;
-            }
+                            
+if(data.workstation_id){
+    $scope.selectedWorkstation.selected = data.workstation_id;
+}
 
-                                        event = null;
-            data = null;
+                            
+if(data.buildingspot_id){
+    $scope.selectedBuildingspot.selected = data.buildingspot_id;
+}
+
+                            
+event = null;
+data = null;
         });
 
 
@@ -77,20 +87,43 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {username: $translate.instant('username')} ,
-                                {email: $translate.instant('email')} ,
-                                {password: $translate.instant('password')} ,
-                                {name: $translate.instant('name')} ,
-                                {firstName: $translate.instant('firstName')} ,
-                                {lastName: $translate.instant('lastName')} ,
-                                {lov_user_gender: $translate.instant('lov_user_gender')} ,
-                                {lov_user_status: $translate.instant('lov_user_status')} ,
-                                {lov_user_type: $translate.instant('lov_user_type')} ,
-                                {role_id: $translate.instant('role_id')} ,
-                                {workstation_id: $translate.instant('workstation_id')} ,
-                                {buildingspot_id: $translate.instant('buildingspot_id')} ,
-                                {avatar: $translate.instant('avatar')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'user-username': $translate.instant('user-username')} ,
+
+                                
+{'user-email': $translate.instant('user-email')} ,
+
+                                
+{'user-name': $translate.instant('user-name')} ,
+
+                                
+{'user-firstName': $translate.instant('user-firstName')} ,
+
+                                
+{'user-lastName': $translate.instant('user-lastName')} ,
+
+                                
+{'user-lov_user_gender': $translate.instant('user-lov_user_gender')} ,
+
+                                
+{'user-lov_user_status': $translate.instant('user-lov_user_status')} ,
+
+                                
+{'user-lov_user_type': $translate.instant('user-lov_user_type')} ,
+
+                                
+{'user-role_id': $translate.instant('user-role_id')} ,
+
+                                
+{'user-workstation_id': $translate.instant('user-workstation_id')} ,
+
+                                
+{'user-buildingspot_id': $translate.instant('user-buildingspot_id')} ,
+
+                                
+{'user-avatar': $translate.instant('user-avatar')} ,
+
+                                {'user-actions': $translate.instant('user-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -104,7 +137,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Users = $injector.get('Users');
 
@@ -136,7 +168,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.roles = [];
         $scope.role = {};
         $scope.selectedRole = {};
-                var Roles = $injector.get('Roles');
+
+        
+        var Roles = $injector.get('Roles');
+
             
         $scope.findRoles = function($param)
             {
@@ -145,7 +180,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_role_status : 'active'
                           }
                       },function(roles)
                         {
@@ -155,6 +191,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Roles.query({
+                          where: {
+                            lov_role_status : 'active'
+                          }
                       },function(roles)
                         {
                             $scope.roles = roles.items;
@@ -168,7 +207,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.workstations = [];
         $scope.workstation = {};
         $scope.selectedWorkstation = {};
-                var Workstations = $injector.get('Workstations');
+
+        
+        var Workstations = $injector.get('Workstations');
+
             
         $scope.findWorkstations = function($param)
             {
@@ -177,7 +219,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_workstation_status : 'active'
                           }
                       },function(workstations)
                         {
@@ -187,6 +230,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Workstations.query({
+                          where: {
+                            lov_workstation_status : 'active'
+                          }
                       },function(workstations)
                         {
                             $scope.workstations = workstations.items;
@@ -200,7 +246,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.buildingspots = [];
         $scope.buildingspot = {};
         $scope.selectedBuildingspot = {};
-                var Buildingspots = $injector.get('Buildingspots');
+
+        
+        var Buildingspots = $injector.get('Buildingspots');
+
             
         $scope.findBuildingspots = function($param)
             {
@@ -209,7 +258,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_buildingspot_status : 'active'
                           }
                       },function(buildingspots)
                         {
@@ -219,6 +269,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Buildingspots.query({
+                          where: {
+                            lov_buildingspot_status : 'active'
+                          }
                       },function(buildingspots)
                         {
                             $scope.buildingspots = buildingspots.items;
@@ -229,12 +282,18 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             };
 
     
+
 $scope.lovUserGender = {};
-    $scope.lovUserStatus = {};
-    $scope.lovUserType = {};
+
+    
+$scope.lovUserStatus = {};
+
+    
+$scope.lovUserType = {};
+
     
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -258,6 +317,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -269,26 +331,44 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var user = new Users({
 
-                                username: this.username,
-                                email: this.email,
-                                password: this.password,
-                                name: this.name,
-                                firstName: this.firstName,
-                                lastName: this.lastName,
-                                lov_user_gender: ($scope.lovUserGender.selected) ? $scope.lovUserGender.selected.name_ : '',
+                                
+username: this.username,
 
-                                    lov_user_status: ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '',
+                                
+email: this.email,
 
-                                    lov_user_type: ($scope.lovUserType.selected) ? $scope.lovUserType.selected.name_ : '',
+                                
+name: this.name,
 
-                                    role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
+                                
+firstName: this.firstName,
 
-                                            workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+                                
+lastName: this.lastName,
 
-                                            buildingspot_id: $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null,
+                                
+lov_user_gender: ($scope.lovUserGender.selected) ? $scope.lovUserGender.selected.name_ : '',
 
-                                            avatar: this.avatar,
-                                                forctrl: 'ok'
+                                    
+lov_user_status: ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '',
+
+                                    
+lov_user_type: ($scope.lovUserType.selected) ? $scope.lovUserType.selected.name_ : '',
+
+                                    
+role_id: $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null,
+
+                                            
+workstation_id: $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null,
+
+                                            
+buildingspot_id: $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null,
+
+                                            
+avatar: this.avatar,
+
+                                
+forctrl: 'ok'
             });
 
             user.$save(function(response)
@@ -309,17 +389,23 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var user = $scope.user;
-                user.lov_user_gender = ($scope.lovUserGender.selected) ? $scope.lovUserGender.selected.name_ : '';
+                
+user.lov_user_gender = ($scope.lovUserGender.selected) ? $scope.lovUserGender.selected.name_ : '';
 
-                            user.lov_user_status = ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '';
+                            
+user.lov_user_status = ($scope.lovUserStatus.selected) ? $scope.lovUserStatus.selected.name_ : '';
 
-                            user.lov_user_type = ($scope.lovUserType.selected) ? $scope.lovUserType.selected.name_ : '';
+                            
+user.lov_user_type = ($scope.lovUserType.selected) ? $scope.lovUserType.selected.name_ : '';
 
-                            user.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
+                            
+user.role_id = $scope.selectedRole.selected ? $scope.selectedRole.selected.id : null;
 
-                                        user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
+                                        
+user.workstation_id = $scope.selectedWorkstation.selected ? $scope.selectedWorkstation.selected.id : null;
 
-                                        user.buildingspot_id = $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null;
+                                        
+user.buildingspot_id = $scope.selectedBuildingspot.selected ? $scope.selectedBuildingspot.selected.id : null;
 
                                         
         user.$update(function() {

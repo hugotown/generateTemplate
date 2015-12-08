@@ -50,9 +50,15 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="ctrl in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( ctrl.name || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  {{ ( ctrl.name || '...' ) | translate  }}
+</td>
+
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'CTRL_STATUS', 'lov_ctrl_status', ctrl.lov_ctrl_status, ctrl)" >
+  {{ ( ctrl.lov_ctrl_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">

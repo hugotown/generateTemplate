@@ -104,6 +104,7 @@
 								'Rolesctrl.role_id',
 								'Ctrl.name',
 								'Rolesctrl.ctrl_id',
+								'Rolesctrl.lov_rolesctrl_status',
 								'Rolesctrl.getAction',
 								'Rolesctrl.postAction',
 								'Rolesctrl.putAction',

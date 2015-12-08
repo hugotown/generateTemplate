@@ -57,7 +57,7 @@
                             <?php foreach ($fields as $field)
                               {
                                 $fieldAlreadyPainted = false;
-                                if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id"  )
+                                if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                                 {
                                   if(isset($associations['belongsTo']))
                                   {
@@ -74,13 +74,14 @@
                                                 $fieldAlreadyPainted = true;
                                                 
                                                 ?>
-                                                  <td class="tasty-table-td">
-                                                    <a ng-if="<?php echo $singularVar; ?>.<?php echo $field; ?>.id" ng-disabled="!session.aclstates.<?php echo $otherPluralVar; ?>View" href="/#/<?php echo $otherPluralVar; ?>/view/{{<?php echo $singularVar; ?>.<?php echo $field; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.<?php echo $otherPluralVar; ?>View) ? 'disabled' : ''}}">
-                                                        {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?>.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!<?php echo $singularVar; ?>.<?php echo $field; ?>.id" href="javascript:;">...</a>
-                                                  </td>
+
+<td class="tasty-table-td">
+  <a ng-if="<?php echo $singularVar; ?>.<?php echo $field; ?>.id" ng-disabled="!session.aclstates.<?php echo $otherPluralVar; ?>View" href="/#/<?php echo $otherPluralVar; ?>/view/{{<?php echo $singularVar; ?>.<?php echo $field; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.<?php echo $otherPluralVar; ?>View) ? 'disabled' : ''}}">
+      {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?>.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!<?php echo $singularVar; ?>.<?php echo $field; ?>.id" href="javascript:;">...</a>
+</td>
 
                                                 <?php
                                               }
@@ -89,12 +90,27 @@
                                   }
                                   if(!$fieldAlreadyPainted)
                                   {
+                                    if(strpos($field,'lov_') !== false){
+                                      $fieldNameWLov = str_replace('lov_', '', $field);
+                                      $upperFieldNameWLov = strtoupper($fieldNameWLov);
                                     ?>
-                                      <td class="tasty-table-td">
-                                        {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?> || '...' ) | translate  }}
-                                      </td>
+
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', '<?php echo $upperFieldNameWLov; ?>', '<?php echo $field; ?>', <?php echo $singularVar; ?>.<?php echo $field; ?>, <?php echo $singularVar; ?>)" >
+  {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?>[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
                                     <?php
+
+                                    } else{
+                                    ?>
+
+<td class="tasty-table-td">
+  {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?> || '...' ) | translate  }}
+</td>
+
+                                    <?php
+
+                                    }
                                   } 
                                 }
                               }?>

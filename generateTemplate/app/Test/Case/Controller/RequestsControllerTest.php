@@ -22,8 +22,7 @@ class RequestsControllerTest extends ControllerTestCase {
 		'app.role',
 		'app.rolesctrl',
 		'app.ctrl',
-		'app.rolestate',
-		'app.spot'
+		'app.rolestate'
 	);
 
 /**

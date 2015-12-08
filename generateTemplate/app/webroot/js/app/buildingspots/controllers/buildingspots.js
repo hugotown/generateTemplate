@@ -15,20 +15,34 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-                if(data.building_id){
-                $scope.selectedBuilding.selected = data.building_id;
-            }
+            
+if(data.building_id){
+    $scope.selectedBuilding.selected = data.building_id;
+}
 
-                            if (data.lov_spot_section && data.lov_spot_section !== '') {
-    var lovSpotSections = $scope.findLovs('equals', '', 'SPOT_SECTION', 'lovSpotSections', data.lov_spot_section);
-    lovSpotSections.$promise.then(function(datapromise) {
+                            
+if (data.lov_buildingspot_section && data.lov_buildingspot_section !== '') {
+    var lovBuildingspotSections = $scope.fgetLovs('equals', '', 'BUILDINGSPOT_SECTION', 'lovBuildingspotSections', data.lov_buildingspot_section);
+    lovBuildingspotSections.$promise.then(function(datapromise) {
         if (datapromise.items[0]) {
-            $scope.lovSpotSection.selected = datapromise.items[0];
+            $scope.lovBuildingspotSection.selected = datapromise.items[0];
         }
     });
 }
-                                event = null;
-            data = null;
+
+                    
+if (data.lov_buildingspot_status && data.lov_buildingspot_status !== '') {
+    var lovBuildingspotStatuses = $scope.fgetLovs('equals', '', 'BUILDINGSPOT_STATUS', 'lovBuildingspotStatuses', data.lov_buildingspot_status);
+    lovBuildingspotStatuses.$promise.then(function(datapromise) {
+        if (datapromise.items[0]) {
+            $scope.lovBuildingspotStatus.selected = datapromise.items[0];
+        }
+    });
+}
+
+                    
+event = null;
+data = null;
         });
 
 
@@ -53,11 +67,22 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           var data = {
               'rows': r.data.items,
               'header': [
-                                        {building_id: $translate.instant('building_id')} ,
-                                {name: $translate.instant('name')} ,
-                                {spotNumber: $translate.instant('spotNumber')} ,
-                                {lov_spot_section: $translate.instant('lov_spot_section')} ,
-                                {Actions: $translate.instant('Actions')}
+                                        
+{'buildingspot-building_id': $translate.instant('buildingspot-building_id')} ,
+
+                                
+{'buildingspot-name': $translate.instant('buildingspot-name')} ,
+
+                                
+{'buildingspot-spotNumber': $translate.instant('buildingspot-spotNumber')} ,
+
+                                
+{'buildingspot-lov_buildingspot_section': $translate.instant('buildingspot-lov_buildingspot_section')} ,
+
+                                
+{'buildingspot-lov_buildingspot_status': $translate.instant('buildingspot-lov_buildingspot_status')} ,
+
+                                {'buildingspot-actions': $translate.instant('buildingspot-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -71,7 +96,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
           return data;
       });
   };
-
 
     var Buildingspots = $injector.get('Buildingspots');
 
@@ -103,7 +127,10 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         $scope.buildings = [];
         $scope.building = {};
         $scope.selectedBuilding = {};
-                var Buildings = $injector.get('Buildings');
+
+        
+        var Buildings = $injector.get('Buildings');
+
             
         $scope.findBuildings = function($param)
             {
@@ -112,7 +139,8 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                           where: {
                               name: {
                                 contains: $param
-                            }
+                            },
+                            lov_building_status : 'active'
                           }
                       },function(buildings)
                         {
@@ -122,6 +150,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                         });
                 } else {
                     return Buildings.query({
+                          where: {
+                            lov_building_status : 'active'
+                          }
                       },function(buildings)
                         {
                             $scope.buildings = buildings.items;
@@ -132,10 +163,15 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
             };
 
     
-$scope.lovSpotSection = {};
+
+$scope.lovBuildingspotSection = {};
+
+    
+$scope.lovBuildingspotStatus = {};
+
     
 var Lovs = $injector.get('Lovs');
-$scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
+$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
     var whereStmnt = {
         lovType: $type,
         status: 'active'
@@ -159,6 +195,9 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         sort: 'orderShow ASC'
     }, function(lovs) {
         $scope[$svar] = lovs.items;
+        if($obj){
+            $obj[$svar] = lovs.items;
+        }
         return $scope[$svar];
     });
 };
@@ -170,13 +209,23 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
         {
             var buildingspot = new Buildingspots({
 
-                                building_id: $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null,
+                                
+building_id: $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null,
 
-                                            name: this.name,
-                                spotNumber: this.spotNumber,
-                                lov_spot_section: ($scope.lovSpotSection.selected) ? $scope.lovSpotSection.selected.name_ : '',
+                                            
+name: this.name,
 
-                                                    forctrl: 'ok'
+                                
+spotNumber: this.spotNumber,
+
+                                
+lov_buildingspot_section: ($scope.lovBuildingspotSection.selected) ? $scope.lovBuildingspotSection.selected.name_ : '',
+
+                                    
+lov_buildingspot_status: ($scope.lovBuildingspotStatus.selected) ? $scope.lovBuildingspotStatus.selected.name_ : '',
+
+                                    
+forctrl: 'ok'
             });
 
             buildingspot.$save(function(response)
@@ -197,9 +246,14 @@ $scope.findLovs = function($typeSearch, $fieldLang, $type, $svar, $param) {
     $scope.update = function(isValid) {
       if (isValid) {
       var buildingspot = $scope.buildingspot;
-                buildingspot.building_id = $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null;
+                
+buildingspot.building_id = $scope.selectedBuilding.selected ? $scope.selectedBuilding.selected.id : null;
 
-                                        buildingspot.lov_spot_section = ($scope.lovSpotSection.selected) ? $scope.lovSpotSection.selected.name_ : '';
+                                        
+buildingspot.lov_buildingspot_section = ($scope.lovBuildingspotSection.selected) ? $scope.lovBuildingspotSection.selected.name_ : '';
+
+                            
+buildingspot.lov_buildingspot_status = ($scope.lovBuildingspotStatus.selected) ? $scope.lovBuildingspotStatus.selected.name_ : '';
 
                             
         buildingspot.$update(function() {

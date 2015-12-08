@@ -14,11 +14,11 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.role_id.$invalid }">
-        <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
+        <label for="role_id" class="col-md-4 control-label">{{ 'rolestate-role' | translate }}</label>
         <div class="col-md-8">
           <div class="input-group">
               <ui-select required ng-model="selectedRole.selected" name="role_id" reset-search-input="false" theme="bootstrap" >
-                <ui-select-match placeholder="{{ 'Select Role' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="{{ 'Select Role' | translate }}...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="item in roles | limitTo: 10 track by $index"  refresh="findRoles($select.search)" refresh-delay="500" >
                   <div ng-bind-html="item.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -31,7 +31,7 @@
           </div>
             <span ng-show="submitted && rolestateForm.role_id.$invalid" class="help-block">
                 <p ng-show="rolestateForm.role_id.$error.required">
-                    {{ 'role_id field is required' | translate }}
+                    {{ 'rolestate-role_id field is required' | translate }}
                 </p>
             </span>
         </div>
@@ -42,12 +42,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.statename.$invalid }">
-      <label for="statename" class="col-md-4 control-label">{{ 'statename' | translate }}</label>
+      <label for="statename" class="col-md-4 control-label">{{ 'rolestate-statename' | translate }}</label>
       <div class="col-md-8">
         <input name="statename" type="text" class="form-control" data-ng-model="statename" id="statename" placeholder="{{ 'statename' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && rolestateForm.statename.$invalid" class="help-block">
           <p ng-show="rolestateForm.statename.$error.required">
-            {{ 'statename field is required' | translate }}
+            {{ 'rolestate-statename field is required' | translate }}
           </p>
         </span>
       </div>
@@ -59,12 +59,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.accessit.$invalid }">
-      <label for="accessit" class="col-md-4 control-label">{{ 'accessit' | translate }}</label>
+      <label for="accessit" class="col-md-4 control-label">{{ 'rolestate-accessit' | translate }}</label>
       <div class="col-md-8">
         <input name="accessit" type="text" class="form-control" data-ng-model="accessit" id="accessit" placeholder="{{ 'accessit' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && rolestateForm.accessit.$invalid" class="help-block">
           <p ng-show="rolestateForm.accessit.$error.required">
-            {{ 'accessit field is required' | translate }}
+            {{ 'rolestate-accessit field is required' | translate }}
           </p>
         </span>
       </div>
@@ -73,6 +73,34 @@
 </div>
 
                 
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="form-group" ng-class="{ 'has-error' : submitted && rolestateForm.lov_rolestate_status.$invalid }">
+          <label for="lov_rolestate_status" class="col-md-4 control-label">{{ 'rolestate-lov_rolestate_status' | translate }}</label>
+          <div class="col-md-8">
+              <div class="input-group">
+                  <ui-select  ng-model="lovRolestateStatus.selected" theme="bootstrap" name="lov_rolestate_status" >
+                      <ui-select-match placeholder="{{ 'Select lov_rolestate_status' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovRolestateStatuses" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'ROLESTATE_STATUS', 'lovRolestateStatuses', $select.search )" refresh-delay="500">
+                          <div ng-bind-html="item['name_' + selectedLanguage]"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-btn btn-right">
+                      <a class="btn grey" type="button" ng-click="lovRolestateStatus.selected = undefined">
+                          <i class="fa fa-times"></i>
+                      </a>
+                  </span>
+              </div>
+              <span ng-show="submitted && rolestateForm.lov_rolestate_status.$invalid" class="help-block">
+                  <p ng-show="rolestateForm.lov_rolestate_status.$error.required">
+                      {{ 'rolestate-lov_rolestate_status field is required' | translate }}
+                  </p>
+              </span>
+          </div>
+      </div>
+  </div>
+</div>
+                    
 <div class="form-actions">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -81,7 +109,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="rolestatesCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a ui-sref="rolestatesList" acl-check="rolestatesList" class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
         </div>
       </div>
     </div>

@@ -22,8 +22,7 @@ class RolesControllerTest extends ControllerTestCase {
 		'app.workarea',
 		'app.building',
 		'app.buildingspot',
-		'app.request',
-		'app.spot'
+		'app.request'
 	);
 
 /**

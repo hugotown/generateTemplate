@@ -50,25 +50,34 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="buildingspot in rows">
-                                                                              <td class="tasty-table-td">
-                                                    <a ng-if="buildingspot.building_id.id" ng-disabled="!session.aclstates.buildingsView" href="/#/buildings/view/{{buildingspot.building_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.buildingsView) ? 'disabled' : ''}}">
-                                                        {{ ( buildingspot.building_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!buildingspot.building_id.id" href="javascript:;">...</a>
-                                                  </td>
+                            
+<td class="tasty-table-td">
+  <a ng-if="buildingspot.building_id.id" ng-disabled="!session.aclstates.buildingsView" href="/#/buildings/view/{{buildingspot.building_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.buildingsView) ? 'disabled' : ''}}">
+      {{ ( buildingspot.building_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!buildingspot.building_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                        {{ ( buildingspot.name || '...' ) | translate  }}
-                                      </td>
+                                                
+<td class="tasty-table-td">
+  {{ ( buildingspot.name || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( buildingspot.spotNumber || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( buildingspot.spotNumber || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( buildingspot.lov_spot_section || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'BUILDINGSPOT_SECTION', 'lov_buildingspot_section', buildingspot.lov_buildingspot_section, buildingspot)" >
+  {{ ( buildingspot.lov_buildingspot_section[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
+
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'BUILDINGSPOT_STATUS', 'lov_buildingspot_status', buildingspot.lov_buildingspot_status, buildingspot)" >
+  {{ ( buildingspot.lov_buildingspot_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">

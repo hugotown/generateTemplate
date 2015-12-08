@@ -104,6 +104,7 @@
 								'Rolestate.role_id',
 								'Rolestate.statename',
 								'Rolestate.accessit',
+								'Rolestate.lov_rolestate_status',
 							);
 					        $this->paginate = array(
 					            'fields' => $fields,

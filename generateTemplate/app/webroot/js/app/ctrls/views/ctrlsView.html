@@ -16,7 +16,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && ctrlForm.name.$invalid }">
-      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <label for="name" class="col-md-4 control-label">{{ 'ctrl-name' | translate }}</label>
       <div class="col-md-8">
         <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="ctrl.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
       </div>
@@ -24,13 +24,25 @@
   </div>
 </div>
                                 
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group" ng-class="{ 'has-error' : submitted && ctrlForm.lov_ctrl_status.$invalid }">
+      <label for="lov_ctrl_status" class="col-md-4 control-label">{{ 'ctrl-lov_ctrl_status' | translate }}</label>
+      <div class="col-md-8">
+        <input name="lov_ctrl_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovCtrlStatus.selected['name_'+selectedLanguage]" id="lov_ctrl_status" placeholder="{{ 'lov_ctrl_status' | translate }}" autocomplete="off"  >
+      </div>
+    </div>
+  </div>
+</div>
+
+                                    
                 <div class="form-actions">
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="ctrlsEdit" href="/#/ctrls/edit/{{ctrl.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a acl-check="ctrlsList" ui-sref="ctrlsList" class="btn default ">{{ 'Back to list' | translate }}</a>
+                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
                         </div>
                       </div>
                     </div>

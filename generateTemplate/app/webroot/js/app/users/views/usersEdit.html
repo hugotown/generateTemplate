@@ -15,12 +15,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.username.$invalid }">
-      <label for="username" class="col-md-4 control-label">{{ 'username' | translate }}</label>
+      <label for="username" class="col-md-4 control-label">{{ 'user-username' | translate }}</label>
       <div class="col-md-8">
         <input name="username" type="text" class="form-control" data-ng-model="user.username" id="username" placeholder="{{ 'username' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.username.$invalid" class="help-block">
           <p ng-show="userForm.username.$error.required">
-            {{ 'username field is required' | translate }}
+            {{ 'user-username field is required' | translate }}
           </p>
         </span>
       </div>
@@ -32,29 +32,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.email.$invalid }">
-      <label for="email" class="col-md-4 control-label">{{ 'email' | translate }}</label>
+      <label for="email" class="col-md-4 control-label">{{ 'user-email' | translate }}</label>
       <div class="col-md-8">
         <input name="email" type="text" class="form-control" data-ng-model="user.email" id="email" placeholder="{{ 'email' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.email.$invalid" class="help-block">
           <p ng-show="userForm.email.$error.required">
-            {{ 'email field is required' | translate }}
-          </p>
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-
-                
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.password.$invalid }">
-      <label for="password" class="col-md-4 control-label">{{ 'password' | translate }}</label>
-      <div class="col-md-8">
-        <input name="password" type="text" class="form-control" data-ng-model="user.password" id="password" placeholder="{{ 'password' | translate }}" autocomplete="off" required >
-        <span ng-show="submitted && userForm.password.$invalid" class="help-block">
-          <p ng-show="userForm.password.$error.required">
-            {{ 'password field is required' | translate }}
+            {{ 'user-email field is required' | translate }}
           </p>
         </span>
       </div>
@@ -66,12 +49,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.name.$invalid }">
-      <label for="name" class="col-md-4 control-label">{{ 'name' | translate }}</label>
+      <label for="name" class="col-md-4 control-label">{{ 'user-name' | translate }}</label>
       <div class="col-md-8">
         <input name="name" type="text" class="form-control" data-ng-model="user.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.name.$invalid" class="help-block">
           <p ng-show="userForm.name.$error.required">
-            {{ 'name field is required' | translate }}
+            {{ 'user-name field is required' | translate }}
           </p>
         </span>
       </div>
@@ -83,12 +66,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.firstName.$invalid }">
-      <label for="firstName" class="col-md-4 control-label">{{ 'firstName' | translate }}</label>
+      <label for="firstName" class="col-md-4 control-label">{{ 'user-firstName' | translate }}</label>
       <div class="col-md-8">
         <input name="firstName" type="text" class="form-control" data-ng-model="user.firstName" id="firstName" placeholder="{{ 'firstName' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.firstName.$invalid" class="help-block">
           <p ng-show="userForm.firstName.$error.required">
-            {{ 'firstName field is required' | translate }}
+            {{ 'user-firstName field is required' | translate }}
           </p>
         </span>
       </div>
@@ -100,12 +83,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lastName.$invalid }">
-      <label for="lastName" class="col-md-4 control-label">{{ 'lastName' | translate }}</label>
+      <label for="lastName" class="col-md-4 control-label">{{ 'user-lastName' | translate }}</label>
       <div class="col-md-8">
         <input name="lastName" type="text" class="form-control" data-ng-model="user.lastName" id="lastName" placeholder="{{ 'lastName' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.lastName.$invalid" class="help-block">
           <p ng-show="userForm.lastName.$error.required">
-            {{ 'lastName field is required' | translate }}
+            {{ 'user-lastName field is required' | translate }}
           </p>
         </span>
       </div>
@@ -117,12 +100,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_gender.$invalid }">
-          <label for="lov_user_gender" class="col-md-4 control-label">{{ 'lov_user_gender' | translate }}</label>
+          <label for="lov_user_gender" class="col-md-4 control-label">{{ 'user-lov_user_gender' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select ng-model="lovUserGender.selected" theme="bootstrap" name="lov_user_gender" >
-                      <ui-select-match placeholder="Select...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
-                      <ui-select-choices repeat="item in lovUserGenders" refresh="findLovs( 'contains', 'name_' + selectedLanguage, 'USER_GENDER', 'lovUserGenders', $select.search )" refresh-delay="500">
+                  <ui-select required ng-model="lovUserGender.selected" theme="bootstrap" name="lov_user_gender" >
+                      <ui-select-match placeholder="{{ 'Select lov_user_gender' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovUserGenders" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'USER_GENDER', 'lovUserGenders', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
                       </ui-select-choices>
                   </ui-select>
@@ -134,7 +117,7 @@
               </div>
               <span ng-show="submitted && userForm.lov_user_gender.$invalid" class="help-block">
                   <p ng-show="userForm.lov_user_gender.$error.required">
-                      {{ 'lov_user_gender field is required' | translate }}
+                      {{ 'user-lov_user_gender field is required' | translate }}
                   </p>
               </span>
           </div>
@@ -145,12 +128,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_status.$invalid }">
-          <label for="lov_user_status" class="col-md-4 control-label">{{ 'lov_user_status' | translate }}</label>
+          <label for="lov_user_status" class="col-md-4 control-label">{{ 'user-lov_user_status' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select ng-model="lovUserStatus.selected" theme="bootstrap" name="lov_user_status" >
-                      <ui-select-match placeholder="Select...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
-                      <ui-select-choices repeat="item in lovUserStatuses" refresh="findLovs( 'contains', 'name_' + selectedLanguage, 'USER_STATUS', 'lovUserStatuses', $select.search )" refresh-delay="500">
+                  <ui-select required ng-model="lovUserStatus.selected" theme="bootstrap" name="lov_user_status" >
+                      <ui-select-match placeholder="{{ 'Select lov_user_status' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovUserStatuses" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'USER_STATUS', 'lovUserStatuses', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
                       </ui-select-choices>
                   </ui-select>
@@ -162,7 +145,7 @@
               </div>
               <span ng-show="submitted && userForm.lov_user_status.$invalid" class="help-block">
                   <p ng-show="userForm.lov_user_status.$error.required">
-                      {{ 'lov_user_status field is required' | translate }}
+                      {{ 'user-lov_user_status field is required' | translate }}
                   </p>
               </span>
           </div>
@@ -173,12 +156,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lov_user_type.$invalid }">
-          <label for="lov_user_type" class="col-md-4 control-label">{{ 'lov_user_type' | translate }}</label>
+          <label for="lov_user_type" class="col-md-4 control-label">{{ 'user-lov_user_type' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select ng-model="lovUserType.selected" theme="bootstrap" name="lov_user_type" >
-                      <ui-select-match placeholder="Select...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
-                      <ui-select-choices repeat="item in lovUserTypes" refresh="findLovs( 'contains', 'name_' + selectedLanguage, 'USER_TYPE', 'lovUserTypes', $select.search )" refresh-delay="500">
+                  <ui-select required ng-model="lovUserType.selected" theme="bootstrap" name="lov_user_type" >
+                      <ui-select-match placeholder="{{ 'Select lov_user_type' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
+                      <ui-select-choices repeat="item in lovUserTypes" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'USER_TYPE', 'lovUserTypes', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
                       </ui-select-choices>
                   </ui-select>
@@ -190,7 +173,7 @@
               </div>
               <span ng-show="submitted && userForm.lov_user_type.$invalid" class="help-block">
                   <p ng-show="userForm.lov_user_type.$error.required">
-                      {{ 'lov_user_type field is required' | translate }}
+                      {{ 'user-lov_user_type field is required' | translate }}
                   </p>
               </span>
           </div>
@@ -201,11 +184,11 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.role_id.$invalid }">
-        <label for="role_id" class="col-md-4 control-label">{{ 'role' | translate }}</label>
+        <label for="role_id" class="col-md-4 control-label">{{ 'user-role' | translate }}</label>
         <div class="col-md-8">
           <div class="input-group">
               <ui-select required ng-model="selectedRole.selected" name="role_id" reset-search-input="false" theme="bootstrap" >
-                <ui-select-match placeholder="{{ 'Select Role' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="{{ 'Select Role' | translate }}...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="item in roles | limitTo: 10 track by $index"  refresh="findRoles($select.search)" refresh-delay="500" >
                   <div ng-bind-html="item.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -218,7 +201,7 @@
           </div>
             <span ng-show="submitted && userForm.role_id.$invalid" class="help-block">
                 <p ng-show="userForm.role_id.$error.required">
-                    {{ 'role_id field is required' | translate }}
+                    {{ 'user-role_id field is required' | translate }}
                 </p>
             </span>
         </div>
@@ -230,11 +213,11 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.workstation_id.$invalid }">
-        <label for="workstation_id" class="col-md-4 control-label">{{ 'workstation' | translate }}</label>
+        <label for="workstation_id" class="col-md-4 control-label">{{ 'user-workstation' | translate }}</label>
         <div class="col-md-8">
           <div class="input-group">
               <ui-select  ng-model="selectedWorkstation.selected" name="workstation_id" reset-search-input="false" theme="bootstrap" >
-                <ui-select-match placeholder="{{ 'Select Workstation' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="{{ 'Select Workstation' | translate }}...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="item in workstations | limitTo: 10 track by $index"  refresh="findWorkstations($select.search)" refresh-delay="500" >
                   <div ng-bind-html="item.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -247,7 +230,7 @@
           </div>
             <span ng-show="submitted && userForm.workstation_id.$invalid" class="help-block">
                 <p ng-show="userForm.workstation_id.$error.required">
-                    {{ 'workstation_id field is required' | translate }}
+                    {{ 'user-workstation_id field is required' | translate }}
                 </p>
             </span>
         </div>
@@ -259,11 +242,11 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.buildingspot_id.$invalid }">
-        <label for="buildingspot_id" class="col-md-4 control-label">{{ 'buildingspot' | translate }}</label>
+        <label for="buildingspot_id" class="col-md-4 control-label">{{ 'user-buildingspot' | translate }}</label>
         <div class="col-md-8">
           <div class="input-group">
               <ui-select  ng-model="selectedBuildingspot.selected" name="buildingspot_id" reset-search-input="false" theme="bootstrap" >
-                <ui-select-match placeholder="{{ 'Select Buildingspot' || translate }}...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="{{ 'Select Buildingspot' | translate }}...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="item in buildingspots | limitTo: 10 track by $index"  refresh="findBuildingspots($select.search)" refresh-delay="500" >
                   <div ng-bind-html="item.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -276,7 +259,7 @@
           </div>
             <span ng-show="submitted && userForm.buildingspot_id.$invalid" class="help-block">
                 <p ng-show="userForm.buildingspot_id.$error.required">
-                    {{ 'buildingspot_id field is required' | translate }}
+                    {{ 'user-buildingspot_id field is required' | translate }}
                 </p>
             </span>
         </div>
@@ -288,12 +271,12 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.avatar.$invalid }">
-      <label for="avatar" class="col-md-4 control-label">{{ 'avatar' | translate }}</label>
+      <label for="avatar" class="col-md-4 control-label">{{ 'user-avatar' | translate }}</label>
       <div class="col-md-8">
-        <input name="avatar" type="text" class="form-control" data-ng-model="user.avatar" id="avatar" placeholder="{{ 'avatar' | translate }}" autocomplete="off" required >
+        <input name="avatar" type="text" class="form-control" data-ng-model="user.avatar" id="avatar" placeholder="{{ 'avatar' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && userForm.avatar.$invalid" class="help-block">
           <p ng-show="userForm.avatar.$error.required">
-            {{ 'avatar field is required' | translate }}
+            {{ 'user-avatar field is required' | translate }}
           </p>
         </span>
       </div>
@@ -310,7 +293,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
           <button type="submit" acl-check="usersEdit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a ui-sref="usersList" acl-check="usersList" class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
         </div>
       </div>
     </div>

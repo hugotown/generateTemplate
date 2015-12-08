@@ -50,45 +50,52 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="workstation in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( workstation.name || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  {{ ( workstation.name || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( workstation.employeeNumber || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( workstation.employeeNumber || '...' ) | translate  }}
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                                    <a ng-if="workstation.workarea_id.id" ng-disabled="!session.aclstates.workareasView" href="/#/workareas/view/{{workstation.workarea_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workareasView) ? 'disabled' : ''}}">
-                                                        {{ ( workstation.workarea_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!workstation.workarea_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                    
+<td class="tasty-table-td">
+  <a ng-if="workstation.workarea_id.id" ng-disabled="!session.aclstates.workareasView" href="/#/workareas/view/{{workstation.workarea_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workareasView) ? 'disabled' : ''}}">
+      {{ ( workstation.workarea_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!workstation.workarea_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                        {{ ( workstation.lov_workstation_status || '...' ) | translate  }}
-                                      </td>
+                                                
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'WORKSTATION_STATUS', 'lov_workstation_status', workstation.lov_workstation_status, workstation)" >
+  {{ ( workstation.lov_workstation_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                                    <a ng-if="workstation.parent_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{workstation.parent_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
-                                                        {{ ( workstation.parent_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!workstation.parent_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                    
+<td class="tasty-table-td">
+  <a ng-if="workstation.parent_id.id" ng-disabled="!session.aclstates.workstationsView" href="/#/workstations/view/{{workstation.parent_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.workstationsView) ? 'disabled' : ''}}">
+      {{ ( workstation.parent_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!workstation.parent_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                                  <td class="tasty-table-td">
-                                                    <a ng-if="workstation.building_id.id" ng-disabled="!session.aclstates.buildingsView" href="/#/buildings/view/{{workstation.building_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.buildingsView) ? 'disabled' : ''}}">
-                                                        {{ ( workstation.building_id.name || '...' ) | translate  }}
-                                                        <i class="fa fa-share"></i>
-                                                    </a>
-                                                    <a ng-if="!workstation.building_id.id" href="javascript:;">...</a>
-                                                  </td>
+                                                
+<td class="tasty-table-td">
+  <a ng-if="workstation.building_id.id" ng-disabled="!session.aclstates.buildingsView" href="/#/buildings/view/{{workstation.building_id.id}}"  class="btn btn-xs btn-circle btn-block blue {{(!session.aclstates.buildingsView) ? 'disabled' : ''}}">
+      {{ ( workstation.building_id.name || '...' ) | translate  }}
+      <i class="fa fa-share"></i>
+  </a>
+  <a ng-if="!workstation.building_id.id" href="javascript:;">...</a>
+</td>
 
-                                                                                      <td class="tasty-table-td">
-                                        {{ ( workstation.description || '...' ) | translate  }}
-                                      </td>
+                                                
+<td class="tasty-table-td">
+  {{ ( workstation.description || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">

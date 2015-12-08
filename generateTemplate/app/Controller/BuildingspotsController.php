@@ -104,7 +104,8 @@
 								'Buildingspot.building_id',
 								'Buildingspot.name',
 								'Buildingspot.spotNumber',
-								'Buildingspot.lov_spot_section',
+								'Buildingspot.lov_buildingspot_section',
+								'Buildingspot.lov_buildingspot_status',
 							);
 					        $this->paginate = array(
 					            'fields' => $fields,

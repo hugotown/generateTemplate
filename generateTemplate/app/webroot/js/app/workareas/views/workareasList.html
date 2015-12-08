@@ -50,17 +50,20 @@
                       <tbody>
                           <tr ng-show="!rows.length"><td colspan="{{(header.columns).length}}"><center>{{'No data found' | translate }}</center></td></tr>
                           <tr ng-repeat="workarea in rows">
-                                                                  <td class="tasty-table-td">
-                                        {{ ( workarea.name || '...' ) | translate  }}
-                                      </td>
+                            
+<td class="tasty-table-td">
+  {{ ( workarea.name || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( workarea.description || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td">
+  {{ ( workarea.description || '...' ) | translate  }}
+</td>
 
-                                                                          <td class="tasty-table-td">
-                                        {{ ( workarea.lov_workarea_status || '...' ) | translate  }}
-                                      </td>
+                                    
+<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'WORKAREA_STATUS', 'lov_workarea_status', workarea.lov_workarea_status, workarea)" >
+  {{ ( workarea.lov_workarea_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+</td>
 
                                                                   <td>
                                 <div class="actions">
