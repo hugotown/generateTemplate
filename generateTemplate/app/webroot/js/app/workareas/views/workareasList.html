@@ -14,7 +14,6 @@
 }
 </style>
 <section data-ng-controller="WorkareasCtrl">
-<h3 class="page-title">{{ 'Workareas' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
     <div class="portlet-title">
@@ -33,9 +32,7 @@
               <div class="form-group form-md-line-input has-info">
                   <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="workareaFilters" value="">
-                          <div class="form-control-focus">
-                          </div>
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="workareaFilters.name" >
                       </div>
                   </div>
               </div>
@@ -61,12 +58,12 @@
 </td>
 
                                     
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'WORKAREA_STATUS', 'lov_workarea_status', workarea.lov_workarea_status, workarea)" >
-  {{ ( workarea.lov_workarea_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="WORKAREA_STATUS" load-lovtype-value="{{workarea.lov_workarea_status}}" ></span>
 </td>
 
                                                                   <td>
-                                <div class="actions">
+                                <div class="actions tbl-actions">
                                     <a acl-check="workareasView" href="/#/workareas/view/{{workarea.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>
                                     </a>

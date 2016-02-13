@@ -1,5 +1,4 @@
               <section ng-controller="BuildingsCtrl" >
-    <h3 class="page-title"></i>{{ 'Buildings' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -16,7 +15,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'building-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'building-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && buildingForm.name.$invalid" class="help-block">
           <p ng-show="buildingForm.name.$error.required">
             {{ 'building-name field is required' | translate }}
@@ -33,7 +32,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.taxNumber.$invalid }">
       <label for="taxNumber" class="col-md-4 control-label">{{ 'building-taxNumber' | translate }}</label>
       <div class="col-md-8">
-        <input name="taxNumber" type="text" class="form-control" data-ng-model="taxNumber" id="taxNumber" placeholder="{{ 'taxNumber' | translate }}" autocomplete="off" required >
+        <input name="taxNumber" type="text" class="form-control" data-ng-model="taxNumber" id="taxNumber" placeholder="{{ 'building-taxNumber' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && buildingForm.taxNumber.$invalid" class="help-block">
           <p ng-show="buildingForm.taxNumber.$error.required">
             {{ 'building-taxNumber field is required' | translate }}
@@ -106,7 +105,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingForm.description.$invalid }">
       <label for="description" class="col-md-4 control-label">{{ 'building-description' | translate }}</label>
       <div class="col-md-8">
-        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'building-description' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && buildingForm.description.$invalid" class="help-block">
           <p ng-show="buildingForm.description.$error.required">
             {{ 'building-description field is required' | translate }}
@@ -126,7 +125,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="buildingsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="buildingsList" class="btn default ">{{ 'Back to buildings list' | translate }}</a>
         </div>
       </div>
     </div>

@@ -23,7 +23,6 @@
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Ctrl" >
-    <h3 class="page-title"></i>{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
     <?php if (strpos($action, 'html_add') !== false){ ?>
     <div class="portlet light bordered">
       <div class="portlet-title">
@@ -139,7 +138,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
       <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
       <div class="col-md-8">
-        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
         <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
           <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
             {{ '<?php echo $singularVar; ?>-<?php echo $field;?> field is required' | translate }}
@@ -166,7 +165,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="<?php echo $pluralVar; ?>Create" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="<?php echo $pluralVar; ?>List" class="btn default ">{{ 'Back to <?php echo $pluralVar; ?> list' | translate }}</a>
         </div>
       </div>
     </div>
@@ -293,7 +292,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
       <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
       <div class="col-md-8">
-        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+        <input name="<?php echo $field;?>" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
         <span ng-show="submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid" class="help-block">
           <p ng-show="<?php echo $singularVar; ?>Form.<?php echo $field;?>.$error.required">
             {{ '<?php echo $singularVar; ?>-<?php echo $field;?> field is required' | translate }}
@@ -319,7 +318,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
           <button type="submit" acl-check="<?php echo $pluralVar; ?>Edit" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="<?php echo $pluralVar; ?>List" class="btn default ">{{ 'Back to <?php echo $pluralVar; ?> list' | translate }}</a>
         </div>
       </div>
     </div>

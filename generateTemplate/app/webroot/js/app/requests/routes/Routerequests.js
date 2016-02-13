@@ -12,23 +12,42 @@ angular.module('appviewproject0001App')
 function($stateProvider) {
     $stateProvider.state('requests', {
         url: '/requests',
-        templateUrl: 'views/requestsHome.html'
+        templateUrl: 'views/requestsHome.html',
+        ncyBreadcrumb: {
+            label: 'BREADCRUMB-REQUESTS-HOME-LABEL'
+        }
     });
     $stateProvider.state('requestsList', {
         url: '/requests/list',
-        templateUrl: 'views/requestsList.html'
+        templateUrl: 'views/REQUESTSList.html',
+        ncyBreadcrumb: {
+            parent: 'requests',
+            label: 'BREADCRUMB-REQUESTS-LIST-LABEL'
+        }
     });
     $stateProvider.state('requestsView', {
         url: '/requests/view/:requestId',
-        templateUrl: 'views/requestsView.html'
+        templateUrl: 'views/requestsView.html',
+        ncyBreadcrumb: {
+            parent: 'requestsList',
+            label: 'BREADCRUMB-REQUESTS-VIEW-LABEL'
+        }
     });
     $stateProvider.state('requestsCreate', {
         url: '/requests/create',
-        templateUrl: 'views/requestsAdd.html'
+        templateUrl: 'views/requestsAdd.html',
+        ncyBreadcrumb: {
+            parent: 'requestsList',
+            label: 'BREADCRUMB-REQUESTS-CREATE-LABEL'
+        }
     });
     $stateProvider.state('requestsEdit', {
         url: '/requests/edit/:requestId',
-        templateUrl: 'views/requestsEdit.html'
+        templateUrl: 'views/requestsEdit.html',
+        ncyBreadcrumb: {
+            parent: 'requestsList',
+            label: 'BREADCRUMB-REQUESTS-EDIT-LABEL'
+        }
     });
 }
 ]);

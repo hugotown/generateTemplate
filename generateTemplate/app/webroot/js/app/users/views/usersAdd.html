@@ -1,5 +1,4 @@
               <section ng-controller="UsersCtrl" >
-    <h3 class="page-title"></i>{{ 'Users' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -16,7 +15,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.username.$invalid }">
       <label for="username" class="col-md-4 control-label">{{ 'user-username' | translate }}</label>
       <div class="col-md-8">
-        <input name="username" type="text" class="form-control" data-ng-model="username" id="username" placeholder="{{ 'username' | translate }}" autocomplete="off" required >
+        <input name="username" type="text" class="form-control" data-ng-model="username" id="username" placeholder="{{ 'user-username' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.username.$invalid" class="help-block">
           <p ng-show="userForm.username.$error.required">
             {{ 'user-username field is required' | translate }}
@@ -33,7 +32,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.email.$invalid }">
       <label for="email" class="col-md-4 control-label">{{ 'user-email' | translate }}</label>
       <div class="col-md-8">
-        <input name="email" type="text" class="form-control" data-ng-model="email" id="email" placeholder="{{ 'email' | translate }}" autocomplete="off" required >
+        <input name="email" type="text" class="form-control" data-ng-model="email" id="email" placeholder="{{ 'user-email' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.email.$invalid" class="help-block">
           <p ng-show="userForm.email.$error.required">
             {{ 'user-email field is required' | translate }}
@@ -50,7 +49,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'user-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'user-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.name.$invalid" class="help-block">
           <p ng-show="userForm.name.$error.required">
             {{ 'user-name field is required' | translate }}
@@ -67,7 +66,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.firstName.$invalid }">
       <label for="firstName" class="col-md-4 control-label">{{ 'user-firstName' | translate }}</label>
       <div class="col-md-8">
-        <input name="firstName" type="text" class="form-control" data-ng-model="firstName" id="firstName" placeholder="{{ 'firstName' | translate }}" autocomplete="off" required >
+        <input name="firstName" type="text" class="form-control" data-ng-model="firstName" id="firstName" placeholder="{{ 'user-firstName' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.firstName.$invalid" class="help-block">
           <p ng-show="userForm.firstName.$error.required">
             {{ 'user-firstName field is required' | translate }}
@@ -84,7 +83,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.lastName.$invalid }">
       <label for="lastName" class="col-md-4 control-label">{{ 'user-lastName' | translate }}</label>
       <div class="col-md-8">
-        <input name="lastName" type="text" class="form-control" data-ng-model="lastName" id="lastName" placeholder="{{ 'lastName' | translate }}" autocomplete="off" required >
+        <input name="lastName" type="text" class="form-control" data-ng-model="lastName" id="lastName" placeholder="{{ 'user-lastName' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && userForm.lastName.$invalid" class="help-block">
           <p ng-show="userForm.lastName.$error.required">
             {{ 'user-lastName field is required' | translate }}
@@ -269,7 +268,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && userForm.avatar.$invalid }">
       <label for="avatar" class="col-md-4 control-label">{{ 'user-avatar' | translate }}</label>
       <div class="col-md-8">
-        <input name="avatar" type="text" class="form-control" data-ng-model="avatar" id="avatar" placeholder="{{ 'avatar' | translate }}" autocomplete="off"  >
+        <input name="avatar" type="text" class="form-control" data-ng-model="avatar" id="avatar" placeholder="{{ 'user-avatar' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && userForm.avatar.$invalid" class="help-block">
           <p ng-show="userForm.avatar.$error.required">
             {{ 'user-avatar field is required' | translate }}
@@ -289,7 +288,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="usersCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="usersList" class="btn default ">{{ 'Back to users list' | translate }}</a>
         </div>
       </div>
     </div>

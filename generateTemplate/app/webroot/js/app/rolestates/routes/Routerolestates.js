@@ -12,23 +12,42 @@ angular.module('appviewproject0001App')
 function($stateProvider) {
     $stateProvider.state('rolestates', {
         url: '/rolestates',
-        templateUrl: 'views/rolestatesHome.html'
+        templateUrl: 'views/rolestatesHome.html',
+        ncyBreadcrumb: {
+            label: 'BREADCRUMB-ROLESTATES-HOME-LABEL'
+        }
     });
     $stateProvider.state('rolestatesList', {
         url: '/rolestates/list',
-        templateUrl: 'views/rolestatesList.html'
+        templateUrl: 'views/ROLESTATESList.html',
+        ncyBreadcrumb: {
+            parent: 'rolestates',
+            label: 'BREADCRUMB-ROLESTATES-LIST-LABEL'
+        }
     });
     $stateProvider.state('rolestatesView', {
         url: '/rolestates/view/:rolestateId',
-        templateUrl: 'views/rolestatesView.html'
+        templateUrl: 'views/rolestatesView.html',
+        ncyBreadcrumb: {
+            parent: 'rolestatesList',
+            label: 'BREADCRUMB-ROLESTATES-VIEW-LABEL'
+        }
     });
     $stateProvider.state('rolestatesCreate', {
         url: '/rolestates/create',
-        templateUrl: 'views/rolestatesAdd.html'
+        templateUrl: 'views/rolestatesAdd.html',
+        ncyBreadcrumb: {
+            parent: 'rolestatesList',
+            label: 'BREADCRUMB-ROLESTATES-CREATE-LABEL'
+        }
     });
     $stateProvider.state('rolestatesEdit', {
         url: '/rolestates/edit/:rolestateId',
-        templateUrl: 'views/rolestatesEdit.html'
+        templateUrl: 'views/rolestatesEdit.html',
+        ncyBreadcrumb: {
+            parent: 'rolestatesList',
+            label: 'BREADCRUMB-ROLESTATES-EDIT-LABEL'
+        }
     });
 }
 ]);

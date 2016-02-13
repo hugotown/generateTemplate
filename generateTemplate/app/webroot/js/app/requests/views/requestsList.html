@@ -14,7 +14,6 @@
 }
 </style>
 <section data-ng-controller="RequestsCtrl">
-<h3 class="page-title">{{ 'Requests' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
     <div class="portlet-title">
@@ -33,9 +32,7 @@
               <div class="form-group form-md-line-input has-info">
                   <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="requestFilters" value="">
-                          <div class="form-control-focus">
-                          </div>
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="requestFilters.name" >
                       </div>
                   </div>
               </div>
@@ -65,28 +62,28 @@
 </td>
 
                                     
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_STATUS', 'lov_request_status', request.lov_request_status, request)" >
-  {{ ( request.lov_request_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="REQUEST_STATUS" load-lovtype-value="{{request.lov_request_status}}" ></span>
 </td>
 
                                     
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_TYPE', 'lov_request_type', request.lov_request_type, request)" >
-  {{ ( request.lov_request_type[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="REQUEST_TYPE" load-lovtype-value="{{request.lov_request_type}}" ></span>
 </td>
 
                                     
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_SUBTYPE', 'lov_request_subtype', request.lov_request_subtype, request)" >
-  {{ ( request.lov_request_subtype[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="REQUEST_SUBTYPE" load-lovtype-value="{{request.lov_request_subtype}}" ></span>
 </td>
 
                                     
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_PRIORITY', 'lov_request_priority', request.lov_request_priority, request)" >
-  {{ ( request.lov_request_priority[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="REQUEST_PRIORITY" load-lovtype-value="{{request.lov_request_priority}}" ></span>
 </td>
 
                                     
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'REQUEST_SEVERITY', 'lov_request_severity', request.lov_request_severity, request)" >
-  {{ ( request.lov_request_severity[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="REQUEST_SEVERITY" load-lovtype-value="{{request.lov_request_severity}}" ></span>
 </td>
 
                                     
@@ -104,7 +101,7 @@
 </td>
 
                                                                   <td>
-                                <div class="actions">
+                                <div class="actions tbl-actions">
                                     <a acl-check="requestsView" href="/#/requests/view/{{request.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>
                                     </a>

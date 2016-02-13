@@ -14,7 +14,6 @@
 }
 </style>
 <section data-ng-controller="BuildingsCtrl">
-<h3 class="page-title">{{ 'Buildings' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
     <div class="portlet-title">
@@ -33,9 +32,7 @@
               <div class="form-group form-md-line-input has-info">
                   <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="buildingFilters" value="">
-                          <div class="form-control-focus">
-                          </div>
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="buildingFilters.name" >
                       </div>
                   </div>
               </div>
@@ -70,8 +67,8 @@
 </td>
 
                                                 
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'BUILDING_STATUS', 'lov_building_status', building.lov_building_status, building)" >
-  {{ ( building.lov_building_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="BUILDING_STATUS" load-lovtype-value="{{building.lov_building_status}}" ></span>
 </td>
 
                                     
@@ -80,7 +77,7 @@
 </td>
 
                                                                   <td>
-                                <div class="actions">
+                                <div class="actions tbl-actions">
                                     <a acl-check="buildingsView" href="/#/buildings/view/{{building.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>
                                     </a>

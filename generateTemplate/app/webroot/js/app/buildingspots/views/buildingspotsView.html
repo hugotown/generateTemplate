@@ -1,5 +1,4 @@
               <section ng-controller="BuildingspotsCtrl" data-ng-init="findOne()">
-    <h3 class="page-title">{{ 'Buildingspot' | translate }}</h3>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="portlet light bordered">
@@ -18,7 +17,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspot.building_id.$invalid }">
       <label for="building_id" class="col-md-4 control-label">{{ 'buildingspot-building' | translate }}</label>
       <div class="col-md-8">
-        <input name="building_id" readonly="readonly" type="text" class="form-control" data-ng-model="buildingspot.building_id.name" id="building_id" placeholder="{{ 'building_id' | translate }}" autocomplete="off" required >
+        <input name="building_id" readonly="readonly" type="text" class="form-control" data-ng-model="buildingspot.building_id.name" id="building_id" placeholder="{{ 'buildingspot-building_id' | translate }}" autocomplete="off" required >
       </div>
     </div>
   </div>
@@ -30,7 +29,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'buildingspot-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="buildingspot.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="buildingspot.name" id="name" placeholder="{{ 'buildingspot-name' | translate }}" autocomplete="off" required >
       </div>
     </div>
   </div>
@@ -41,7 +40,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.spotNumber.$invalid }">
       <label for="spotNumber" class="col-md-4 control-label">{{ 'buildingspot-spotNumber' | translate }}</label>
       <div class="col-md-8">
-        <input name="spotNumber" readonly="readonly" type="text" class="form-control" data-ng-model="buildingspot.spotNumber" id="spotNumber" placeholder="{{ 'spotNumber' | translate }}" autocomplete="off"  >
+        <input name="spotNumber" readonly="readonly" type="text" class="form-control" data-ng-model="buildingspot.spotNumber" id="spotNumber" placeholder="{{ 'buildingspot-spotNumber' | translate }}" autocomplete="off"  >
       </div>
     </div>
   </div>
@@ -52,7 +51,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.lov_buildingspot_section.$invalid }">
       <label for="lov_buildingspot_section" class="col-md-4 control-label">{{ 'buildingspot-lov_buildingspot_section' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_buildingspot_section" readonly="readonly" type="text" class="form-control" data-ng-model="lovBuildingspotSection.selected['name_'+selectedLanguage]" id="lov_buildingspot_section" placeholder="{{ 'lov_buildingspot_section' | translate }}" autocomplete="off"  >
+        <span load-lovtype="BUILDINGSPOT_SECTION" load-lovtype-value="{{buildingspot.lov_buildingspot_section}}" ></span>
       </div>
     </div>
   </div>
@@ -64,7 +63,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.lov_buildingspot_status.$invalid }">
       <label for="lov_buildingspot_status" class="col-md-4 control-label">{{ 'buildingspot-lov_buildingspot_status' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_buildingspot_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovBuildingspotStatus.selected['name_'+selectedLanguage]" id="lov_buildingspot_status" placeholder="{{ 'lov_buildingspot_status' | translate }}" autocomplete="off"  >
+        <span load-lovtype="BUILDINGSPOT_STATUS" load-lovtype-value="{{buildingspot.lov_buildingspot_status}}" ></span>
       </div>
     </div>
   </div>
@@ -77,7 +76,7 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="buildingspotsEdit" href="/#/buildingspots/edit/{{buildingspot.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
+                          <a href="javascript:;" ui-sref="buildingspotsList" class="btn default ">{{ 'Back to buildingspots list' | translate }}</a>
                         </div>
                       </div>
                     </div>

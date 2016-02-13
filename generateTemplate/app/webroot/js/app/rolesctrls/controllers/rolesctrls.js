@@ -13,8 +13,18 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Rolesctrl';
+                $state.current.cObjType = 'Rolesctrl';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             
 if(data.role_id){
     $scope.selectedRole.selected = data.role_id;
@@ -26,16 +36,6 @@ if(data.ctrl_id){
 }
 
                             
-if (data.lov_rolesctrl_status && data.lov_rolesctrl_status !== '') {
-    var lovRolesctrlStatuses = $scope.fgetLovs('equals', '', 'ROLESCTRL_STATUS', 'lovRolesctrlStatuses', data.lov_rolesctrl_status);
-    lovRolesctrlStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRolesctrlStatus.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
 event = null;
 data = null;
         });
@@ -54,8 +54,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -63,48 +69,48 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'rolesctrl-role_id': $translate.instant('rolesctrl-role_id')} ,
+{'role_id': $translate.instant('rolesctrl-role_id')} ,
 
                                 
-{'rolesctrl-ctrl_id': $translate.instant('rolesctrl-ctrl_id')} ,
+{'ctrl_id': $translate.instant('rolesctrl-ctrl_id')} ,
 
                                 
-{'rolesctrl-lov_rolesctrl_status': $translate.instant('rolesctrl-lov_rolesctrl_status')} ,
+{'lov_rolesctrl_status': $translate.instant('rolesctrl-lov_rolesctrl_status')} ,
 
                                 
-{'rolesctrl-getAction': $translate.instant('rolesctrl-getAction')} ,
+{'getAction': $translate.instant('rolesctrl-getAction')} ,
 
                                 
-{'rolesctrl-postAction': $translate.instant('rolesctrl-postAction')} ,
+{'postAction': $translate.instant('rolesctrl-postAction')} ,
 
                                 
-{'rolesctrl-putAction': $translate.instant('rolesctrl-putAction')} ,
+{'putAction': $translate.instant('rolesctrl-putAction')} ,
 
                                 
-{'rolesctrl-patchAction': $translate.instant('rolesctrl-patchAction')} ,
+{'patchAction': $translate.instant('rolesctrl-patchAction')} ,
 
                                 
-{'rolesctrl-deleteAction': $translate.instant('rolesctrl-deleteAction')} ,
+{'deleteAction': $translate.instant('rolesctrl-deleteAction')} ,
 
                                 
-{'rolesctrl-copyAction': $translate.instant('rolesctrl-copyAction')} ,
+{'copyAction': $translate.instant('rolesctrl-copyAction')} ,
 
                                 
-{'rolesctrl-headAction': $translate.instant('rolesctrl-headAction')} ,
+{'headAction': $translate.instant('rolesctrl-headAction')} ,
 
                                 
-{'rolesctrl-optionsAction': $translate.instant('rolesctrl-optionsAction')} ,
+{'optionsAction': $translate.instant('rolesctrl-optionsAction')} ,
 
                                 
-{'rolesctrl-linkAction': $translate.instant('rolesctrl-linkAction')} ,
+{'linkAction': $translate.instant('rolesctrl-linkAction')} ,
 
                                 
-{'rolesctrl-unlinkAction': $translate.instant('rolesctrl-unlinkAction')} ,
+{'unlinkAction': $translate.instant('rolesctrl-unlinkAction')} ,
 
                                 
-{'rolesctrl-purgeAction': $translate.instant('rolesctrl-purgeAction')} ,
+{'purgeAction': $translate.instant('rolesctrl-purgeAction')} ,
 
-                                {'rolesctrl-actions': $translate.instant('rolesctrl-actions')}
+                                {'actions': $translate.instant('rolesctrl-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -151,7 +157,7 @@ data = null;
         $scope.selectedRole = {};
 
         
-        var Roles = $injector.get('Roles');
+var Roles = $injector.get('Roles');
 
             
         $scope.findRoles = function($param)
@@ -190,7 +196,7 @@ data = null;
         $scope.selectedCtrl = {};
 
         
-        var Ctrls = $injector.get('Ctrls');
+var Ctrls = $injector.get('Ctrls');
 
             
         $scope.findCtrls = function($param)
@@ -228,37 +234,25 @@ data = null;
 $scope.lovRolesctrlStatus = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+    if($scope.parentObjType ===  'Role'){
+        $scope.selectedRole.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            
+    if($scope.parentObjType ===  'Ctrl'){
+        $scope.selectedCtrl.selected = $scope.parentObj;
+    }
+
+                            
+}
+
 
 
     $scope.create = function(isValid)

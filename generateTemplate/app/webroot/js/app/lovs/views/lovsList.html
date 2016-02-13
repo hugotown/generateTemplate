@@ -14,7 +14,6 @@
 }
 </style>
 <section data-ng-controller="LovsCtrl">
-<h3 class="page-title">{{ 'Lovs' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
     <div class="portlet-title">
@@ -33,9 +32,7 @@
               <div class="form-group form-md-line-input has-info">
                   <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="lovFilters" value="">
-                          <div class="form-control-focus">
-                          </div>
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="lovFilters.name" >
                       </div>
                   </div>
               </div>
@@ -90,7 +87,7 @@
 </td>
 
                                                                               <td>
-                                <div class="actions">
+                                <div class="actions tbl-actions">
                                     <a acl-check="lovsView" href="/#/lovs/view/{{lov.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>
                                     </a>

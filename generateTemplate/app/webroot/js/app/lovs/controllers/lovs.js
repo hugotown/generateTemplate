@@ -13,8 +13,18 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Lov';
+                $state.current.cObjType = 'Lov';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             
 if(data.parentLov_id){
     $scope.selectedLov.selected = data.parent_id;
@@ -39,8 +49,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -48,27 +64,27 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'lov-orderShow': $translate.instant('lov-orderShow')} ,
+{'orderShow': $translate.instant('lov-orderShow')} ,
 
                                 
-{'lov-lovType': $translate.instant('lov-lovType')} ,
+{'lovType': $translate.instant('lov-lovType')} ,
 
                                 
-{'lov-name_': $translate.instant('lov-name_')} ,
+{'name_': $translate.instant('lov-name_')} ,
 
                                 
-{'lov-name_es_MX': $translate.instant('lov-name_es_MX')} ,
+{'name_es_MX': $translate.instant('lov-name_es_MX')} ,
 
                                 
-{'lov-name_en_US': $translate.instant('lov-name_en_US')} ,
+{'name_en_US': $translate.instant('lov-name_en_US')} ,
 
                                 
-{'lov-status': $translate.instant('lov-status')} ,
+{'status': $translate.instant('lov-status')} ,
 
                                 
-{'lov-parent_id': $translate.instant('lov-parent_id')} ,
+{'parent_id': $translate.instant('lov-parent_id')} ,
 
-                                {'lov-actions': $translate.instant('lov-actions')}
+                                {'actions': $translate.instant('lov-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -147,37 +163,20 @@ data = null;
 
     
 
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+    if($scope.parentObjType ===  'Lov'){
+        $scope.selectedLov.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            
+}
+
 
 
     $scope.create = function(isValid)

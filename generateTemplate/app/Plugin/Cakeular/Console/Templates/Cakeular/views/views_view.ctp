@@ -23,7 +23,6 @@
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
   <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Ctrl" data-ng-init="findOne()">
-    <h3 class="page-title">{{ '<?php echo Inflector::humanize($singularVar); ?>' | translate }}</h3>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="portlet light bordered">
@@ -67,7 +66,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>.<?php echo $field;?>.$invalid }">
       <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $otherSingularVar; ?>' | translate }}</label>
       <div class="col-md-8">
-        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field; ?>.<?php echo 'name' ; ?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field; ?>.<?php echo 'name' ; ?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
       </div>
     </div>
   </div>
@@ -92,7 +91,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
       <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
       <div class="col-md-8">
-        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected['name_'+selectedLanguage]" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+        <span load-lovtype="<?php echo $upperFieldNameWLov; ?>" load-lovtype-value="{{<?php echo $singularVar; ?>.<?php echo $field; ?>}}" ></span>
       </div>
     </div>
   </div>
@@ -107,7 +106,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
       <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
       <div class="col-md-8">
-        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
+        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
       </div>
     </div>
   </div>
@@ -125,7 +124,7 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="<?php echo $pluralVar; ?>Edit" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
+                          <a href="javascript:;" ui-sref="<?php echo $pluralVar; ?>List" class="btn default ">{{ 'Back to <?php echo $pluralVar; ?> list' | translate }}</a>
                         </div>
                       </div>
                     </div>

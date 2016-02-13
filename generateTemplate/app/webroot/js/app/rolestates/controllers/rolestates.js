@@ -13,24 +13,24 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Rolestate';
+                $state.current.cObjType = 'Rolestate';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             
 if(data.role_id){
     $scope.selectedRole.selected = data.role_id;
 }
 
                             
-if (data.lov_rolestate_status && data.lov_rolestate_status !== '') {
-    var lovRolestateStatuses = $scope.fgetLovs('equals', '', 'ROLESTATE_STATUS', 'lovRolestateStatuses', data.lov_rolestate_status);
-    lovRolestateStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRolestateStatus.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
 event = null;
 data = null;
         });
@@ -49,8 +49,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -58,18 +64,18 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'rolestate-role_id': $translate.instant('rolestate-role_id')} ,
+{'role_id': $translate.instant('rolestate-role_id')} ,
 
                                 
-{'rolestate-statename': $translate.instant('rolestate-statename')} ,
+{'statename': $translate.instant('rolestate-statename')} ,
 
                                 
-{'rolestate-accessit': $translate.instant('rolestate-accessit')} ,
+{'accessit': $translate.instant('rolestate-accessit')} ,
 
                                 
-{'rolestate-lov_rolestate_status': $translate.instant('rolestate-lov_rolestate_status')} ,
+{'lov_rolestate_status': $translate.instant('rolestate-lov_rolestate_status')} ,
 
-                                {'rolestate-actions': $translate.instant('rolestate-actions')}
+                                {'actions': $translate.instant('rolestate-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -116,7 +122,7 @@ data = null;
         $scope.selectedRole = {};
 
         
-        var Roles = $injector.get('Roles');
+var Roles = $injector.get('Roles');
 
             
         $scope.findRoles = function($param)
@@ -154,37 +160,20 @@ data = null;
 $scope.lovRolestateStatus = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+    if($scope.parentObjType ===  'Role'){
+        $scope.selectedRole.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            
+}
+
 
 
     $scope.create = function(isValid)

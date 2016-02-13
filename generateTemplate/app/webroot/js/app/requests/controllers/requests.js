@@ -13,64 +13,24 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Request';
+                $state.current.cObjType = 'Request';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             
 if(data.buildingspot_id){
     $scope.selectedBuildingspot.selected = data.buildingspot_id;
 }
 
                             
-if (data.lov_request_status && data.lov_request_status !== '') {
-    var lovRequestStatuses = $scope.fgetLovs('equals', '', 'REQUEST_STATUS', 'lovRequestStatuses', data.lov_request_status);
-    lovRequestStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRequestStatus.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
-if (data.lov_request_type && data.lov_request_type !== '') {
-    var lovRequestTypes = $scope.fgetLovs('equals', '', 'REQUEST_TYPE', 'lovRequestTypes', data.lov_request_type);
-    lovRequestTypes.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRequestType.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
-if (data.lov_request_subtype && data.lov_request_subtype !== '') {
-    var lovRequestSubtypes = $scope.fgetLovs('equals', '', 'REQUEST_SUBTYPE', 'lovRequestSubtypes', data.lov_request_subtype);
-    lovRequestSubtypes.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRequestSubtype.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
-if (data.lov_request_priority && data.lov_request_priority !== '') {
-    var lovRequestPriorities = $scope.fgetLovs('equals', '', 'REQUEST_PRIORITY', 'lovRequestPriorities', data.lov_request_priority);
-    lovRequestPriorities.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRequestPriority.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
-if (data.lov_request_severity && data.lov_request_severity !== '') {
-    var lovRequestSeverities = $scope.fgetLovs('equals', '', 'REQUEST_SEVERITY', 'lovRequestSeverities', data.lov_request_severity);
-    lovRequestSeverities.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovRequestSeverity.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
 if(data.workstation_id){
     $scope.selectedWorkstation.selected = data.workstation_id;
 }
@@ -94,8 +54,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -103,33 +69,33 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'request-buildingspot_id': $translate.instant('request-buildingspot_id')} ,
+{'buildingspot_id': $translate.instant('request-buildingspot_id')} ,
 
                                 
-{'request-name': $translate.instant('request-name')} ,
+{'name': $translate.instant('request-name')} ,
 
                                 
-{'request-lov_request_status': $translate.instant('request-lov_request_status')} ,
+{'lov_request_status': $translate.instant('request-lov_request_status')} ,
 
                                 
-{'request-lov_request_type': $translate.instant('request-lov_request_type')} ,
+{'lov_request_type': $translate.instant('request-lov_request_type')} ,
 
                                 
-{'request-lov_request_subtype': $translate.instant('request-lov_request_subtype')} ,
+{'lov_request_subtype': $translate.instant('request-lov_request_subtype')} ,
 
                                 
-{'request-lov_request_priority': $translate.instant('request-lov_request_priority')} ,
+{'lov_request_priority': $translate.instant('request-lov_request_priority')} ,
 
                                 
-{'request-lov_request_severity': $translate.instant('request-lov_request_severity')} ,
+{'lov_request_severity': $translate.instant('request-lov_request_severity')} ,
 
                                 
-{'request-workstation_id': $translate.instant('request-workstation_id')} ,
+{'workstation_id': $translate.instant('request-workstation_id')} ,
 
                                 
-{'request-description': $translate.instant('request-description')} ,
+{'description': $translate.instant('request-description')} ,
 
-                                {'request-actions': $translate.instant('request-actions')}
+                                {'actions': $translate.instant('request-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -176,7 +142,7 @@ data = null;
         $scope.selectedBuildingspot = {};
 
         
-        var Buildingspots = $injector.get('Buildingspots');
+var Buildingspots = $injector.get('Buildingspots');
 
             
         $scope.findBuildingspots = function($param)
@@ -215,7 +181,7 @@ data = null;
         $scope.selectedWorkstation = {};
 
         
-        var Workstations = $injector.get('Workstations');
+var Workstations = $injector.get('Workstations');
 
             
         $scope.findWorkstations = function($param)
@@ -265,37 +231,25 @@ $scope.lovRequestPriority = {};
 $scope.lovRequestSeverity = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+    if($scope.parentObjType ===  'Buildingspot'){
+        $scope.selectedBuildingspot.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            
+    if($scope.parentObjType ===  'Workstation'){
+        $scope.selectedWorkstation.selected = $scope.parentObj;
+    }
+
+                            
+}
+
 
 
     $scope.create = function(isValid)

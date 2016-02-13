@@ -17,8 +17,18 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = '<?php echo Inflector::humanize($singularVar); ?>';
+                $state.current.cObjType = '<?php echo Inflector::humanize($singularVar); ?>';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             <?php 
             foreach ($fields as $key => $field)
             {
@@ -47,22 +57,6 @@ if(data.<?php echo $otherSingularVar; ?>_id){
 
                 }
 
-                  if(strpos($field,'lov_') !== false){
-                    $fieldNameWLov = str_replace('lov_', '', $field);
-                    $upperFieldNameWLov = strtoupper($fieldNameWLov);
-                    ?>
-
-if (data.<?php echo $field; ?> && data.<?php echo $field; ?> !== '') {
-    var lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?> = $scope.fgetLovs('equals', '', '<?php echo strtoupper($fieldNameWLov); ?>', 'lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>', data.<?php echo $field; ?>);
-    lov<?php echo Inflector::pluralize(Inflector::camelize($fieldNameWLov)); ?>.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?>.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    <?php
-                  }
             }
             ?>
 
@@ -84,8 +78,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -99,13 +99,13 @@ data = null;
                         {
                                 ?>
 
-{'<?php echo $singularVar; ?>-<?php echo $field; ?>': $translate.instant('<?php echo $singularVar; ?>-<?php echo $field; ?>')} ,
+{'<?php echo $field; ?>': $translate.instant('<?php echo $singularVar; ?>-<?php echo $field; ?>')} ,
 
                                 <?
                         $countIdx ++;
                         }
                     } ?>
-{'<?php echo $singularVar; ?>-actions': $translate.instant('<?php echo $singularVar; ?>-actions')}
+{'actions': $translate.instant('<?php echo $singularVar; ?>-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -169,7 +169,7 @@ if (isset($associations['belongsTo']))
         {
         ?>
 
-        var <?php echo $otherPluralHumanName; ?> = $injector.get('<?php echo $otherPluralHumanName; ?>');
+var <?php echo $otherPluralHumanName; ?> = $injector.get('<?php echo $otherPluralHumanName; ?>');
 
             <?php
         }
@@ -226,37 +226,45 @@ $scope.lov<?php echo Inflector::camelize($fieldNameWLov); ?> = {};
 }
 ?>
 
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        <?php 
+            foreach ($fields as $key => $field)
+            {
+                if(isset($associations['belongsTo']))
+                {
+                    if(!empty($associations['belongsTo']))
+                    {
+                        foreach ($associations['belongsTo'] as $alias => $details)
+                        {
+                            if($details['foreignKey'] == $field)
+                            {
+                                $otherSingularVar = Inflector::variable($alias);
+                                $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                $otherPluralVar = Inflector::variable($details['controller']);
+                                ?>
+
+    if($scope.parentObjType ===  '<?php echo $otherSingularHumanName; ?>'){
+        $scope.selected<?php echo $otherSingularHumanName; ?>.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            <?php
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            ?>
+
+}
+
 
 
     $scope.create = function(isValid)

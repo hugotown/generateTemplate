@@ -1,5 +1,4 @@
               <section ng-controller="CtrlsCtrl" >
-    <h3 class="page-title"></i>{{ 'Ctrls' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -16,7 +15,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && ctrlForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'ctrl-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'ctrl-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && ctrlForm.name.$invalid" class="help-block">
           <p ng-show="ctrlForm.name.$error.required">
             {{ 'ctrl-name field is required' | translate }}
@@ -34,7 +33,7 @@
           <label for="lov_ctrl_status" class="col-md-4 control-label">{{ 'ctrl-lov_ctrl_status' | translate }}</label>
           <div class="col-md-8">
               <div class="input-group">
-                  <ui-select  ng-model="lovCtrlStatus.selected" theme="bootstrap" name="lov_ctrl_status" >
+                  <ui-select required ng-model="lovCtrlStatus.selected" theme="bootstrap" name="lov_ctrl_status" >
                       <ui-select-match placeholder="{{ 'Select lov_ctrl_status' | translate }} ...">{{$select.selected['name_' + selectedLanguage]}}</ui-select-match>
                       <ui-select-choices repeat="item in lovCtrlStatuses" refresh="fgetLovs( 'contains', 'name_' + selectedLanguage, 'CTRL_STATUS', 'lovCtrlStatuses', $select.search )" refresh-delay="500">
                           <div ng-bind-html="item['name_' + selectedLanguage]"></div>
@@ -64,7 +63,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="ctrlsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="ctrlsList" class="btn default ">{{ 'Back to ctrls list' | translate }}</a>
         </div>
       </div>
     </div>

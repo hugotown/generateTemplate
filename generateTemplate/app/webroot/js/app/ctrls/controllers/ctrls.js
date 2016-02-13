@@ -13,19 +13,19 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
-            
-if (data.lov_ctrl_status && data.lov_ctrl_status !== '') {
-    var lovCtrlStatuses = $scope.fgetLovs('equals', '', 'CTRL_STATUS', 'lovCtrlStatuses', data.lov_ctrl_status);
-    lovCtrlStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovCtrlStatus.selected = datapromise.items[0];
-        }
-    });
-}
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Ctrl';
+                $state.current.cObjType = 'Ctrl';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
 
-                    
+            
 event = null;
 data = null;
         });
@@ -44,8 +44,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -53,12 +59,12 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'ctrl-name': $translate.instant('ctrl-name')} ,
+{'name': $translate.instant('ctrl-name')} ,
 
                                 
-{'ctrl-lov_ctrl_status': $translate.instant('ctrl-lov_ctrl_status')} ,
+{'lov_ctrl_status': $translate.instant('ctrl-lov_ctrl_status')} ,
 
-                                {'ctrl-actions': $translate.instant('ctrl-actions')}
+                                {'actions': $translate.instant('ctrl-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -104,37 +110,15 @@ data = null;
 $scope.lovCtrlStatus = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
-    }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+}
+
 
 
     $scope.create = function(isValid)

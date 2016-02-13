@@ -12,23 +12,42 @@ angular.module('appviewproject0001App')
 function($stateProvider) {
     $stateProvider.state('buildingspots', {
         url: '/buildingspots',
-        templateUrl: 'views/buildingspotsHome.html'
+        templateUrl: 'views/buildingspotsHome.html',
+        ncyBreadcrumb: {
+            label: 'BREADCRUMB-BUILDINGSPOTS-HOME-LABEL'
+        }
     });
     $stateProvider.state('buildingspotsList', {
         url: '/buildingspots/list',
-        templateUrl: 'views/buildingspotsList.html'
+        templateUrl: 'views/BUILDINGSPOTSList.html',
+        ncyBreadcrumb: {
+            parent: 'buildingspots',
+            label: 'BREADCRUMB-BUILDINGSPOTS-LIST-LABEL'
+        }
     });
     $stateProvider.state('buildingspotsView', {
         url: '/buildingspots/view/:buildingspotId',
-        templateUrl: 'views/buildingspotsView.html'
+        templateUrl: 'views/buildingspotsView.html',
+        ncyBreadcrumb: {
+            parent: 'buildingspotsList',
+            label: 'BREADCRUMB-BUILDINGSPOTS-VIEW-LABEL'
+        }
     });
     $stateProvider.state('buildingspotsCreate', {
         url: '/buildingspots/create',
-        templateUrl: 'views/buildingspotsAdd.html'
+        templateUrl: 'views/buildingspotsAdd.html',
+        ncyBreadcrumb: {
+            parent: 'buildingspotsList',
+            label: 'BREADCRUMB-BUILDINGSPOTS-CREATE-LABEL'
+        }
     });
     $stateProvider.state('buildingspotsEdit', {
         url: '/buildingspots/edit/:buildingspotId',
-        templateUrl: 'views/buildingspotsEdit.html'
+        templateUrl: 'views/buildingspotsEdit.html',
+        ncyBreadcrumb: {
+            parent: 'buildingspotsList',
+            label: 'BREADCRUMB-BUILDINGSPOTS-EDIT-LABEL'
+        }
     });
 }
 ]);

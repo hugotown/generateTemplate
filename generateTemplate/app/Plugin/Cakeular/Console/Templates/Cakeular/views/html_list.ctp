@@ -18,7 +18,6 @@
 }
 </style>
 <section data-ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Ctrl">
-<h3 class="page-title">{{ '<?php echo Inflector::humanize($pluralVar); ?>' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
     <div class="portlet-title">
@@ -37,9 +36,7 @@
               <div class="form-group form-md-line-input has-info">
                   <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="<?php echo $singularVar; ?>Filters" value="">
-                          <div class="form-control-focus">
-                          </div>
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="<?php echo $singularVar; ?>Filters.name" >
                       </div>
                   </div>
               </div>
@@ -95,8 +92,8 @@
                                       $upperFieldNameWLov = strtoupper($fieldNameWLov);
                                     ?>
 
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', '<?php echo $upperFieldNameWLov; ?>', '<?php echo $field; ?>', <?php echo $singularVar; ?>.<?php echo $field; ?>, <?php echo $singularVar; ?>)" >
-  {{ ( <?php echo $singularVar; ?>.<?php echo $field; ?>[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="<?php echo $upperFieldNameWLov; ?>" load-lovtype-value="{{<?php echo $singularVar; ?>.<?php echo $field; ?>}}" ></span>
 </td>
 
                                     <?php
@@ -115,7 +112,7 @@
                                 }
                               }?>
                               <td>
-                                <div class="actions">
+                                <div class="actions tbl-actions">
                                     <a acl-check="<?php echo $pluralVar; ?>View" href="/#/<?php echo $pluralVar; ?>/view/{{<?php echo $singularVar; ?>.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>
                                     </a>

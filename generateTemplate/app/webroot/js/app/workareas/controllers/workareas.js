@@ -13,19 +13,19 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
-            
-if (data.lov_workarea_status && data.lov_workarea_status !== '') {
-    var lovWorkareaStatuses = $scope.fgetLovs('equals', '', 'WORKAREA_STATUS', 'lovWorkareaStatuses', data.lov_workarea_status);
-    lovWorkareaStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovWorkareaStatus.selected = datapromise.items[0];
-        }
-    });
-}
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Workarea';
+                $state.current.cObjType = 'Workarea';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
 
-                    
+            
 event = null;
 data = null;
         });
@@ -44,8 +44,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -53,15 +59,15 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'workarea-name': $translate.instant('workarea-name')} ,
+{'name': $translate.instant('workarea-name')} ,
 
                                 
-{'workarea-description': $translate.instant('workarea-description')} ,
+{'description': $translate.instant('workarea-description')} ,
 
                                 
-{'workarea-lov_workarea_status': $translate.instant('workarea-lov_workarea_status')} ,
+{'lov_workarea_status': $translate.instant('workarea-lov_workarea_status')} ,
 
-                                {'workarea-actions': $translate.instant('workarea-actions')}
+                                {'actions': $translate.instant('workarea-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -107,37 +113,15 @@ data = null;
 $scope.lovWorkareaStatus = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
-    }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+}
+
 
 
     $scope.create = function(isValid)

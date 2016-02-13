@@ -14,7 +14,6 @@
 }
 </style>
 <section data-ng-controller="WorkstationsCtrl">
-<h3 class="page-title">{{ 'Workstations' | translate }}</h3>
   <!-- BEGIN Portlet PORTLET-->
   <div class="portlet light bordered">
     <div class="portlet-title">
@@ -33,9 +32,7 @@
               <div class="form-group form-md-line-input has-info">
                   <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="input-group-control col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="workstationFilters" value="">
-                          <div class="form-control-focus">
-                          </div>
+                          <input type="text" class="form-control" placeholder="{{ 'Search' | translate }}" ng-model="workstationFilters.name" >
                       </div>
                   </div>
               </div>
@@ -70,8 +67,8 @@
 </td>
 
                                                 
-<td class="tasty-table-td" data-ng-init="fgetLovs('equals', '', 'WORKSTATION_STATUS', 'lov_workstation_status', workstation.lov_workstation_status, workstation)" >
-  {{ ( workstation.lov_workstation_status[0]['name_' + selectedLanguage] || '...' ) | translate  }}
+<td class="tasty-table-td">
+<span load-lovtype="WORKSTATION_STATUS" load-lovtype-value="{{workstation.lov_workstation_status}}" ></span>
 </td>
 
                                     
@@ -98,7 +95,7 @@
 </td>
 
                                                                   <td>
-                                <div class="actions">
+                                <div class="actions tbl-actions">
                                     <a acl-check="workstationsView" href="/#/workstations/view/{{workstation.id}}" class="btn btn-xs btn-circle btn-block blue">
                                         <i class="fa fa-eye"></i>
                                     </a>

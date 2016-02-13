@@ -1,5 +1,4 @@
               <section ng-controller="BuildingspotsCtrl" >
-    <h3 class="page-title"></i>{{ 'Buildingspots' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -44,7 +43,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'buildingspot-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'buildingspot-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && buildingspotForm.name.$invalid" class="help-block">
           <p ng-show="buildingspotForm.name.$error.required">
             {{ 'buildingspot-name field is required' | translate }}
@@ -61,7 +60,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && buildingspotForm.spotNumber.$invalid }">
       <label for="spotNumber" class="col-md-4 control-label">{{ 'buildingspot-spotNumber' | translate }}</label>
       <div class="col-md-8">
-        <input name="spotNumber" type="text" class="form-control" data-ng-model="spotNumber" id="spotNumber" placeholder="{{ 'spotNumber' | translate }}" autocomplete="off"  >
+        <input name="spotNumber" type="text" class="form-control" data-ng-model="spotNumber" id="spotNumber" placeholder="{{ 'buildingspot-spotNumber' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && buildingspotForm.spotNumber.$invalid" class="help-block">
           <p ng-show="buildingspotForm.spotNumber.$error.required">
             {{ 'buildingspot-spotNumber field is required' | translate }}
@@ -137,7 +136,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="buildingspotsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="buildingspotsList" class="btn default ">{{ 'Back to buildingspots list' | translate }}</a>
         </div>
       </div>
     </div>

@@ -62,11 +62,11 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'sql3.freesqldatabase.com',
+		'host' => '104.218.12.141',
 		'port' => 3306,
-		'login' => 'sql386557',
-		'password' => 'iK2!kM1*',
-		'database' => 'sql386557',
+		'login' => 'aquaserv_prollux',
+		'password' => 'Vr9-aWh-Bk3-kmE',
+		'database' => 'aquaserv_project_0001-db',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);

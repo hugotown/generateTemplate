@@ -1,5 +1,4 @@
               <section ng-controller="RequestsCtrl" >
-    <h3 class="page-title"></i>{{ 'Requests' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -44,7 +43,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'request-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'request-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && requestForm.name.$invalid" class="help-block">
           <p ng-show="requestForm.name.$error.required">
             {{ 'request-name field is required' | translate }}
@@ -229,7 +228,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.description.$invalid }">
       <label for="description" class="col-md-4 control-label">{{ 'request-description' | translate }}</label>
       <div class="col-md-8">
-        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'request-description' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && requestForm.description.$invalid" class="help-block">
           <p ng-show="requestForm.description.$error.required">
             {{ 'request-description field is required' | translate }}
@@ -249,7 +248,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="requestsCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="requestsList" class="btn default ">{{ 'Back to requests list' | translate }}</a>
         </div>
       </div>
     </div>

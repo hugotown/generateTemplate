@@ -1,5 +1,4 @@
               <section ng-controller="RequestsCtrl" data-ng-init="findOne()">
-    <h3 class="page-title">{{ 'Request' | translate }}</h3>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="portlet light bordered">
@@ -18,7 +17,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && request.buildingspot_id.$invalid }">
       <label for="buildingspot_id" class="col-md-4 control-label">{{ 'request-buildingspot' | translate }}</label>
       <div class="col-md-8">
-        <input name="buildingspot_id" readonly="readonly" type="text" class="form-control" data-ng-model="request.buildingspot_id.name" id="buildingspot_id" placeholder="{{ 'buildingspot_id' | translate }}" autocomplete="off" required >
+        <input name="buildingspot_id" readonly="readonly" type="text" class="form-control" data-ng-model="request.buildingspot_id.name" id="buildingspot_id" placeholder="{{ 'request-buildingspot_id' | translate }}" autocomplete="off" required >
       </div>
     </div>
   </div>
@@ -30,7 +29,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'request-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="request.name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" readonly="readonly" type="text" class="form-control" data-ng-model="request.name" id="name" placeholder="{{ 'request-name' | translate }}" autocomplete="off" required >
       </div>
     </div>
   </div>
@@ -41,7 +40,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_status.$invalid }">
       <label for="lov_request_status" class="col-md-4 control-label">{{ 'request-lov_request_status' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_request_status" readonly="readonly" type="text" class="form-control" data-ng-model="lovRequestStatus.selected['name_'+selectedLanguage]" id="lov_request_status" placeholder="{{ 'lov_request_status' | translate }}" autocomplete="off" required >
+        <span load-lovtype="REQUEST_STATUS" load-lovtype-value="{{request.lov_request_status}}" ></span>
       </div>
     </div>
   </div>
@@ -53,7 +52,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_type.$invalid }">
       <label for="lov_request_type" class="col-md-4 control-label">{{ 'request-lov_request_type' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_request_type" readonly="readonly" type="text" class="form-control" data-ng-model="lovRequestType.selected['name_'+selectedLanguage]" id="lov_request_type" placeholder="{{ 'lov_request_type' | translate }}" autocomplete="off" required >
+        <span load-lovtype="REQUEST_TYPE" load-lovtype-value="{{request.lov_request_type}}" ></span>
       </div>
     </div>
   </div>
@@ -65,7 +64,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_subtype.$invalid }">
       <label for="lov_request_subtype" class="col-md-4 control-label">{{ 'request-lov_request_subtype' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_request_subtype" readonly="readonly" type="text" class="form-control" data-ng-model="lovRequestSubtype.selected['name_'+selectedLanguage]" id="lov_request_subtype" placeholder="{{ 'lov_request_subtype' | translate }}" autocomplete="off" required >
+        <span load-lovtype="REQUEST_SUBTYPE" load-lovtype-value="{{request.lov_request_subtype}}" ></span>
       </div>
     </div>
   </div>
@@ -77,7 +76,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_priority.$invalid }">
       <label for="lov_request_priority" class="col-md-4 control-label">{{ 'request-lov_request_priority' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_request_priority" readonly="readonly" type="text" class="form-control" data-ng-model="lovRequestPriority.selected['name_'+selectedLanguage]" id="lov_request_priority" placeholder="{{ 'lov_request_priority' | translate }}" autocomplete="off"  >
+        <span load-lovtype="REQUEST_PRIORITY" load-lovtype-value="{{request.lov_request_priority}}" ></span>
       </div>
     </div>
   </div>
@@ -89,7 +88,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.lov_request_severity.$invalid }">
       <label for="lov_request_severity" class="col-md-4 control-label">{{ 'request-lov_request_severity' | translate }}</label>
       <div class="col-md-8">
-        <input name="lov_request_severity" readonly="readonly" type="text" class="form-control" data-ng-model="lovRequestSeverity.selected['name_'+selectedLanguage]" id="lov_request_severity" placeholder="{{ 'lov_request_severity' | translate }}" autocomplete="off"  >
+        <span load-lovtype="REQUEST_SEVERITY" load-lovtype-value="{{request.lov_request_severity}}" ></span>
       </div>
     </div>
   </div>
@@ -101,7 +100,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && request.workstation_id.$invalid }">
       <label for="workstation_id" class="col-md-4 control-label">{{ 'request-workstation' | translate }}</label>
       <div class="col-md-8">
-        <input name="workstation_id" readonly="readonly" type="text" class="form-control" data-ng-model="request.workstation_id.name" id="workstation_id" placeholder="{{ 'workstation_id' | translate }}" autocomplete="off"  >
+        <input name="workstation_id" readonly="readonly" type="text" class="form-control" data-ng-model="request.workstation_id.name" id="workstation_id" placeholder="{{ 'request-workstation_id' | translate }}" autocomplete="off"  >
       </div>
     </div>
   </div>
@@ -113,7 +112,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && requestForm.description.$invalid }">
       <label for="description" class="col-md-4 control-label">{{ 'request-description' | translate }}</label>
       <div class="col-md-8">
-        <input name="description" readonly="readonly" type="text" class="form-control" data-ng-model="request.description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+        <input name="description" readonly="readonly" type="text" class="form-control" data-ng-model="request.description" id="description" placeholder="{{ 'request-description' | translate }}" autocomplete="off"  >
       </div>
     </div>
   </div>
@@ -125,7 +124,7 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <a acl-check="requestsEdit" href="/#/requests/edit/{{request.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a href="javascript:;" back-button class="btn default ">{{ 'Back' | translate }}</a>
+                          <a href="javascript:;" ui-sref="requestsList" class="btn default ">{{ 'Back to requests list' | translate }}</a>
                         </div>
                       </div>
                     </div>

@@ -1,5 +1,4 @@
               <section ng-controller="WorkareasCtrl" >
-    <h3 class="page-title"></i>{{ 'Workareas' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -16,7 +15,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'workarea-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'workarea-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && workareaForm.name.$invalid" class="help-block">
           <p ng-show="workareaForm.name.$error.required">
             {{ 'workarea-name field is required' | translate }}
@@ -33,7 +32,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && workareaForm.description.$invalid }">
       <label for="description" class="col-md-4 control-label">{{ 'workarea-description' | translate }}</label>
       <div class="col-md-8">
-        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'workarea-description' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && workareaForm.description.$invalid" class="help-block">
           <p ng-show="workareaForm.description.$error.required">
             {{ 'workarea-description field is required' | translate }}
@@ -81,7 +80,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="workareasCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="workareasList" class="btn default ">{{ 'Back to workareas list' | translate }}</a>
         </div>
       </div>
     </div>

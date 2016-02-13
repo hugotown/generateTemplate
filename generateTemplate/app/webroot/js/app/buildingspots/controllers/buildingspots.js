@@ -13,34 +13,24 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Buildingspot';
+                $state.current.cObjType = 'Buildingspot';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             
 if(data.building_id){
     $scope.selectedBuilding.selected = data.building_id;
 }
 
                             
-if (data.lov_buildingspot_section && data.lov_buildingspot_section !== '') {
-    var lovBuildingspotSections = $scope.fgetLovs('equals', '', 'BUILDINGSPOT_SECTION', 'lovBuildingspotSections', data.lov_buildingspot_section);
-    lovBuildingspotSections.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovBuildingspotSection.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
-if (data.lov_buildingspot_status && data.lov_buildingspot_status !== '') {
-    var lovBuildingspotStatuses = $scope.fgetLovs('equals', '', 'BUILDINGSPOT_STATUS', 'lovBuildingspotStatuses', data.lov_buildingspot_status);
-    lovBuildingspotStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovBuildingspotStatus.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
 event = null;
 data = null;
         });
@@ -59,8 +49,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -68,21 +64,21 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'buildingspot-building_id': $translate.instant('buildingspot-building_id')} ,
+{'building_id': $translate.instant('buildingspot-building_id')} ,
 
                                 
-{'buildingspot-name': $translate.instant('buildingspot-name')} ,
+{'name': $translate.instant('buildingspot-name')} ,
 
                                 
-{'buildingspot-spotNumber': $translate.instant('buildingspot-spotNumber')} ,
+{'spotNumber': $translate.instant('buildingspot-spotNumber')} ,
 
                                 
-{'buildingspot-lov_buildingspot_section': $translate.instant('buildingspot-lov_buildingspot_section')} ,
+{'lov_buildingspot_section': $translate.instant('buildingspot-lov_buildingspot_section')} ,
 
                                 
-{'buildingspot-lov_buildingspot_status': $translate.instant('buildingspot-lov_buildingspot_status')} ,
+{'lov_buildingspot_status': $translate.instant('buildingspot-lov_buildingspot_status')} ,
 
-                                {'buildingspot-actions': $translate.instant('buildingspot-actions')}
+                                {'actions': $translate.instant('buildingspot-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -129,7 +125,7 @@ data = null;
         $scope.selectedBuilding = {};
 
         
-        var Buildings = $injector.get('Buildings');
+var Buildings = $injector.get('Buildings');
 
             
         $scope.findBuildings = function($param)
@@ -170,37 +166,20 @@ $scope.lovBuildingspotSection = {};
 $scope.lovBuildingspotStatus = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+    if($scope.parentObjType ===  'Building'){
+        $scope.selectedBuilding.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            
+}
+
 
 
     $scope.create = function(isValid)

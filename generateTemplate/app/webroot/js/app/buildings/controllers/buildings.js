@@ -13,24 +13,24 @@ angular.module('appviewproject0001App')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+
         $scope.$on('findOneLoaded', function(event, data)
         {
+            if( $state.current.name.indexOf('View') !== -1 ) {
+                $rootScope.parentObj = data;
+                $rootScope.parentObjName = data.name || '';
+                $rootScope.parentObjType = 'Building';
+                $state.current.cObjType = 'Building';
+                $state.current.cObjName = data.name || '';
+                $state.current.cObj = data;
+            }
+
             
 if(data.workstation_id){
     $scope.selectedWorkstation.selected = data.workstation_id;
 }
 
                             
-if (data.lov_building_status && data.lov_building_status !== '') {
-    var lovBuildingStatuses = $scope.fgetLovs('equals', '', 'BUILDING_STATUS', 'lovBuildingStatuses', data.lov_building_status);
-    lovBuildingStatuses.$promise.then(function(datapromise) {
-        if (datapromise.items[0]) {
-            $scope.lovBuildingStatus.selected = datapromise.items[0];
-        }
-    });
-}
-
-                    
 event = null;
 data = null;
         });
@@ -49,8 +49,14 @@ data = null;
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' && paramsObj.filters !== ''){
-        urlApi += '&where={"name": {"contains":"' + paramsObj.filters + '"}}';
+      if(typeof paramsObj.filters !== 'undefined' ){
+        urlApi += '&where={';
+
+        if(typeof paramsObj.filters.name !== 'undefined'){
+            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+        }
+
+        urlApi += '}';
       }
 
       return $http.get(urlApi).then(function (r) {
@@ -58,21 +64,21 @@ data = null;
               'rows': r.data.items,
               'header': [
                                         
-{'building-name': $translate.instant('building-name')} ,
+{'name': $translate.instant('building-name')} ,
 
                                 
-{'building-taxNumber': $translate.instant('building-taxNumber')} ,
+{'taxNumber': $translate.instant('building-taxNumber')} ,
 
                                 
-{'building-workstation_id': $translate.instant('building-workstation_id')} ,
+{'workstation_id': $translate.instant('building-workstation_id')} ,
 
                                 
-{'building-lov_building_status': $translate.instant('building-lov_building_status')} ,
+{'lov_building_status': $translate.instant('building-lov_building_status')} ,
 
                                 
-{'building-description': $translate.instant('building-description')} ,
+{'description': $translate.instant('building-description')} ,
 
-                                {'building-actions': $translate.instant('building-actions')}
+                                {'actions': $translate.instant('building-actions')}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -119,7 +125,7 @@ data = null;
         $scope.selectedWorkstation = {};
 
         
-        var Workstations = $injector.get('Workstations');
+var Workstations = $injector.get('Workstations');
 
             
         $scope.findWorkstations = function($param)
@@ -157,37 +163,20 @@ data = null;
 $scope.lovBuildingStatus = {};
 
     
-var Lovs = $injector.get('Lovs');
-$scope.fgetLovs = function($typeSearch, $fieldLang, $type, $svar, $param, $obj) {
-    var whereStmnt = {
-        lovType: $type,
-        status: 'active'
-    };
-    switch ($typeSearch) {
-        case 'contains':
-            if ($param !== '' && $fieldLang !== '') {
-                whereStmnt[$fieldLang] = {
-                    contains: $param
-                };
-            }
-            break;
-        default:
-            if ($param !== '') {
-                whereStmnt.name_ = $param;
-            }
-            break;
+
+if( $state.current.name.indexOf('Create') !== -1 ) {
+    $scope.parentObj = $rootScope.parentObj;
+    $scope.parentObjName = $rootScope.parentObjName;
+    $scope.parentObjType = $rootScope.parentObjType;
+
+        
+    if($scope.parentObjType ===  'Workstation'){
+        $scope.selectedWorkstation.selected = $scope.parentObj;
     }
-    return Lovs.query({
-        where: whereStmnt,
-        sort: 'orderShow ASC'
-    }, function(lovs) {
-        $scope[$svar] = lovs.items;
-        if($obj){
-            $obj[$svar] = lovs.items;
-        }
-        return $scope[$svar];
-    });
-};
+
+                            
+}
+
 
 
     $scope.create = function(isValid)

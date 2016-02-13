@@ -1,5 +1,4 @@
               <section ng-controller="RolesCtrl" >
-    <h3 class="page-title"></i>{{ 'Roles' | translate }}</h3>
         <div class="portlet light bordered">
       <div class="portlet-title">
         <div class="caption font-green-sharp">
@@ -16,7 +15,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.name.$invalid }">
       <label for="name" class="col-md-4 control-label">{{ 'role-name' | translate }}</label>
       <div class="col-md-8">
-        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'name' | translate }}" autocomplete="off" required >
+        <input name="name" type="text" class="form-control" data-ng-model="name" id="name" placeholder="{{ 'role-name' | translate }}" autocomplete="off" required >
         <span ng-show="submitted && roleForm.name.$invalid" class="help-block">
           <p ng-show="roleForm.name.$error.required">
             {{ 'role-name field is required' | translate }}
@@ -61,7 +60,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && roleForm.description.$invalid }">
       <label for="description" class="col-md-4 control-label">{{ 'role-description' | translate }}</label>
       <div class="col-md-8">
-        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'description' | translate }}" autocomplete="off"  >
+        <input name="description" type="text" class="form-control" data-ng-model="description" id="description" placeholder="{{ 'role-description' | translate }}" autocomplete="off"  >
         <span ng-show="submitted && roleForm.description.$invalid" class="help-block">
           <p ng-show="roleForm.description.$error.required">
             {{ 'role-description field is required' | translate }}
@@ -81,7 +80,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <button type="submit" acl-check="rolesCreate" class="btn blue-madison">{{ 'Save' | translate }}</button>
-          <a href="javascript:;" back-button class="btn default ">{{ 'Cancel' | translate }}</a>
+          <a href="javascript:;" ui-sref="rolesList" class="btn default ">{{ 'Back to roles list' | translate }}</a>
         </div>
       </div>
     </div>
