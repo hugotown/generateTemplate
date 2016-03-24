@@ -60,7 +60,7 @@ class CakeularTask extends BakeTask {
  *
  * @var array
  */
-	public $scaffoldActions = array('html_home', 'html_list', 'html_add', 'html_edit', 'js_index', 'js_states', 'js_controller', 'js_route', 'js_service', 'views_view');
+	public $scaffoldActions = array('html_home', 'html_list', 'html_add', 'html_edit', 'js_controller', 'js_route', 'js_service', 'views_view');
 
 /**
  * An array of action names that don't require templates. These
@@ -378,10 +378,7 @@ class CakeularTask extends BakeTask {
 			case 'js': {
 				$action = str_replace('js_', '', $action);
 				
-				if ($action == "index"){
-					$filename = WWW_ROOT . DS . 'js' . DS . strtolower($this->controllerName) . '.js';
-				}
-				elseif($action == "controller")
+				if($action == "controller")
 					{
 						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'controllers' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} elseif($action == "service")
@@ -390,8 +387,6 @@ class CakeularTask extends BakeTask {
 					} elseif($action == "route")
 					{
 						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS . 'Route'.strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
-					} else{
-						$filename = WWW_ROOT . DS . 'js' . DS . 'ui-states' . DS . strtolower($this->controllerName) . '.js';	
 					}
 				break;
 			}
