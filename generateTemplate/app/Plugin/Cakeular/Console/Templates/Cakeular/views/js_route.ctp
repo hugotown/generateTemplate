@@ -19,7 +19,7 @@ function($stateProvider) {
     });
     $stateProvider.state('<?php echo strtolower($pluralVar);?>List', {
         url: '/<?php echo strtolower($pluralVar);?>/list',
-        templateUrl: 'views/<?php echo strtoupper($pluralVar);?>List.html',
+        templateUrl: 'views/<?php echo strtolower($pluralVar);?>List.html',
         ncyBreadcrumb: {
             parent: '<?php echo strtolower($pluralVar);?>',
             label: 'BREADCRUMB-<?php echo strtoupper($pluralVar);?>-LIST-LABEL'
