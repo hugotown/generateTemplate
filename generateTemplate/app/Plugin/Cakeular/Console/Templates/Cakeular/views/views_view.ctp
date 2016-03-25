@@ -22,7 +22,7 @@
   <?php $singularVar = strtolower($singularVar); ?>
   <?php $formAction = "save"; ?>
   <?php $tabidx  = 1; ?>
-  <section ng-controller="<?php echo Inflector::humanize($pluralVar); ?>Ctrl" data-ng-init="findOne()">
+  <section ng-controller="<?= Inflector::humanize($pluralVar); ?>Ctrl" data-ng-init="findOne()">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="portlet light bordered">
@@ -33,7 +33,7 @@
           </div>
           <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form name="<?php echo $singularVar; ?>Form" class="form-horizontal" role="form" >
+            <form name="<?= $singularVar; ?>Form" class="form-horizontal" role="form" >
               <div class="form-body">
                 <?php $countIdx = 0; ?>
                 <?php foreach ($fields as $key => $field)
@@ -54,25 +54,22 @@
                                     {
                                         if($details['foreignKey'] == $field)
                                         {
-                                        $fieldAlreadyPainted = true;
-                                        $otherSingularVar = Inflector::variable($alias);
-                                        $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                        $otherPluralVar = Inflector::variable($details['controller']);
-                                            ?>
-
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>.<?php echo $field;?>.$invalid }">
-      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $otherSingularVar; ?>' | translate }}</label>
-      <div class="col-md-8">
-        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field; ?>.<?php echo 'name' ; ?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
-      </div>
-    </div>
-  </div>
-</div>
-
-                                            <?
+                                            $fieldAlreadyPainted = true;
+                                            $otherSingularVar = Inflector::variable($alias);
+                                            $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                            $otherPluralVar = Inflector::variable($details['controller']);
+                                            echo "\n";
+                                            echo "<div class=\"row\">" . "\n";
+                                            echo "    <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">" . "\n";
+                                            echo "      <div class=\"form-group\" ng-class=\"{ 'has-error' : submitted && ". $singularVar ."." . $field .".\$invalid }\">" . "\n";
+                                            echo "          <label for=\"". $field ."\" class=\"col-md-4 control-label\">{{ '". $singularVar ."-". $otherSingularVar. "' | translate }}</label>" . "\n";
+                                            echo "            <div class=\"col-md-8\">" . "\n";
+                                            echo "              <input name=\"". $field. "\" readonly=\"readonly\" type=\"text\" class=\"form-control\" data-ng-model=\"". $singularVar. "." .$field . ".name\" id=\"". $field ."\" placeholder=\"{{ '". $singularVar . "-" . $field ."' | translate }}\" autocomplete=\"off\" " . $required ." >"  . "\n";
+                                            echo "            </div>". "\n";
+                                            echo "        </div>". "\n";
+                                            echo "    </div>". "\n";
+                                            echo "</div>". "\n";
 
                                         }
                                     }
@@ -84,34 +81,29 @@
                                   if(strpos($field,'lov_') !== false){
                                     $fieldNameWLov = str_replace('lov_', '', $field);
                                     $upperFieldNameWLov = strtoupper($fieldNameWLov);
-                                    ?>
-
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
-      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
-      <div class="col-md-8">
-        <span load-lovtype="<?php echo $upperFieldNameWLov; ?>" load-lovtype-value="{{<?php echo $singularVar; ?>.<?php echo $field; ?>}}" ></span>
-      </div>
-    </div>
-  </div>
-</div>
-
-                                    <?php
+                                      echo "\n";
+                                      echo "<div class=\"row\">". "\n";
+                                      echo "    <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">". "\n";
+                                      echo "        <div class=\"form-group\" ng-class=\"{ 'has-error' : submitted && ". $singularVar."Form.". $field.".\$invalid }\">". "\n";
+                                      echo "            <label for=\"". $field ."\" class=\"col-md-4 control-label\">{{ '" . $singularVar."-". $field."' | translate }}</label>". "\n";
+                                      echo "            <div class=\"col-md-8\">". "\n";
+                                      echo "                <span load-lovtype=\"". $upperFieldNameWLov."\" load-lovtype-value=\"{{" . $singularVar. "." . $field."}}\" ></span>". "\n";
+                                      echo "            </div>". "\n";
+                                      echo "        </div>". "\n";
+                                      echo "    </div>". "\n";
+                                      echo "</div>". "\n";
                                   } else{
-                                ?>
-
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group" ng-class="{ 'has-error' : submitted && <?php echo $singularVar; ?>Form.<?php echo $field;?>.$invalid }">
-      <label for="<?php echo $field;?>" class="col-md-4 control-label">{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}</label>
-      <div class="col-md-8">
-        <input name="<?php echo $field;?>" readonly="readonly" type="text" class="form-control" data-ng-model="<?php echo $singularVar; ?>.<?php echo $field;?>" id="<?php echo $field;?>" placeholder="{{ '<?php echo $singularVar; ?>-<?php echo $field;?>' | translate }}" autocomplete="off" <?php echo $required ; ?> >
-      </div>
-    </div>
-  </div>
-</div>
-                                <?php
+                                      echo "\n";
+                                      echo "<div class=\"row\">". "\n";
+                                      echo "    <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">". "\n";
+                                      echo "        <div class=\"form-group\" ng-class=\"{ 'has-error' : submitted && " . $singularVar."Form.". $field.".\$invalid }\">". "\n";
+                                      echo "            <label for=\"". $field."\" class=\"col-md-4 control-label\">{{ '". $singularVar ."-" . $field ."' | translate }}</label>". "\n";
+                                      echo "            <div class=\"col-md-8\">". "\n";
+                                      echo "                <input name=\"". $field."\" readonly=\"readonly\" type=\"text\" class=\"form-control\" data-ng-model=\"". $singularVar.".". $field."\" id=\"". $field ."\" placeholder=\"{{ '". $singularVar ."-". $field ."' | translate }}\" autocomplete=\"off\" ". $required ." >". "\n";
+                                      echo "            </div>". "\n";
+                                      echo "        </div>". "\n";
+                                      echo "    </div>". "\n";
+                                      echo "</div>". "\n";
                                 }
                             }
                     $countIdx ++;
@@ -123,8 +115,8 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <a acl-check="<?php echo $pluralVar; ?>Edit" href="/#/<?php echo $pluralVar; ?>/edit/{{<?php echo $singularVar; ?>.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
-                          <a href="javascript:;" ui-sref="<?php echo $pluralVar; ?>List" class="btn default ">{{ 'Back to <?php echo $pluralVar; ?> list' | translate }}</a>
+                          <a acl-check="<?= $pluralVar; ?>Edit" href="/#/<?= $pluralVar; ?>/edit/{{<?= $singularVar; ?>.id}}" class="btn blue-madison ">{{ 'Edit' | translate }}</a>
+                          <a href="javascript:;" ui-sref="<?= $pluralVar; ?>List" class="btn default ">{{ 'Back to <?= $pluralVar; ?> list' | translate }}</a>
                         </div>
                       </div>
                     </div>
