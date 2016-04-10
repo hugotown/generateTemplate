@@ -386,7 +386,7 @@ class CakeularTask extends BakeTask {
 						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'services' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} elseif($action == "route")
 					{
-						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS . 'Route'.strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
+						$filename = WWW_ROOT . DS . 'js'. DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS .strtolower($this->_pluralHumanName($this->controllerName)) . 'Routes.js';
 					}
 				break;
 			}
