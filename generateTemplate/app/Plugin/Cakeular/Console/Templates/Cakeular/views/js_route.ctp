@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name appviewproject0001App.route:<?php echo strtolower($pluralVar);?>Route
+ * @name frontappApp.route:<?php echo strtolower($pluralVar);?>Route
  * @description
  * # <?php echo strtolower($pluralVar);?>Route
- * Route of the <?php echo strtolower($pluralVar);?> appviewproject0001App
+ * Route of the <?php echo strtolower($pluralVar);?> frontappApp
  */
-angular.module('appviewproject0001App')
+angular.module('frontappApp')
 .config(['$stateProvider',
 function($stateProvider) {
     $stateProvider.state('<?php echo strtolower($pluralVar);?>', {

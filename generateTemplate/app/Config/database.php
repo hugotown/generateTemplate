@@ -62,14 +62,26 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => '104.218.12.141',
+		'host' => 'localhost',
 		'port' => 3306,
-		'login' => 'aquaserv_prollux',
-		'password' => 'Vr9-aWh-Bk3-kmE',
-		'database' => 'aquaserv_project_0001-db',
+		'login' => 'admin',
+		'password' => 'TD7DJ;6GmPHi',
+		'database' => 'aquaserv_proacademic-db',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
+//	//SERVER DATABASE
+//	public $default = array(
+//		'datasource' => 'Database/Mysql',
+//		'persistent' => false,
+//		'host' => '104.218.12.141',
+//		'port' => 3306,
+//		'login' => 'aquaserv_academ',
+//		'password' => 'TD7DJ;6GmPHi',
+//		'database' => 'aquaserv_proacademic-db',
+//		'prefix' => '',
+//		'encoding' => 'utf8',
+//	);
 
 	/*public $test = array(
 		'datasource' => 'Database/Mysql',

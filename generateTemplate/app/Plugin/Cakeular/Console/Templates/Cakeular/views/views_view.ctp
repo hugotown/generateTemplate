@@ -20,8 +20,6 @@
   <?php $singularHumanName = Inflector::classify($singularHumanName); ?>
   <?php $pluralVar = strtolower($pluralVar); ?>
   <?php $singularVar = strtolower($singularVar); ?>
-  <?php $formAction = "save"; ?>
-  <?php $tabidx  = 1; ?>
   <section ng-controller="<?= Inflector::humanize($pluralVar); ?>Ctrl" data-ng-init="findOne()">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
