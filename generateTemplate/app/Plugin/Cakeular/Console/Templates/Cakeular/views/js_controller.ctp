@@ -6,12 +6,12 @@
 
 /**
  * @ngdoc function
- * @name appviewproject0001App.controller:<?= Inflector::humanize($pluralVar); ?>Ctrl
+ * @name frontappApp.controller:<?= Inflector::humanize($pluralVar); ?>Ctrl
  * @description
  * # <?= Inflector::humanize($pluralVar); ?>Ctrl
  * Controller of the appviewproject0001App
  */
-angular.module('appviewproject0001App')
+angular.module('frontappApp')
  .controller('<?= Inflector::humanize($pluralVar); ?>Ctrl', 
 [ '$rootScope', '$scope', '$http', '$location', '$log', '$state', '$stateParams', 'Notification', '$translate', '$injector',
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
@@ -65,7 +65,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
     $scope.get<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj) {
 
-      var urlApi = $rootScope.api_url_base +'/<?= $pluralVar; ?>?';
+      var urlApi = $rootScope.backendUrl +'/<?= $pluralVar; ?>?';
 
       if(typeof paramsObj.count !== 'undefined'){
           var skip = (paramsObj.count * (paramsObj.page - 1));

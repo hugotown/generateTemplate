@@ -6,21 +6,18 @@
 
 /**
  * @ngdoc service
- * @name appviewproject0001App.<?php echo Inflector::humanize($pluralVar); ?>
-
+ * @name frontappApp.<?php echo Inflector::humanize($pluralVar); ?>
  * @description
  * # <?php echo Inflector::humanize($pluralVar); ?>
- 
- * Service in the appviewproject0001App.
+ * Service in the frontappApp.
  */
 //<?php echo Inflector::humanize($pluralVar); ?> service used for <?php echo $pluralVar; ?> REST endpoint
-angular.module('appviewproject0001App')
+angular.module('frontappApp')
 .service('<?php echo Inflector::humanize($pluralVar); ?>',
-['$resource', 'API_URL_BASE',
-function($resource, API_URL_BASE)
+['$resource', 'appSettings',
+function($resource, appSettings)
 {
-    //var $resource = $injector.get('$resource');
-    return $resource( API_URL_BASE.url + '/<?php echo $pluralVar; ?>/:<?php echo $singularVar; ?>Id', {
+    return $resource( appSettings.backendUrl + '/<?php echo $pluralVar; ?>/:<?php echo $singularVar; ?>Id', {
         <?php echo $singularVar; ?>Id: '@id'
     }, {
         get: {
