@@ -14,10 +14,10 @@
 //<?php echo Inflector::humanize($pluralVar); ?> service used for <?php echo $pluralVar; ?> REST endpoint
 angular.module('frontappApp')
 .service('<?php echo Inflector::humanize($pluralVar); ?>',
-['$resource', 'appSettings',
-function($resource, appSettings)
+['$resource', '$rootScope',
+function($resource, $rootScope)
 {
-    return $resource( appSettings.backendUrl + '/<?php echo $pluralVar; ?>/:<?php echo $singularVar; ?>Id', {
+    return $resource( $rootScope.appSettings.backendUrl + '/<?php echo $pluralVar; ?>/:<?php echo $singularVar; ?>Id', {
         <?php echo $singularVar; ?>Id: '@id'
     }, {
         get: {

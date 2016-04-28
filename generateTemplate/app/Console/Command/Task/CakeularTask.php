@@ -60,7 +60,7 @@ class CakeularTask extends BakeTask {
  *
  * @var array
  */
-	public $scaffoldActions = array('js_controller', 'js_route', 'js_service', 'views_index', 'views_view', 'views_add', 'views_edit');
+	public $scaffoldActions = array('js_controller', 'js_route', 'js_service', 'views_index', 'views_list', 'views_view', 'views_add', 'views_edit');
 
 /**
  * An array of action names that don't require templates. These
@@ -362,6 +362,10 @@ class CakeularTask extends BakeTask {
 				$action = str_replace('views_', '', $action);
 				switch($action){
 					case 'index':{
+						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						break;
+					}
+					case 'list':{
 						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
 						break;
 					}

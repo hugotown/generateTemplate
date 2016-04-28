@@ -60,7 +60,7 @@ class CakeularTask extends BakeTask {
  *
  * @var array
  */
-	public $scaffoldActions = array('js_controller', 'js_route', 'js_service', 'views_index', 'views_view', 'views_add', 'views_edit');
+	public $scaffoldActions = array('js_controller', 'js_route', 'js_service', 'views_index', 'views_list', 'views_view', 'views_add', 'views_edit');
 
 /**
  * An array of action names that don't require templates. These
