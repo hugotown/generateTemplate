@@ -2,51 +2,72 @@
 
 /**
  * @ngdoc function
- * @name frontappApp.route:<?php echo strtolower($pluralVar);?>Route
+ * @name frontappApp.route:<?= strtolower($pluralVar);?>Route
  * @description
- * # <?php echo strtolower($pluralVar);?>Route
- * Route of the <?php echo strtolower($pluralVar);?> frontappApp
+ * # <?= strtolower($pluralVar);?>Route
+ * Route of the <?= strtolower($pluralVar);?> frontappApp
  */
 angular.module('frontappApp')
 .config(['$stateProvider',
 function($stateProvider) {
-    $stateProvider.state('<?php echo strtolower($pluralVar);?>', {
-        url: '/<?php echo strtolower($pluralVar);?>',
-        templateUrl: 'views/<?php echo strtolower($pluralVar);?>Home.html',
+    $stateProvider.state('<?= strtolower($pluralVar);?>', {
+        url: '/<?= strtolower($pluralVar);?>',
+        templateUrl: 'views/<?= strtolower($pluralVar);?>Home.html',
+        data: {
+            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageSubTitle : 'Home'
+        },
         ncyBreadcrumb: {
-            label: 'BREADCRUMB-<?php echo strtoupper($pluralVar);?>-HOME-LABEL'
+            label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-HOME-LABEL',
+            skip: true
         }
     });
-    $stateProvider.state('<?php echo strtolower($pluralVar);?>List', {
-        url: '/<?php echo strtolower($pluralVar);?>/list',
-        templateUrl: 'views/<?php echo strtoupper($pluralVar);?>List.html',
+    $stateProvider.state('<?= strtolower($pluralVar);?>List', {
+        url: '/<?= strtolower($pluralVar);?>/list',
+        templateUrl: 'views/<?= strtolower($pluralVar);?>List.html',
+        data: {
+            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageSubTitle : 'List'
+        },
         ncyBreadcrumb: {
-            parent: '<?php echo strtolower($pluralVar);?>',
-            label: 'BREADCRUMB-<?php echo strtoupper($pluralVar);?>-LIST-LABEL'
+            parent: '<?= strtolower($pluralVar);?>',
+            label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-LIST-LABEL'
         }
     });
-    $stateProvider.state('<?php echo strtolower($pluralVar);?>View', {
-        url: '/<?php echo strtolower($pluralVar);?>/view/:<?php echo $singularVar; ?>Id',
-        templateUrl: 'views/<?php echo strtolower($pluralVar);?>View.html',
+    $stateProvider.state('<?= strtolower($pluralVar);?>View', {
+        url: '/<?= strtolower($pluralVar);?>/view/:<?= $singularVar; ?>Id',
+        templateUrl: 'views/<?= strtolower($pluralVar);?>View.html',
+        data: {
+            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageSubTitle : 'View'
+        },
         ncyBreadcrumb: {
-            parent: '<?php echo strtolower($pluralVar);?>List',
-            label: 'BREADCRUMB-<?php echo strtoupper($pluralVar);?>-VIEW-LABEL'
+            parent: '<?= strtolower($pluralVar);?>List',
+            label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-VIEW-LABEL'
         }
     });
-    $stateProvider.state('<?php echo strtolower($pluralVar);?>Create', {
-        url: '/<?php echo strtolower($pluralVar);?>/create',
-        templateUrl: 'views/<?php echo strtolower($pluralVar);?>Add.html',
+    $stateProvider.state('<?= strtolower($pluralVar);?>Create', {
+        url: '/<?= strtolower($pluralVar);?>/create',
+        templateUrl: 'views/<?= strtolower($pluralVar);?>Add.html',
+        data: {
+            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageSubTitle : 'Add'
+        },
         ncyBreadcrumb: {
-            parent: '<?php echo strtolower($pluralVar);?>List',
-            label: 'BREADCRUMB-<?php echo strtoupper($pluralVar);?>-CREATE-LABEL'
+            parent: '<?= strtolower($pluralVar);?>List',
+            label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-CREATE-LABEL'
         }
     });
-    $stateProvider.state('<?php echo strtolower($pluralVar);?>Edit', {
-        url: '/<?php echo strtolower($pluralVar);?>/edit/:<?php echo $singularVar; ?>Id',
-        templateUrl: 'views/<?php echo strtolower($pluralVar);?>Edit.html',
+    $stateProvider.state('<?= strtolower($pluralVar);?>Edit', {
+        url: '/<?= strtolower($pluralVar);?>/edit/:<?= $singularVar; ?>Id',
+        templateUrl: 'views/<?= strtolower($pluralVar);?>Edit.html',
+        data: {
+            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageSubTitle : 'Edit'
+        },
         ncyBreadcrumb: {
-            parent: '<?php echo strtolower($pluralVar);?>List',
-            label: 'BREADCRUMB-<?php echo strtoupper($pluralVar);?>-EDIT-LABEL'
+            parent: '<?= strtolower($pluralVar);?>List',
+            label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-EDIT-LABEL'
         }
     });
 }

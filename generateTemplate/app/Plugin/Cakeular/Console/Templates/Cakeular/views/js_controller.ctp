@@ -45,6 +45,7 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                 $otherPluralVar = Inflector::variable($details['controller']);
                                 echo "\n";
+                                echo "              \$scope.selected". $otherSingularHumanName ." ={};". "\n";
                                 echo "          if(data.". $otherSingularVar. "_id){". "\n";
                                 echo "              \$scope.selected". $otherSingularHumanName .".selected = data.". $field .";". "\n";
                                 echo "          }". "\n";
@@ -62,27 +63,139 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
         });
 
+$scope.<?= $singularVar; ?>Filters = {};
 
     $scope.get<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj) {
 
       var urlApi = $rootScope.backendUrl +'/<?= $pluralVar; ?>?';
 
-      if(typeof paramsObj.count !== 'undefined'){
+      if( paramsObj.count !== undefined ){
           var skip = (paramsObj.count * (paramsObj.page - 1));
           urlApi += 'limit=' + paramsObj.count + '&skip=' + skip;
       }
 
-      if(typeof paramsObj.sortBy !== 'undefined'){
+      if( paramsObj.sortBy !== undefined ){
         urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
       }
 
-      if(typeof paramsObj.filters !== 'undefined' ){
+      if( paramsObj.filters !== undefined ){
         urlApi += '&where={';
+        var strWhereCond = '';
 
-        if(typeof paramsObj.filters.name !== 'undefined'){
-            urlApi += '"name": {"contains":"' + paramsObj.filters.name + '"}';
+<?php
+foreach ($fields as $field)
+{
+    $fieldAlreadyPainted = false;
+    if (isset($associations['belongsTo'])) {
+        if (!empty($associations['belongsTo'])) {
+            foreach ($associations['belongsTo'] as $alias => $details) {
+                if ($details['foreignKey'] == $field) {
+                    $otherSingularVar = Inflector::variable($alias);
+                    $otherPluralHumanName = Inflector::humanize($details['controller']);
+                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                    $otherPluralVar = Inflector::variable($details['controller']);
+                    $fieldAlreadyPainted = true;
+                }
+            }
         }
+    }
+    if (!$fieldAlreadyPainted) {
+        if (strpos($field, 'lov_') !== false) {
+            $fieldNameWLov = str_replace('lov_', '', $field);
+            $upperFieldNameWLov = strtoupper($fieldNameWLov);
 
+        } else {
+
+            switch ($schema[$field]["type"]) {
+                case 'text': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": {"contains":"' + paramsObj.filters.<?= $field; ?> + '"}';
+                    }
+                    <?php
+                    break;
+                }
+                case 'boolean': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined  )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?>.value ;
+                    }
+                    <?php
+                    break;
+                }
+                case 'decimal': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
+                    }
+                    <?php
+                    break;
+                }
+                case 'float': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
+                    }
+                    <?php
+                    break;
+                }
+                case 'integer': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
+                    }
+                    <?php
+                    break;
+                }
+                case 'date': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": "' + paramsObj.filters.<?= $field; ?> ;
+                    }
+                    <?php
+                    break;
+                }
+                case 'datetime': {
+                    ?>
+
+                    if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
+                    {
+                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    strWhereCond += '"<?= $field; ?>": "' + paramsObj.filters.<?= $field; ?> + '"';
+                    }
+                    <?php
+                    break;
+                }
+
+                default : {
+                    //none
+                }
+            }
+
+        }
+    }
+}
+?>
+
+        urlApi += strWhereCond;
         urlApi += '}';
       }
 
@@ -93,12 +206,9 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                     <?php $countIdx = 0; ?>
                     <?php foreach ($fields as $key => $field)
                     {
-                        if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
-                        {
-                            echo "\n";
-                            echo "                  {'". $field ."': \$translate.instant('". $singularVar ."-" . $field . "')} ,";
-                            $countIdx ++;
-                        }
+                        echo "\n";
+                        echo "                  {'". $field ."': \$translate.instant('". $singularVar ."-" . $field . "')} ,";
+                        $countIdx ++;
                     }
                     ?>
 
@@ -143,63 +253,6 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
         });
     };
 
-<?php 
-if (isset($associations['belongsTo']))
-{
-    if(!empty($associations['belongsTo']))
-    {
-        foreach ($associations['belongsTo'] as $alias => $details)
-        {
-            $otherSingularVar = Inflector::variable($alias);
-            $otherPluralVar = Inflector::variable($details['controller']);
-            $otherPluralHumanName = Inflector::humanize($details['controller']);
-            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-            echo "\n";
-            echo "\$scope.". $otherPluralVar ." = [];" ."\n";
-            echo "\$scope." . $otherSingularVar ." = {};" ."\n";
-            echo "\$scope.selected" . $otherSingularHumanName ." = {};" ."\n";
-
-            if($singularHumanName != $otherSingularHumanName)
-            {
-                echo "var " . $otherPluralHumanName ." = \$injector.get('" . $otherPluralHumanName ."');" ."\n";
-            }
-        ?>
-
-        $scope.find<?= $otherPluralHumanName; ?> = function($param)
-            {
-                if(typeof $param !== 'undefined' && $param !== ''){
-                    return <?= $otherPluralHumanName; ?>.query({
-                          where: {
-                              name: {
-                                contains: $param
-                            },
-                            lov_<?= strtolower( $otherSingularHumanName ); ?>_status : 'active'
-                          }
-                      },function(<?= $otherPluralVar; ?>)
-                        {
-                            $scope.<?= $otherPluralVar; ?> = <?= $otherPluralVar; ?>.items;
-                            $scope.$emit('find<?= $otherPluralHumanName; ?>Loaded', { data: <?= $otherPluralVar; ?> });
-                            return $scope.<?= $otherPluralVar; ?>;
-                        });
-                } else {
-                    return <?= $otherPluralHumanName; ?>.query({
-                          where: {
-                            lov_<?= strtolower( $otherSingularHumanName ); ?>_status : 'active'
-                          }
-                      },function(<?= $otherPluralVar; ?>)
-                        {
-                            $scope.<?= $otherPluralVar; ?> = <?= $otherPluralVar; ?>.items;
-                            $scope.$emit('find<?= $otherPluralHumanName; ?>Loaded', { data: <?= $otherPluralVar; ?> });
-                            return $scope.<?= $otherPluralVar; ?>;
-                        });
-                }
-            };
-
-    <?php
-        }
-    }
-}
-?>
 
 <?php 
 foreach ($fields as $key => $field)
@@ -259,8 +312,6 @@ if( $state.current.name.indexOf('Create') !== -1 )
                 <?php foreach ($fields as $key => $field)
                 {
                     $fieldAlreadyPainted = false;
-                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
-                    {
                             if(isset($associations['belongsTo']))
                             {
                                 if(!empty($associations['belongsTo']))
@@ -295,7 +346,6 @@ if( $state.current.name.indexOf('Create') !== -1 )
                                 }
                             }
                         $countIdx ++;
-                    }
                 }
                 echo "          forctrl: 'ok'";
                 ?>
@@ -317,13 +367,13 @@ if( $state.current.name.indexOf('Create') !== -1 )
         }
     };
 
-    $scope.update = function(isValid) {
-      if (isValid) {
+    $scope.update = function(isValid)
+    {
+      if (isValid)
+        {
       var <?= $singularVar; ?> = $scope.<?= $singularVar; ?>;
                 <?php foreach ($fields as $key => $field)
                 {
-                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
-                    {
                         if(isset($associations['belongsTo']))
                         {
                             if(!empty($associations['belongsTo']))
@@ -354,7 +404,6 @@ if( $state.current.name.indexOf('Create') !== -1 )
                           } else {
 
                           }
-                    }
                 } ?>
 
         <?= $singularVar; ?>.$update(function() {
@@ -370,5 +419,27 @@ if( $state.current.name.indexOf('Create') !== -1 )
         $scope.submitted = true;
       }
     };
+
+
+
+$scope.remove = function( <?= $singularVar; ?> )
+{
+    if ( <?= $singularVar; ?>.id )
+    {
+        var <?= $singularVar; ?>Res = <?= Inflector::humanize($pluralVar); ?>.get({
+        <?= $singularVar; ?>Id: <?= $singularVar; ?>.id
+        }, function(<?= $singularVar; ?>)
+        {
+            <?= $singularVar; ?>Res.$remove( function( response )
+            {
+                $location.path('<?= strtolower($pluralVar); ?>/list');
+            } );
+        });
+    } else {
+        $location.path('<?= strtolower($pluralVar); ?>/list');
+    }
+};
+
+
 
 }]);
