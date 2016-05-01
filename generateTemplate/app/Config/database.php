@@ -65,7 +65,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'port' => 3306,
 		'login' => 'admin',
-		'password' => 'TD7DJ;6GmPHi',
+		'password' => 'admin',
 		'database' => 'aquaserv_proacademic-db',
 		'prefix' => '',
 		'encoding' => 'utf8',

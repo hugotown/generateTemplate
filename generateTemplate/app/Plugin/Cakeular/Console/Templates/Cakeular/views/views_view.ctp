@@ -93,6 +93,22 @@
                                       echo "</div>". "\n";
                                   } else{
                                       switch ($schema[$field]["type"]) {
+                                          case 'string': {
+                                              ?>
+
+                                              <div class="row">
+                                                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                      <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                          <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                          <div class="col-lg-8 col-md-8 col-sm-8">
+                                                              <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>.<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> readonly="readonly" >
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <?php
+                                              break;
+                                          }
                                           case 'text': {
                                               ?>
 
@@ -101,7 +117,7 @@
       <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
           <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
           <div class="col-lg-8 col-md-8 col-sm-8">
-              <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>.<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> readonly="readonly" >
+              <textarea name="<?= $field;?>" class="form-control" ng-model="<?= $singularVar; ?>.<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> readonly="readonly" ></textarea>
           </div>
       </div>
   </div>
