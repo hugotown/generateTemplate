@@ -14,7 +14,7 @@ function($stateProvider) {
         url: '/<?= strtolower($pluralVar);?>',
         templateUrl: 'views/<?= strtolower($pluralVar);?>Home.html',
         data: {
-            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageTitle : '<?= Inflector::humanize($pluralVar); ?>',
             pageSubTitle : 'Home'
         },
         ncyBreadcrumb: {
@@ -26,7 +26,7 @@ function($stateProvider) {
         url: '/<?= strtolower($pluralVar);?>/list',
         templateUrl: 'views/<?= strtolower($pluralVar);?>List.html',
         data: {
-            pageTitle : '<?= Inflector::humanize($singularVar); ?>',
+            pageTitle : '<?= Inflector::humanize($pluralVar); ?>',
             pageSubTitle : 'List'
         },
         ncyBreadcrumb: {
