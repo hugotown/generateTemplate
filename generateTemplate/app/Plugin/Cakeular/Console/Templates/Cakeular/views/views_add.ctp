@@ -30,7 +30,7 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form name="<?= $singularVar; ?>Form" class="form-horizontal" role="form" data-ng-submit="create(<?= $pluralVar; ?>Form.$valid)" novalidate>
+            <form name="<?= $singularVar; ?>Form" class="form-horizontal" role="form" data-ng-submit="create(<?= $singularVar; ?>Form.$valid)" novalidate>
                 <div class="form-body">
                     <?php foreach ($fields as $key => $field)
                     {
@@ -62,156 +62,183 @@
                             }
                             if(!$fieldAlreadyPainted)
                             {
-                                switch ($schema[$field]["type"]) {
-                                    case 'text': {
-                                        ?>
+                                if(strpos($field,'lov_') !== false)
+                                {
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> >
-                <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
-                  <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
-                      {{ '<?= $field;?> field is required' | translate }}
-                  </p>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
-                                    case 'boolean': {
-                                        ?>
+                                }else{
+                                    switch ($schema[$field]["type"])
+                                    {
+                                        case 'string': {
+                                            ?>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label" >&nbsp;{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <label class="mt-checkbox mt-checkbox-outline" style="margin-bottom: 6px !important;" >
-                    <input name="<?= $field;?>" type="checkbox" ng-model="<?= $field;?>" id="<?= $field;?>" />
-                    <span></span>
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
-                                    case 'decimal': {
-                                        ?>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> >
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'text': {
+                                            ?>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <input name="<?= $field;?>" type="number" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ignore-mouse-wheel >
-                <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
-                  <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
-                      {{ '<?= $field;?> field is required' | translate }}
-                  </p>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
-                                    case 'float': {
-                                        ?>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <textarea name="<?= $field;?>" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ></textarea>
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'boolean': {
+                                            ?>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <input name="<?= $field;?>" type="number" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ignore-mouse-wheel >
-                <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
-                  <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
-                      {{ '<?= $field;?> field is required' | translate }}
-                  </p>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
-                                    case 'integer': {
-                                        ?>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label" >&nbsp;{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <label class="mt-checkbox mt-checkbox-outline" style="margin-bottom: 6px !important;" >
+                                                                <input name="<?= $field;?>" type="checkbox" ng-model="<?= $field;?>" id="<?= $field;?>" />
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'decimal': {
+                                            ?>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <input name="<?= $field;?>" type="number" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ignore-mouse-wheel >
-                <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
-                  <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
-                      {{ '<?= $field;?> field is required' | translate }}
-                  </p>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
-                                    case 'date': {
-                                        ?>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <input name="<?= $field;?>" type="number" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ignore-mouse-wheel >
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'float': {
+                                            ?>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-fade" bs-datepicker >
-                <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
-                  <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
-                      {{ '<?= $field;?> field is required' | translate }}
-                  </p>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
-                                    case 'datetime': {
-                                        ?>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <input name="<?= $field;?>" type="number" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ignore-mouse-wheel >
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'integer': {
+                                            ?>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
-            <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-fade" bs-datepicker >
-                <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-model-time-format="yyyy-MM-dd HH:mm:ss" data-time-type="string" data-container="body" data-autoclose="1" data-animation="am-fade" bs-timepicker >
-                <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
-                  <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
-                      {{ '<?= $field;?> field is required' | translate }}
-                  </p>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-                                        <?php
-                                        break;
-                                    }
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <input name="<?= $field;?>" type="number" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> ignore-mouse-wheel >
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'date': {
+                                            ?>
 
-                                    default : {
-                                        //none
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-fade" bs-datepicker >
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+                                        case 'datetime': {
+                                            ?>
+
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
+                                                        <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $field;?>' | translate }}</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                                            <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-fade" bs-datepicker >
+                                                            <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $field;?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-model-time-format="yyyy-MM-dd HH:mm:ss" data-time-type="string" data-container="body" data-autoclose="1" data-animation="am-fade" bs-timepicker >
+                                                            <span ng-show="submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid" class="help-block">
+                                                              <p ng-show="<?= $singularVar; ?>Form.<?= $field;?>.$error.required">
+                                                                  {{ '<?= $field;?> field is required' | translate }}
+                                                              </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        }
+
+                                        default : {
+                                            //none
+                                        }
                                     }
                                 }
                             }
@@ -227,7 +254,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <button type="submit" ng-disabled="!session.acl.<?= $pluralVar; ?>.postAction" class="btn blue-madison">{{ 'Save' | translate }}</button>
-                                        <a ui-sref="<?= $pluralVar; ?>List" ng-disabled="!session.acl.<?= $pluralVar; ?>.getAction" class="btn default {{(!session.acl.<?= $pluralVar; ?>.getAction) ? 'disabled' : ''}}">{{ 'Cancel' | translate }}</a>
+                                        <a ui-sref="<?= $pluralVar; ?>List" acl-check="<?= $pluralVar; ?>List" class="btn btn-default">{{ 'Cancel' | translate }}</a>
                                     </div>
                                 </div>
                             </div>

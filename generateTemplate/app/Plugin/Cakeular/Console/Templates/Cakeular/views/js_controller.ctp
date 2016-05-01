@@ -67,7 +67,7 @@ $scope.<?= $singularVar; ?>Filters = {};
 
     $scope.get<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj) {
 
-      var urlApi = $rootScope.backendUrl +'/<?= $pluralVar; ?>?';
+      var urlApi = $rootScope.appSettings.backendUrl +'/<?= $pluralVar; ?>?';
 
       if( paramsObj.count !== undefined ){
           var skip = (paramsObj.count * (paramsObj.page - 1));
@@ -107,15 +107,18 @@ foreach ($fields as $field)
         } else {
 
             switch ($schema[$field]["type"]) {
-                case 'text': {
+                case 'string': {
                     ?>
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
+                    (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
                     strWhereCond += '"<?= $field; ?>": {"contains":"' + paramsObj.filters.<?= $field; ?> + '"}';
                     }
                     <?php
+                    break;
+                }
+                case 'text': {
                     break;
                 }
                 case 'boolean': {
@@ -207,12 +210,16 @@ foreach ($fields as $field)
                     <?php foreach ($fields as $key => $field)
                     {
                         echo "\n";
-                        echo "                  {'". $field ."': \$translate.instant('". $singularVar ."-" . $field . "')} ,";
+                        echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                        echo "\n";
+                        echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
                         $countIdx ++;
                     }
                     ?>
 
-                        {'actions': $translate.instant('<?= $singularVar; ?>-actions')}
+{ 'key': 'actions', 'name': $translate.instant('<?= $singularVar; ?>-actions'),
+'style': {}, 'class': [ 'text-center' ]
+}
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -312,6 +319,8 @@ if( $state.current.name.indexOf('Create') !== -1 )
                 <?php foreach ($fields as $key => $field)
                 {
                     $fieldAlreadyPainted = false;
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
+                    {
                             if(isset($associations['belongsTo']))
                             {
                                 if(!empty($associations['belongsTo']))
@@ -346,6 +355,7 @@ if( $state.current.name.indexOf('Create') !== -1 )
                                 }
                             }
                         $countIdx ++;
+                    }
                 }
                 echo "          forctrl: 'ok'";
                 ?>
@@ -374,6 +384,8 @@ if( $state.current.name.indexOf('Create') !== -1 )
       var <?= $singularVar; ?> = $scope.<?= $singularVar; ?>;
                 <?php foreach ($fields as $key => $field)
                 {
+                    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
+                    {
                         if(isset($associations['belongsTo']))
                         {
                             if(!empty($associations['belongsTo']))
@@ -404,6 +416,7 @@ if( $state.current.name.indexOf('Create') !== -1 )
                           } else {
 
                           }
+                    }
                 } ?>
 
         <?= $singularVar; ?>.$update(function() {
@@ -433,10 +446,12 @@ $scope.remove = function( <?= $singularVar; ?> )
             <?= $singularVar; ?>Res.$remove( function( response )
             {
                 $location.path('<?= strtolower($pluralVar); ?>/list');
+                $scope.<?= $singularVar; ?>Filters['timestamp'] = new Date();
             } );
         });
     } else {
         $location.path('<?= strtolower($pluralVar); ?>/list');
+        $scope.<?= $singularVar; ?>Filters['timestamp'] = new Date();
     }
 };
 
