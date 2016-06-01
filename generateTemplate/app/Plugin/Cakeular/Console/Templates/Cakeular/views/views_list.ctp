@@ -11,11 +11,11 @@
                 {{ 'List' | translate }}
             </div>
             <div class="actions">
-                <a ng-init="filterPanel = 100" ng-click=" (filterPanel == 0)? filterPanel = 100 : filterPanel = 0; " class="btn btn-sm green-haze " >
+                <a ng-init="filterPanel = 100" ng-click=" (filterPanel == 0)? filterPanel = 100 : filterPanel = 0; " class="btn btn-sm {{ tableIsFiltered ? 'green' : 'green-haze' }} " >
                     <i class="glyphicon glyphicon-filter" data-container="body" data-title="{{'Filter' | translate}}" data-animation="am-flip-x" bs-tooltip></i>
                 </a>
-                <a acl-check="<?= $pluralVar; ?>Create" ui-sref="<?= $pluralVar; ?>Create" class="btn btn-sm green-haze " data-container="body" data-title="{{'Add' | translate}}" data-animation="am-flip-x" bs-tooltip >
-                    <i class="glyphicon glyphicon-plus"></i>&nbsp;{{'Add' | translate}}
+                <a acl-check="<?= $pluralVar; ?>Create" ui-sref="<?= $pluralVar; ?>Create" class="btn btn-sm green-haze " data-container="body" data-title="{{'Create' | translate}}" data-animation="am-flip-x" bs-tooltip >
+                    <i class="glyphicon glyphicon-plus"></i>
                 </a>
             </div>
         </div>
@@ -31,172 +31,218 @@
                                     <h4>{{ 'Filters' | translate }}</h4>
                                     <form class="form-horizontal" onsubmit="return false;">
                                         <div class="form-body">
-                                    <?php foreach ($fields as $field)
-                                    {
-                                        $this->out("\n");
-                                        $this->out("field");
-                                        $this->out($field);
-                                        $this->out($schema[$field]);
-
-                                        $fieldAlreadyPainted = false;
-                                        if(isset($associations['belongsTo']))
-                                        {
-                                            if(!empty($associations['belongsTo']))
+                                            <?php foreach ($fields as $field)
                                             {
-                                                foreach ($associations['belongsTo'] as $alias => $details)
+                                                if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                                                 {
-                                                    if($details['foreignKey'] == $field)
+                                                    $this->out("\n");
+                                                    $this->out("field");
+                                                    $this->out($field);
+                                                    $this->out($schema[$field]);
+
+                                                    $fieldAlreadyPainted = false;
+                                                    if(isset($associations['belongsTo']))
                                                     {
-                                                        $otherSingularVar = Inflector::variable($alias);
-                                                        $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                                        $otherPluralVar = Inflector::variable($details['controller']);
-                                                        $fieldAlreadyPainted = true;
-                                                        ?>
+                                                        if(!empty($associations['belongsTo']))
+                                                        {
+                                                            foreach ($associations['belongsTo'] as $alias => $details)
+                                                            {
+                                                                if($details['foreignKey'] == $field)
+                                                                {
+                                                                    $otherSingularVar = Inflector::variable($alias);
+                                                                    $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                                                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                                                    $otherPluralVar = Inflector::variable($details['controller']);
+                                                                    $fieldAlreadyPainted = true;
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
-                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="text" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
+                                                                    //echo $otherPluralVar ."\n";
+                                                                    //echo $otherPluralHumanName ."\n";
+                                                                    //echo $otherSingularHumanName ."\n";
+                                                                    //echo $otherPluralVar ."\n";
+
+                                                                    ?>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group" >
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <ui-select ng-disabled="(parentObjType == '<?= $otherSingularHumanName; ?>')" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>.selected" id="<?= $field; ?>" name="<?= $field; ?>" reset-search-input="false" theme="bootstrap" >
+                                        <ui-select-match placeholder="{{ 'Select <?= $alias; ?>' | translate }}...">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="item in <?= Inflector::pluralize($otherSingularVar); ?> "  refresh="find<?= Inflector::pluralize($alias); ?>($select.search)" refresh-delay="500" >
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn btn-right">
+                                        <a  class="btn grey {{ (parentObjType == '<?= $otherSingularHumanName; ?>') ? 'disabled' : '' }} " type="button" ng-click="<?= $singularVar; ?>Filters.<?= $field; ?>.selected = undefined;">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                            }
-                                        }
-                                        if(!$fieldAlreadyPainted)
-                                        {
-                                            if (strpos($field, 'lov_') !== false)
-                                            {
-                                                $fieldNameWLov = str_replace('lov_', '', $field);
-                                                $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                                                    if(!$fieldAlreadyPainted)
+                                                    {
+                                                        if (strpos($field, 'lov_') !== false)
+                                                        {
+                                                            $fieldNameWLov = str_replace('lov_', '', $field);
+                                                            $upperFieldNameWLov = strtoupper($fieldNameWLov);
 
-                                            } else {
-                                                switch ($schema[$field]["type"])
-                                                {
-                                                    case 'string': {
-                                                        ?>
+                                                        } else {
+                                                            switch ($schema[$field]["type"])
+                                                            {
+                                                                case 'string': {
+                                                                    ?>
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
-                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="text" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
-                                                        break;
-                                                    }
-                                                    case 'text': {
-                                                        break;
-                                                    }
-                                                    case 'boolean': {
-                                                        ?>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group" >
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
-                                                                    <div class="input-group">
-                                                                        <ui-select required ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" name="<?= $field; ?>" id="<?= $field; ?>" reset-search-input="false" theme="bootstrap" >
-                                                                            <ui-select-match placeholder="{{ 'Select' | translate }}...">{{$select.selected.name}}</ui-select-match>
-                                                                            <ui-select-choices repeat="item in [{'name':'true', 'value':1},{'name':'false', value:0}] " >
-                                                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                                                            </ui-select-choices>
-                                                                        </ui-select>
-                                                                  <span class="input-group-btn btn-right">
-                                                                      <a class="btn btn-default" type="button" ng-click="<?= $singularVar; ?>Filters.<?= $field; ?> = undefined">
-                                                                          <i class="fa fa-times"></i>
-                                                                      </a>
-                                                                  </span>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
+                                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="text" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
-                                                        <?php
-                                                        break;
-                                                    }
-                                                    case 'decimal': {
-                                                        ?>
+                                                                    <?php
+                                                                    break;
+                                                                }
+                                                                case 'text': {
+                                                                    break;
+                                                                }
+                                                                case 'boolean': {
+                                                                    ?>
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
-                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="number" min="0" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ignore-mouse-wheel >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group" >
+                                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
+                                                                                    <div class="input-group">
+                                                                                        <ui-select required ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" name="<?= $field; ?>" id="<?= $field; ?>" reset-search-input="false" theme="bootstrap" >
+                                                                                            <ui-select-match placeholder="{{ 'Select' | translate }}...">{{$select.selected.name}}</ui-select-match>
+                                                                                            <ui-select-choices repeat="item in [{'name':'true', 'value':1},{'name':'false', value:0}] " >
+                                                                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                                                            </ui-select-choices>
+                                                                                        </ui-select>
+                                                                                          <span class="input-group-btn btn-right">
+                                                                                              <a class="btn btn-default" type="button" ng-click="<?= $singularVar; ?>Filters.<?= $field; ?> = undefined">
+                                                                                                  <i class="fa fa-times"></i>
+                                                                                              </a>
+                                                                                          </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                                                        <?php
-                                                    }
-                                                    case 'float': {
-                                                        ?>
+                                                                    <?php
+                                                                    break;
+                                                                }
+                                                                case 'decimal': {
+                                                                    ?>
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
-                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="number" min="0" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ignore-mouse-wheel >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
+                                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="number" min="0" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ignore-mouse-wheel >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                                                        <?php
-                                                        break;
-                                                    }
-                                                    case 'integer': {
-                                                        ?>
+                                                                    <?php
+                                                                    break;
+                                                                }
+                                                                case 'float': {
+                                                                    ?>
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
-                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="number" min="0" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ignore-mouse-wheel >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
+                                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="number" min="0" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ignore-mouse-wheel >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                                                        <?php
-                                                        break;
-                                                    }
-                                                    case 'date': {
-                                                        ?>
+                                                                    <?php
+                                                                    break;
+                                                                }
+                                                                case 'integer': {
+                                                                    ?>
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 " >
-                                                                    <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-flip-x" bs-datepicker >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class=" col-lg-12 col-md-12 col-sm-12 ">
+                                                                                    <input name="<?= $field; ?>" id="<?= $field; ?>" type="number" min="0" class="form-control" placeholder="{{ '<?= $singularVar ."-" .$field; ?>' | translate }}" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" autocomplete="off"  ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ignore-mouse-wheel >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                                                        <?php
-                                                        break;
-                                                    }
-                                                    case 'datetime': {
-                                                        ?>
+                                                                    <?php
+                                                                    break;
+                                                                }
+                                                                case 'date': {
+                                                                    ?>
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class=" col-lg-12 col-md-12 col-sm-12 " >
-                                                                    <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" id="<?= $field;?>Date" placeholder="{{ '<?= $field;?>Date' | translate }}" autocomplete="off" data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-flip-x" bs-datepicker >
-                                                                    <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" id="<?= $field;?>Time" placeholder="{{ '<?= $field;?>Time' | translate }}" autocomplete="off" data-model-time-format="yyyy-MM-dd HH:mm:ss" data-time-type="string" data-container="body" data-autoclose="1" data-animation="am-flip-x" bs-timepicker >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class=" col-lg-12 col-md-12 col-sm-12 " >
+                                                                                    <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" id="<?= $field;?>" placeholder="{{ '<?= $field;?>' | translate }}" autocomplete="off" <?= $required ; ?> data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-flip-x" bs-datepicker >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                                                        <?php
-                                                        break;
-                                                    }
+                                                                    <?php
+                                                                    break;
+                                                                }
+                                                                case 'datetime': {
+                                                                    ?>
 
-                                                    default : {
-                                                        //none
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class=" col-lg-6 col-md-6 col-sm-6 " style="margin: 0px !important; padding: 0px !important;" >
+                                                                                    <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" id="<?= $field;?>Date" placeholder="{{ '<?= $field;?>Date' | translate }}" autocomplete="off" data-date-format="yyyy-MM-dd" data-model-date-format="yyyy-MM-dd HH:mm:ss" data-date-type="string" data-container="body" data-autoclose="1" data-animation="am-flip-x" bs-datepicker >
+                                                                                </div>
+                                                                                <div class=" col-lg-6 col-md-6 col-sm-6 " style="margin: 0px !important; padding: 0px !important;" >
+                                                                                    <input name="<?= $field;?>" type="text" class="form-control" ng-model="<?= $singularVar; ?>Filters.<?= $field; ?>" id="<?= $field;?>Time" placeholder="{{ '<?= $field;?>Time' | translate }}" autocomplete="off" data-model-time-format="yyyy-MM-dd HH:mm:ss" data-time-type="string" data-container="body" data-autoclose="1" data-animation="am-flip-x" bs-timepicker >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <?php
+                                                                    break;
+                                                                }
+
+                                                                default : {
+                                                                    //none
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
-                                        }
-                                    }
-                                    ?>
+                                            ?>
 
                                         </div>
                                     </form>
@@ -214,80 +260,190 @@
                                 <tr ng-show="!rows.length">
                                     <td class="tasty-table-td text-center" colspan="{{(header.columns).length}}">{{'No data found' | translate }}</td>
                                 </tr>
-                                <tr ng-repeat="<?= $singularVar; ?> in rows" ng-init="rowDetails = {};" >
+                                <tr ng-repeat="<?= $singularVar; ?> in rows" >
 
                                                     <?php foreach ($fields as $field)
                                                     {
-                                                        $fieldAlreadyPainted = false;
-                                                        if(isset($associations['belongsTo']))
+                                                        if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
                                                         {
-                                                            if(!empty($associations['belongsTo']))
+                                                            $fieldAlreadyPainted = false;
+                                                            if(isset($associations['belongsTo']))
                                                             {
-                                                                foreach ($associations['belongsTo'] as $alias => $details)
+                                                                if(!empty($associations['belongsTo']))
                                                                 {
-                                                                    if($details['foreignKey'] == $field)
+                                                                    foreach ($associations['belongsTo'] as $alias => $details)
                                                                     {
-                                                                        $otherSingularVar = Inflector::variable($alias);
-                                                                        $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                                                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                                                        $otherPluralVar = Inflector::variable($details['controller']);
-                                                                        $fieldAlreadyPainted = true;
+                                                                        if($details['foreignKey'] == $field)
+                                                                        {
+                                                                            $otherSingularVar = Inflector::variable($alias);
+                                                                            $otherPluralHumanName = Inflector::humanize($details['controller']);
+                                                                            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                                                                            $otherPluralVar = Inflector::variable($details['controller']);
+                                                                            $fieldAlreadyPainted = true;
 
-                                                                        ?>
+                                                                            ?>
 
-                                                                        <td class="tasty-table-td">
-                                                                            <a ng-if="<?= $singularVar; ?>.<?= $field; ?>.id" acl-check="<?= $otherPluralVar; ?>View" href="/#/<?= $otherPluralVar; ?>/view/{{<?= $singularVar; ?>.<?= $field; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue " data-container="body" data-title="{{'Go to' | translate}}&nbsp;{{<?= $singularVar; ?>.<?= $field; ?>.name}}&nbsp;{{'<?= $otherSingularVar; ?>' | translate }}" data-animation="am-flip-x" bs-tooltip >
-                                                                                {{ ( <?= $singularVar; ?>.<?= $field; ?>.name || '...' ) | translate  }}
-                                                                                <i class="fa fa-share"></i>
-                                                                            </a>
-                                                                            <a ng-if="!<?= $singularVar; ?>.<?= $field; ?>.id" href="javascript:;">...</a>
-                                                                        </td>
+                                                                            <td class="tasty-table-td text-center">
+                                                                                <a ng-if="<?= $singularVar; ?>.<?= $field; ?>.id" acl-check="<?= $otherPluralVar; ?>View" href="/#/<?= $otherPluralVar; ?>/view/{{<?= $singularVar; ?>.<?= $field; ?>.id}}"  class="btn btn-xs btn-circle btn-block blue " data-container="body" data-title="{{'Go to' | translate}}&nbsp;{{<?= $singularVar; ?>.<?= $field; ?>.name}}&nbsp;{{'<?= $otherSingularVar; ?>' | translate }}" data-animation="am-flip-x" bs-tooltip >
+                                                                                    {{ ( <?= $singularVar; ?>.<?= $field; ?>.name || '...' ) | translate  }}
+                                                                                    <i class="fa fa-share"></i>
+                                                                                </a>
+                                                                                <a ng-if="!<?= $singularVar; ?>.<?= $field; ?>.id" href="javascript:;">...</a>
+                                                                            </td>
 
-                                                                        <?php
+                                                                            <?php
+                                                                        }
                                                                     }
                                                                 }
                                                             }
-                                                        }
-                                                        if(!$fieldAlreadyPainted)
-                                                        {
-                                                            if(strpos($field,'lov_') !== false){
-                                                                $fieldNameWLov = str_replace('lov_', '', $field);
-                                                                $upperFieldNameWLov = strtoupper($fieldNameWLov);
-                                                                ?>
+                                                            if(!$fieldAlreadyPainted)
+                                                            {
+                                                                if(strpos($field,'lov_') !== false){
+                                                                    $fieldNameWLov = str_replace('lov_', '', $field);
+                                                                    $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                                                                    ?>
 
-                                                                <td class="tasty-table-td">
-                                                                    <span load-lovtype="<?= $upperFieldNameWLov; ?>" load-lovtype-value="{{<?= $singularVar; ?>.<?= $field; ?>}}" ></span>
-                                                                </td>
 
-                                                                <?php
+                                                                    <td class="tasty-table-td text-center">
+                                                                        <form data-editable-form class="form-inline" name="<?= $singularVar; ?>-<?= $field; ?>Form">
+                                                                            <div editable-ui-select="<?= $singularVar; ?>.<?= $field; ?>" data-e-form="<?= $singularVar; ?>-<?= $field; ?>Form" data-e-name="state" name="state" theme="bootstrap" data-e-ng-model="<?= $singularVar; ?>.<?= $field; ?>" >
+                                                                                {{<?= $singularVar; ?>.<?= $field; ?>}}
+                                                                                <editable-ui-select-match placeholder="{{ 'Search <?= $field; ?>' | translate }} ...">
+                                                                                    {{$select.selected['name' + ( (selectedLanguage) ? '_' + selectedLanguage : '' ) ]}}
+                                                                                </editable-ui-select-match>
+                                                                                <editable-ui-select-choices repeat="item in lov<?= Inflector::pluralize( Inflector::camelize( $fieldNameWLov ) ); ?>" refresh="getLovs( '<?= $upperFieldNameWLov; ?>', 'lov<?= Inflector::pluralize( Inflector::camelize( $fieldNameWLov ) ); ?>', $select.search )" refresh-delay="500" >
+                                                                                    <div ng-if="selectedLanguage" ng-bind-html="item['name' + '_' + selectedLanguage]"></div>
+                                                                                    <div ng-if="!selectedLanguage" ng-bind-html="item['name']"></div>
+                                                                                </editable-ui-select-choices>
+                                                                            </div>
+                                                                            <div class="buttons">
+                                                                                <!-- button to show form -->
+                                                                                <button type="button" class="btn btn-default" ng-click="<?= $singularVar; ?>-<?= $field; ?>Form.$show()" ng-show="!<?= $singularVar; ?>-<?= $field; ?>Form.$visible">
+                                                                                    Edit
+                                                                                </button>
+                                                                                <!-- buttons to submit / cancel form -->
+                                                                                  <span ng-show="<?= $singularVar; ?>-<?= $field; ?>Form.$visible">
+                                                                                    <button type="submit" class="btn btn-primary" ng-disabled="<?= $singularVar; ?>-<?= $field; ?>Form.$waiting">
+                                                                                        Save
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-default" ng-disabled="<?= $singularVar; ?>-<?= $field; ?>Form.$waiting" ng-click="<?= $singularVar; ?>-<?= $field; ?>Form.$cancel()">
+                                                                                        Cancel
+                                                                                    </button>
+                                                                                  </span>
+                                                                            </div>
+                                                                        </form>
 
-                                                            } else{
-                                                                ?>
+                                                                    </td>
+                                                                    <?php
 
-                                                                <td class="tasty-table-td text-center">
-                                                                    {{ ( <?= $singularVar; ?>.<?= $field; ?> || '...' ) | translate  }}
-                                                                </td>
+                                                                } else{
 
-                                                                <?php
+                                                                    switch ($schema[$field]["type"])
+                                                                    {
+                                                                        case 'string': {
+                                                                            ?>
 
+
+                                                                            <td class="tasty-table-td text-center">
+                                                                                <a href="javascript:;" editable-text="<?= $singularVar; ?>.<?= $field; ?>" onaftersave="editableUpdate(<?= $singularVar; ?>, '<?= $field; ?>')">
+                                                                                    {{ ( <?= $singularVar; ?>.<?= $field; ?> || '...' ) | translate  }}
+                                                                                </a>
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+                                                                        case 'text': {
+                                                                            break;
+                                                                        }
+                                                                        case 'boolean': {
+                                                                            ?>
+
+
+                                                                            <td class="tasty-table-td text-center">
+                                                                                <a href="javascript:;" editable-checkbox="<?= $singularVar; ?>.<?= $field; ?>" onaftersave="editableUpdate(<?= $singularVar; ?>, '<?= $field; ?>')" >
+                                                                                    {{ <?= $singularVar; ?>.<?= $field; ?> && "True" || "False" | translate }}
+                                                                                </a>
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+                                                                        case 'decimal': {
+                                                                            ?>
+
+
+                                                                            <td class="tasty-table-td">
+                                                                                <a href="javascript:;" class="pull-right" editable-number="<?= $singularVar; ?>.<?= $field; ?>" e-min="1" onaftersave="editableUpdate(<?= $singularVar; ?>, '<?= $field; ?>')" >
+                                                                                    {{ <?= $singularVar; ?>.<?= $field; ?> }}
+                                                                                </a>
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+                                                                        case 'float': {
+                                                                            ?>
+
+
+                                                                            <td class="tasty-table-td">
+                                                                                <a href="javascript:;" class="pull-right" editable-number="<?= $singularVar; ?>.<?= $field; ?>" e-min="1" onaftersave="editableUpdate(<?= $singularVar; ?>, '<?= $field; ?>')" >
+                                                                                    {{ <?= $singularVar; ?>.<?= $field; ?> }}
+                                                                                </a>
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+                                                                        case 'integer': {
+                                                                            ?>
+
+
+                                                                            <td class="tasty-table-td">
+                                                                                <a href="javascript:;" class="pull-right" editable-number="<?= $singularVar; ?>.<?= $field; ?>" e-min="1" onaftersave="editableUpdate(<?= $singularVar; ?>, '<?= $field; ?>')" >
+                                                                                    {{ <?= $singularVar; ?>.<?= $field; ?> }}
+                                                                                </a>
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+                                                                        case 'date': {
+                                                                            ?>
+
+
+                                                                            <td class="tasty-table-td text-center">
+                                                                                {{ <?= $singularVar; ?>.<?= $field; ?> }}
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+                                                                        case 'datetime': {
+                                                                            ?>
+
+
+                                                                            <td class="tasty-table-td text-center">
+                                                                                {{ <?= $singularVar; ?>.<?= $field; ?> }}
+                                                                            </td>
+                                                                            <?php
+                                                                            break;
+                                                                        }
+
+                                                                        default : {
+                                                                            //none
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
                                                             }
                                                         }
                                                     }?>
 
                                     <td class="actions text-center" style=" min-width: 180px !important; ">
                                         <div class="btn-group">
-                                            <a class="btn btn-xs btn-circle " ng-click=" (0 == rowDetails[$index]) ? rowDetails[$index] = 100 : rowDetails[$index] = 0; " >
-                                                <i ng-if="(0 != rowDetails[$index])" class="glyphicon glyphicon-resize-full" data-container="body" data-title="{{'Open details' | translate}}" data-animation="am-flip-x" bs-tooltip></i>
-                                                <i ng-if="(0 == rowDetails[$index])" class="glyphicon glyphicon-resize-small" data-container="body" data-title="{{'Close details' | translate}}" data-animation="am-flip-x" bs-tooltip></i>
-                                            </a>
                                             <a acl-check="<?= $pluralVar; ?>View" href="/#/<?= $pluralVar; ?>/view/{{<?= $singularVar; ?>.id}}" class="btn btn-xs btn-circle blue" data-container="body" data-title="{{'View' | translate}}" data-animation="am-flip-x" bs-tooltip >
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
                                             <a acl-check="<?= $pluralVar; ?>Edit" href="/#/<?= $pluralVar; ?>/edit/{{<?= $singularVar; ?>.id}}" class="btn btn-xs btn-circle yellow-casablanca " data-container="body" data-title="{{'Edit' | translate}}" data-animation="am-flip-x" bs-tooltip >
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
-                                            <a ng-click="remove(<?= $singularVar; ?>)" class="btn btn-xs btn-circle red " data-container="body" data-title="{{'Delete' | translate}}" data-animation="am-flip-x" bs-tooltip >
-                                                <i class="glyphicon glyphicon-trash"></i>
+                                            <a class="btn btn-xs btn-circle red " ng-bootbox-confirm="{{ 'Are you sure want to delete' | translate }} : {{<?= $singularVar; ?>.name}} {{'<?= $singularVar; ?>'}}" ng-bootbox-confirm-action="remove(<?= $singularVar; ?>)" >
+                                                <i class="glyphicon glyphicon-trash" data-container="body" data-title="{{'Delete' | translate}}" data-animation="am-flip-x" bs-tooltip></i>
                                             </a>
                                         </div>
                                     </td>

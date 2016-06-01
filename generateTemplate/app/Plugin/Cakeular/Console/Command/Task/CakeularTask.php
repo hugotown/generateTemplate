@@ -362,19 +362,19 @@ class CakeularTask extends BakeTask {
 				$action = str_replace('views_', '', $action);
 				switch($action){
 					case 'index':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
 						break;
 					}
 					case 'view':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
 						break;
 					}
 					case 'add':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
 						break;
 					}
 					case 'edit':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
 						break;
 					}
 					default:
@@ -387,13 +387,13 @@ class CakeularTask extends BakeTask {
 				
 				if($action == "controller")
 					{
-						$filename = WWW_ROOT . DS  . 'app' . DS . strtolower($this->controllerName) . DS . 'controllers' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
+						$filename = WWW_ROOT . DS  . 'app' . DS . 'controllers' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} elseif($action == "service")
 					{
-						$filename = WWW_ROOT . DS . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'services' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
+						$filename = WWW_ROOT . DS . DS . 'app' . DS . 'services' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
 					} elseif($action == "route")
 					{
-						$filename = WWW_ROOT . DS . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS .strtolower($this->_pluralHumanName($this->controllerName)) . 'routes.js';
+						$filename = WWW_ROOT . DS . DS . 'app' . DS . 'routes' . DS .strtolower($this->_pluralHumanName($this->controllerName)) . 'routes.js';
 					}
 				break;
 			}

@@ -17,16 +17,105 @@ angular.module('frontappApp')
 function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notification, $translate, $injector)
 {
 
+<?php
+foreach ($fields as $key => $field)
+{
+    if(isset($associations['belongsTo']))
+    {
+        if(!empty($associations['belongsTo']))
+        {
+            foreach ($associations['belongsTo'] as $alias => $details)
+            {
+                if($details['foreignKey'] == $field)
+                {
+                    $otherSingularVar = Inflector::variable($alias);
+                    $otherPluralHumanName = Inflector::humanize($details['controller']);
+                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                    $otherPluralVar = Inflector::variable($details['controller']);
+
+                    echo "\n";
+                    echo "      \$scope.". Inflector::pluralize($otherSingularVar) . ' = [];'."\n";
+                    echo "      \$scope.". $otherSingularVar . ' = {};'. "\n";
+                    echo "      \$scope.selected" . $alias ." = {}; "."\n";
+                }
+            }
+        }
+    }
+}
+
+echo "\n";
+foreach ($fields as $key => $field)
+{
+    if(strpos($field,'lov_') !== false)
+    {
+        $fieldNameWLov = str_replace('lov_', '', $field);
+        $upperFieldNameWLov = strtoupper($fieldNameWLov);
+        echo "\n";
+        echo "      \$scope.lov". Inflector::pluralize( Inflector::camelize( $fieldNameWLov ) ). " = [];"."\n";
+        echo "      \$scope.lov". Inflector::camelize($fieldNameWLov). " = {};"."\n";
+    }
+}
+?>
+
+
+    if( $state.current.name.indexOf('List') !== -1 )
+    {
+        $rootScope.parentObj = null;
+        $rootScope.parentObjName = null;
+        $rootScope.parentObjType = null;
+    }
+
+    if( $state.current.name.indexOf('Create') !== -1 )
+    {
+
+<?php
+foreach ($fields as $key => $field)
+{
+    if(isset($associations['belongsTo']))
+    {
+        if(!empty($associations['belongsTo']))
+        {
+            foreach ($associations['belongsTo'] as $alias => $details)
+            {
+                if($details['foreignKey'] == $field)
+                {
+                    $otherSingularVar = Inflector::variable($alias);
+                    $otherPluralHumanName = Inflector::humanize($details['controller']);
+                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                    $otherPluralVar = Inflector::variable($details['controller']);
+
+                    echo "\n";
+                    echo "          if(\$rootScope.parentObjType ===  '" . $otherSingularHumanName ."')" ."\n";
+                    echo "          {"."\n";
+                    echo "              \$scope.selected" . $alias .".selected = \$rootScope.parentObj; ". "\n";
+                    echo "          } "."\n";
+                }
+            }
+        }
+    }
+}
+?>
+    }
 
         $scope.$on('findOneLoaded', function(event, data)
         {
-            if( $state.current.name.indexOf('View') !== -1 ) {
+            if( $state.current.name.indexOf('View') !== -1 )
+            {
                 $rootScope.parentObj = data;
                 $rootScope.parentObjName = data.name || '';
                 $rootScope.parentObjType = '<?= Inflector::humanize($singularVar); ?>';
-                $state.current.cObjType = '<?= Inflector::humanize($singularVar); ?>';
-                $state.current.cObjName = data.name || '';
-                $state.current.cObj = data;
+                $state.current.data.cObjType = '<?= Inflector::humanize($singularVar); ?>';
+                $state.current.data.cObjName = data.name || '';
+                $state.current.data.cObj = data;
+                $state.current.data.pageSubTitle = data.name || '';
+            }
+
+            if( $state.current.name.indexOf('Edit') !== -1 )
+            {
+                $state.current.data.cObjType = '<?= Inflector::humanize($singularVar); ?>';
+                $state.current.data.cObjName = data.name || '';
+                $state.current.data.cObj = data;
+                $state.current.data.pageSubTitle = data.name || '';
             }
 
             <?php 
@@ -45,10 +134,11 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
                                 $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                 $otherPluralVar = Inflector::variable($details['controller']);
                                 echo "\n";
-                                echo "              \$scope.selected". $otherSingularHumanName ." ={};". "\n";
-                                echo "          if(data.". $otherSingularVar. "_id){". "\n";
-                                echo "              \$scope.selected". $otherSingularHumanName .".selected = data.". $field .";". "\n";
-                                echo "          }". "\n";
+                                echo "              \$scope.selected". $alias ." ={};". "\n";
+                                echo "              if(data.". $field. ")". "\n";
+                                echo "              {". "\n";
+                                echo "                  \$scope.selected". $alias .".selected = data.". $field .";". "\n";
+                                echo "              }". "\n";
 
                             }
                         }
@@ -56,55 +146,85 @@ function($rootScope, $scope, $http, $location, $log, $state, $stateParams, Notif
 
                 }
 
+                if(strpos($field,'lov_') !== false)
+                {
+                    $fieldNameWLov = str_replace('lov_', '', $field);
+                    $upperFieldNameWLov = strtoupper($fieldNameWLov);
+                    echo "\n";
+                    echo "              if (data.". $field ." && data.". $field ." !== '')"."\n";
+                    echo "              {"."\n";
+                    echo "                  \$scope.setSelectedLov( data.". $field .", '". $upperFieldNameWLov ."', \$scope.lov".  Inflector::camelize( $fieldNameWLov ) ." );"."\n";
+                    echo "              }"."\n";
+                }
+
             }
-            echo "          event = null;". "\n";
-            echo "          data = null;". "\n";
+            echo "              event = null;". "\n";
+            echo "              data = null;". "\n";
             ?>
 
         });
 
-$scope.<?= $singularVar; ?>Filters = {};
+    $scope.<?= $singularVar; ?>Filters = {};
+    $scope.get<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj)
+    {
+        var urlApi = $rootScope.appSettings.backendUrl +'/<?= $pluralVar; ?>?';
 
-    $scope.get<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj) {
+        if( paramsObj.count !== undefined )
+        {
+            var skip = (paramsObj.count * (paramsObj.page - 1));
+            urlApi += 'limit=' + paramsObj.count + '&skip=' + skip;
+        }
 
-      var urlApi = $rootScope.appSettings.backendUrl +'/<?= $pluralVar; ?>?';
+        if( paramsObj.sortBy !== undefined )
+        {
+            urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
+        }
 
-      if( paramsObj.count !== undefined ){
-          var skip = (paramsObj.count * (paramsObj.page - 1));
-          urlApi += 'limit=' + paramsObj.count + '&skip=' + skip;
-      }
-
-      if( paramsObj.sortBy !== undefined ){
-        urlApi += '&sort=' + paramsObj.sortBy + ' ' + ((paramsObj.sortOrder === 'dsc') ? 'DESC' : 'ASC');
-      }
-
-      if( paramsObj.filters !== undefined ){
-        urlApi += '&where={';
-        var strWhereCond = '';
+        if( paramsObj.filters !== undefined )
+        {
+            urlApi += '&where={';
+            var strWhereCond = '';
 
 <?php
 foreach ($fields as $field)
 {
-    $fieldAlreadyPainted = false;
-    if (isset($associations['belongsTo'])) {
-        if (!empty($associations['belongsTo'])) {
-            foreach ($associations['belongsTo'] as $alias => $details) {
-                if ($details['foreignKey'] == $field) {
-                    $otherSingularVar = Inflector::variable($alias);
-                    $otherPluralHumanName = Inflector::humanize($details['controller']);
-                    $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                    $otherPluralVar = Inflector::variable($details['controller']);
-                    $fieldAlreadyPainted = true;
+    if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
+    {
+        $fieldAlreadyPainted = false;
+        if (isset($associations['belongsTo']))
+        {
+            if (!empty($associations['belongsTo']))
+            {
+                foreach ($associations['belongsTo'] as $alias => $details)
+                {
+                    if ($details['foreignKey'] == $field)
+                    {
+                        $otherSingularVar = Inflector::variable($alias);
+                        $otherPluralHumanName = Inflector::humanize($details['controller']);
+                        $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+                        $otherPluralVar = Inflector::variable($details['controller']);
+                        $fieldAlreadyPainted = true;
+                        ?>
+
+                if( $rootScope.parentObjType === '<?= $otherSingularHumanName; ?>' )
+                {
+                    $scope.<?= $singularVar; ?>Filters.<?= $field; ?> ={};
+                    $scope.<?= $singularVar; ?>Filters.<?= $field; ?>.selected = $rootScope.parentObj;
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                    strWhereCond += '"<?= $field; ?>": ' + $scope.<?= $singularVar; ?>Filters.<?= $field; ?>.selected.id ;
+                } else {
+                    if( paramsObj.filters.<?= $field; ?> && paramsObj.filters.<?= $field; ?>.selected )
+                    {
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?>.selected.id ;
+                    }
+                }
+                        <?php
+                    }
                 }
             }
         }
-    }
-    if (!$fieldAlreadyPainted) {
-        if (strpos($field, 'lov_') !== false) {
-            $fieldNameWLov = str_replace('lov_', '', $field);
-            $upperFieldNameWLov = strtoupper($fieldNameWLov);
-
-        } else {
+        if (!$fieldAlreadyPainted) {
 
             switch ($schema[$field]["type"]) {
                 case 'string': {
@@ -112,8 +232,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                    (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": {"contains":"' + paramsObj.filters.<?= $field; ?> + '"}';
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": {"contains":"' + paramsObj.filters.<?= $field; ?> + '"}';
                     }
                     <?php
                     break;
@@ -126,8 +246,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined  )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?>.value ;
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?>.value ;
                     }
                     <?php
                     break;
@@ -137,8 +257,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
                     }
                     <?php
                     break;
@@ -148,8 +268,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
                     }
                     <?php
                     break;
@@ -159,8 +279,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": ' + paramsObj.filters.<?= $field; ?> ;
                     }
                     <?php
                     break;
@@ -170,8 +290,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": "' + paramsObj.filters.<?= $field; ?> ;
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": "' + paramsObj.filters.<?= $field; ?> ;
                     }
                     <?php
                     break;
@@ -181,8 +301,8 @@ foreach ($fields as $field)
 
                     if( paramsObj.filters.<?= $field; ?> !== undefined && paramsObj.filters.<?= $field; ?> && ( '' !== paramsObj.filters.<?= $field; ?> ) )
                     {
-                     (strWhereCond !== '') ? strWhereCond += ',' : strWhereCond += '';
-                    strWhereCond += '"<?= $field; ?>": "' + paramsObj.filters.<?= $field; ?> + '"';
+                        if(strWhereCond !== '') { strWhereCond += ','; } else { strWhereCond += ''; }
+                        strWhereCond += '"<?= $field; ?>": "' + paramsObj.filters.<?= $field; ?> + '"';
                     }
                     <?php
                     break;
@@ -190,14 +310,15 @@ foreach ($fields as $field)
 
                 default : {
                     //none
+                    break;
                 }
             }
-
         }
     }
 }
 ?>
 
+        if(strWhereCond !== '') { $scope.tableIsFiltered = true; } else { $scope.tableIsFiltered = undefined; }
         urlApi += strWhereCond;
         urlApi += '}';
       }
@@ -209,17 +330,83 @@ foreach ($fields as $field)
                     <?php $countIdx = 0; ?>
                     <?php foreach ($fields as $key => $field)
                     {
-                        echo "\n";
-                        echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
-                        echo "\n";
-                        echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
-                        $countIdx ++;
+                        if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
+                        {
+
+
+                            switch ($schema[$field]["type"])
+                            {
+                                case 'string': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+                                case 'text': {
+                                    break;
+                                }
+                                case 'boolean': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+                                case 'decimal': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+                                case 'float': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+                                case 'integer': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+                                case 'date': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+                                case 'datetime': {
+                                    echo "\n";
+                                    echo "                  { 'key': '". $field ."', 'name': \$translate.instant('". $singularVar ."-" . $field . "'), ";
+                                    echo "\n";
+                                    echo "                  'style': {}, 'class': [ 'text-center' ]} ,";
+                                    $countIdx ++;
+                                    break;
+                                }
+
+                                default : {
+                                    //none
+                                }
+                            }
+                        }
                     }
                     ?>
 
-{ 'key': 'actions', 'name': $translate.instant('<?= $singularVar; ?>-actions'),
-'style': {}, 'class': [ 'text-center' ]
-}
+                { 'key': 'actions', 'name': $translate.instant('<?= $singularVar; ?>-actions'),
+                'style': {}, 'class': [ 'text-center' ]
+                }
               ],
               'pagination': {
                   'count': paramsObj.count,
@@ -260,56 +447,97 @@ foreach ($fields as $field)
         });
     };
 
-
-<?php 
-foreach ($fields as $key => $field)
+<?php
+if (isset($associations['belongsTo']))
 {
-  if(strpos($field,'lov_') !== false)
-  {
-      $fieldNameWLov = str_replace('lov_', '', $field);
-      $upperFieldNameWLov = strtoupper($fieldNameWLov);
-      echo "\n";
-      echo "    \$scope.lov". Inflector::camelize($fieldNameWLov). " = {};"."\n";
-  }
+    if(!empty($associations['belongsTo']))
+    {
+        foreach ($associations['belongsTo'] as $alias => $details)
+        {
+            $otherSingularVar = Inflector::variable($alias);
+            $otherPluralVar = Inflector::variable($details['controller']);
+            $otherPluralHumanName = Inflector::humanize($details['controller']);
+            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+
+            if($singularHumanName != $otherSingularHumanName)
+            {
+                echo "var ". $otherPluralHumanName . " = \$injector.get('". $otherPluralHumanName."');"."\n";
+
+            }
+            ?>
+
+        $scope.find<?= Inflector::pluralize($alias); ?> = function($param)
+        {
+            if(typeof $param !== 'undefined' && $param !== '')
+            {
+                return <?= $otherPluralHumanName; ?>.query({
+                    where: {
+                        name: {
+                            contains: $param
+                        }
+                    }
+                },function(<?= $otherPluralVar; ?>)
+                {
+                    $scope.<?= Inflector::pluralize($otherSingularVar); ?> = <?= $otherPluralVar; ?>.items;
+                    $scope.$emit('find<?= $otherPluralHumanName; ?>Loaded', { data: <?= $otherPluralVar; ?> });
+                    return $scope.<?= $otherPluralVar; ?>;
+                });
+            } else {
+                return <?= $otherPluralHumanName; ?>.query({
+                    limit:10
+                },function(<?= $otherPluralVar; ?>)
+                {
+                    $scope.<?= Inflector::pluralize($otherSingularVar); ?> = <?= $otherPluralVar; ?>.items;
+                    $scope.$emit('find<?= $otherPluralHumanName; ?>Loaded', { data: <?= $otherPluralVar; ?> });
+                    return $scope.<?= $otherPluralVar; ?>;
+                });
+            }
+        };
+
+            <?php
+        }
+    }
 }
 ?>
 
-
-if( $state.current.name.indexOf('Create') !== -1 )
-{
-    $scope.parentObj = $rootScope.parentObj;
-    $scope.parentObjName = $rootScope.parentObjName;
-    $scope.parentObjType = $rootScope.parentObjType;
-
-        <?php 
-            foreach ($fields as $key => $field)
+    var Lovs = $injector.get('Lovs');
+    $scope.setSelectedLov = function( $lovValue, $lovType, $obj )
+    {
+        if( $lovType && $lovValue && $obj )
+        {
+            Lovs.query({
+                where: {
+                    lovType: $lovType,
+                    name: $lovValue
+                },
+                sort: 'showOrder ASC'
+            }, function(lovs)
             {
-                if(isset($associations['belongsTo']))
-                {
-                    if(!empty($associations['belongsTo']))
-                    {
-                        foreach ($associations['belongsTo'] as $alias => $details)
-                        {
-                            if($details['foreignKey'] == $field)
-                            {
-                                $otherSingularVar = Inflector::variable($alias);
-                                $otherPluralHumanName = Inflector::humanize($details['controller']);
-                                $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
-                                $otherPluralVar = Inflector::variable($details['controller']);
+                $obj.selected = lovs.items[0] || [];
+            });
+        }
+    };
 
-                                echo "\n";
-                                echo "  if(\$scope.parentObjType ===  '" . $otherSingularHumanName ."'){" ."\n";
-                                echo "    \$scope.selected" . $otherSingularHumanName .".selected = \$scope.parentObj; ". "\n";
-                                echo "  } "."\n";
-                            }
-                        }
-                    }
+    $scope.getLovs = function( $type, $svar, $param )
+    {
+        return Lovs.query({
+            where: {
+                lovType: $type,
+                status: 'active',
+                name:{
+                    contains: $param
                 }
-            }
-            ?>
-}
+            },
+            sort: 'showOrder ASC'
+        }, function( lovs )
+        {
+            $scope[ $svar ] = lovs.items;
+            return $scope[ $svar ];
+        });
+    };
 
-    $scope.create = function(isValid)
+
+    $scope.create = function( isValid )
     {
         if (isValid)
         {
@@ -335,7 +563,7 @@ if( $state.current.name.indexOf('Create') !== -1 )
                                             $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                             $otherPluralVar = Inflector::variable($details['controller']);
                                             echo "\n";
-                                            echo "              ". $field . ": \$scope.selected" . $otherSingularHumanName . ".selected ? \$scope.selected". $otherSingularHumanName .".selected.id : null," ."\n";
+                                            echo "              ". $field . ": \$scope.selected" . $alias . ".selected ? \$scope.selected". $alias .".selected.id : null," ."\n";
                                         }
                                     }
                                 }
@@ -348,21 +576,21 @@ if( $state.current.name.indexOf('Create') !== -1 )
                                     $fieldNameWLov = str_replace('lov_', '', $field);
                                     $upperFieldNameWLov = strtoupper($fieldNameWLov);
                                     echo "\n";
-                                    echo "          ". $field . ": (\$scope.lov" . Inflector::camelize($fieldNameWLov) . ".selected) ? \$scope.lov" . Inflector::camelize($fieldNameWLov) .".selected.name_ : ''," ."\n";
+                                    echo "              ". $field . ": (\$scope.lov" . Inflector::camelize($fieldNameWLov) . ".selected) ? \$scope.lov" . Inflector::camelize($fieldNameWLov) .".selected.name : ''," ."\n";
                                 } else {
                                     echo "\n";
-                                    echo "          " .  $field .": this." .$field . ","  ."\n";
+                                    echo "              " .  $field .": this." .$field . ","  ."\n";
                                 }
                             }
                         $countIdx ++;
                     }
                 }
-                echo "          forctrl: 'ok'";
+                echo "              forctrl: 'ok'";
                 ?>
 
             });
 
-            <?= $singularVar; ?>.$save(function(response)
+            <?= $singularVar; ?>.$save( function( response )
             {
             $location.path('<?= $pluralVar; ?>/view/' + response.id);
                 Notification.success({
@@ -377,11 +605,11 @@ if( $state.current.name.indexOf('Create') !== -1 )
         }
     };
 
-    $scope.update = function(isValid)
+    $scope.update = function( isValid )
     {
-      if (isValid)
+      if ( isValid )
         {
-      var <?= $singularVar; ?> = $scope.<?= $singularVar; ?>;
+            var <?= $singularVar; ?> = $scope.<?= $singularVar; ?>;
                 <?php foreach ($fields as $key => $field)
                 {
                     if($field !== "createdAt" && $field !== "updatedAt" && $field !== "createdBy" && $field !== "updatedBy" && $field !== "id" && $field !== "password"  )
@@ -400,7 +628,7 @@ if( $state.current.name.indexOf('Create') !== -1 )
                                         $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
                                         $otherPluralVar = Inflector::variable($details['controller']);
                                         echo "\n";
-                                        echo "          " . $singularVar ."." . $field ." = \$scope.selected" . $otherSingularHumanName . ".selected ? \$scope.selected" . $otherSingularHumanName . ".selected.id : null; " ."\n";
+                                        echo "              " . $singularVar ."." . $field ." = \$scope.selected" . $alias . ".selected ? \$scope.selected" . $alias . ".selected.id : null; " ."\n";
                                     }
                                 }
                             }
@@ -411,22 +639,22 @@ if( $state.current.name.indexOf('Create') !== -1 )
                               $fieldNameWLov = str_replace('lov_', '', $field);
                               $upperFieldNameWLov = strtoupper($fieldNameWLov);
                               echo "\n";
-                              echo "            " . $singularVar ."." . $field ." = (\$scope.lov" . Inflector::camelize($fieldNameWLov) .".selected) ? \$scope.lov". Inflector::camelize($fieldNameWLov) .".selected.name_ : '';" . "\n";
+                              echo "                " . $singularVar ."." . $field ." = (\$scope.lov" . Inflector::camelize($fieldNameWLov) .".selected) ? \$scope.lov". Inflector::camelize($fieldNameWLov) .".selected.name : '';" . "\n";
 
                           } else {
-
+                                //echo $singularVar.'.'.$field;//Just populate foreign fields
                           }
                     }
                 } ?>
 
-        <?= $singularVar; ?>.$update(function() {
-          $location.path('<?= $pluralVar; ?>/view/' + <?= $singularVar; ?>.id);
-          Notification.success({
-                    title:'<?= $singularHumanName; ?>',
-                    message: '<?= $singularHumanName; ?> has been updated',
-                    delay: 4000
-                });
-        });
+            <?= $singularVar; ?>.$update(function() {
+              $location.path('<?= $pluralVar; ?>/view/' + <?= $singularVar; ?>.id);
+              Notification.success({
+                        title:'<?= $singularHumanName; ?>',
+                        message: '<?= $singularHumanName; ?> has been updated',
+                        delay: 4000
+                    });
+            });
 
       } else {
         $scope.submitted = true;
@@ -435,26 +663,119 @@ if( $state.current.name.indexOf('Create') !== -1 )
 
 
 
-$scope.remove = function( <?= $singularVar; ?> )
-{
-    if ( <?= $singularVar; ?>.id )
-    {
-        var <?= $singularVar; ?>Res = <?= Inflector::humanize($pluralVar); ?>.get({
-        <?= $singularVar; ?>Id: <?= $singularVar; ?>.id
-        }, function(<?= $singularVar; ?>)
+        $scope.remove = function( <?= $singularVar; ?> )
         {
-            <?= $singularVar; ?>Res.$remove( function( response )
+            if ( <?= $singularVar; ?>.id )
             {
+                var <?= $singularVar; ?>Res = <?= Inflector::humanize($pluralVar); ?>.get({
+                <?= $singularVar; ?>Id: <?= $singularVar; ?>.id
+                }, function(<?= $singularVar; ?>)
+                {
+                    <?= $singularVar; ?>Res.$remove( function( response )
+                    {
+                        $location.path('<?= strtolower($pluralVar); ?>/list');
+                        $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
+                        response = null;
+                    } );
+                    <?= $singularVar;?> = null;
+                });
+            } else {
                 $location.path('<?= strtolower($pluralVar); ?>/list');
-                $scope.<?= $singularVar; ?>Filters['timestamp'] = new Date();
-            } );
+                $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
+            }
+        };
+
+
+
+        $scope.editableUpdate = function( $obj, $field )
+        {
+            if ( $obj.id )
+            {
+                var <?= $singularVar; ?>Res = <?= Inflector::humanize($pluralVar); ?>.get({
+                <?= $singularVar; ?>Id: $obj.id
+                }, function(<?= $singularVar; ?>)
+                {
+                    <?= $singularVar; ?>Res[ $field ] = $obj[ $field ];
+                    <?= $singularVar; ?>Res.$update( function( response )
+                    {
+                        Notification.success({
+                            title:'<?= $singularHumanName; ?>',
+                            message: '<?= $singularHumanName; ?> has been updated',
+                            delay: 4000
+                        });
+                        $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
+                        response = null;
+                    } );
+                    <?= $singularVar;?> = null;
+                });
+            } else {
+                $location.path('<?= strtolower($pluralVar); ?>/list');
+                $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
+            }
+        };
+
+        <?php
+        if( empty( $associations['hasMany'] ) )
+        {
+            $associations['hasMany'] = array();
+        }
+        if( empty( $associations['hasAndBelongsToMany'] ) )
+        {
+            $associations['hasAndBelongsToMany'] = array();
+        }
+        $daRelationships = array_merge($associations['hasMany'], $associations['hasAndBelongsToMany'] );
+        echo "  \$scope.tabs = [];";
+        echo "\n";
+
+        foreach($daRelationships as $alias => $details)
+        {
+            $otherSingularVar = Inflector::variable($alias);
+            $otherPluralHumanName = Inflector::humanize($details['controller']);
+            $otherSingularHumanName = Inflector::singularize($otherPluralHumanName);
+            $otherPluralVar = Inflector::variable($details['controller']);
+
+        echo "      \$scope.tabs.push({heading:'".Inflector::humanize(Inflector::pluralize($otherSingularVar))."', route:'".strtolower($pluralVar)."View.".Inflector::pluralize($otherSingularVar)."', disabled:false });";
+        echo "\n";
+        }
+
+        ?>
+
+
+        if( $state.current.name === '<?= $pluralVar; ?>View' )
+        {
+            var subStateGo = false;
+            angular.forEach($scope.tabs, function(value, key)
+            {
+                if( (!subStateGo) && (!value.disabled) )
+                {
+                    subStateGo = value.route;
+                }
+                value = null;
+                key = null;
+            });
+
+            if( subStateGo )
+            {
+                $state.go( subStateGo );
+            }
+
+        } else {
+            angular.forEach($scope.tabs, function(value, key)
+            {
+                if(value.route === $state.current.name)
+                {
+                    $scope.tabs.activeTab = key;
+                }
+                value = null;
+                key = null;
+            });
+        }
+
+        $rootScope.$watch('selectedLanguage', function(newValue, oldValue)
+        {
+            $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
+            newValue = null;
+            oldValue = null;
         });
-    } else {
-        $location.path('<?= strtolower($pluralVar); ?>/list');
-        $scope.<?= $singularVar; ?>Filters['timestamp'] = new Date();
-    }
-};
-
-
 
 }]);
