@@ -25,17 +25,6 @@ function($stateProvider) {
         ncyBreadcrumb: {
             label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-HOME-LABEL',
             skip: true
-        },
-        resolve: {
-            deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'frontappApp',
-                    insertBefore: '#ng_load_plugins_before',
-                    files: [
-                        'scripts/controllers/<?= strtolower($pluralVar); ?>.js'
-                    ]
-                });
-            }]
         }
     });
 
@@ -50,17 +39,6 @@ function($stateProvider) {
         ncyBreadcrumb: {
             parent: '<?= strtolower($pluralVar);?>',
             label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-LIST-LABEL'
-        },
-        resolve: {
-            deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'frontappApp',
-                    insertBefore: '#ng_load_plugins_before',
-                    files: [
-                        'scripts/controllers/<?= strtolower($pluralVar); ?>.js'
-                    ]
-                });
-            }]
         }
     });
 
@@ -75,17 +53,6 @@ function($stateProvider) {
         ncyBreadcrumb: {
             parent: '<?= strtolower($pluralVar);?>List',
             label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-VIEW-LABEL'
-        },
-        resolve: {
-            deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'frontappApp',
-                    insertBefore: '#ng_load_plugins_before',
-                    files: [
-                        'scripts/controllers/<?= strtolower($pluralVar); ?>.js'
-                    ]
-                });
-            }]
         }
     });
 
@@ -100,17 +67,6 @@ function($stateProvider) {
         ncyBreadcrumb: {
             parent: '<?= strtolower($pluralVar);?>List',
             label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-CREATE-LABEL'
-        },
-        resolve: {
-            deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'frontappApp',
-                    insertBefore: '#ng_load_plugins_before',
-                    files: [
-                        'scripts/controllers/<?= strtolower($pluralVar); ?>.js'
-                    ]
-                });
-            }]
         }
     });
 
@@ -125,17 +81,6 @@ function($stateProvider) {
         ncyBreadcrumb: {
             parent: '<?= strtolower($pluralVar);?>List',
             label: 'BREADCRUMB-<?= strtoupper($pluralVar);?>-EDIT-LABEL'
-        },
-        resolve: {
-            deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name: 'frontappApp',
-                    insertBefore: '#ng_load_plugins_before',
-                    files: [
-                        'scripts/controllers/<?= strtolower($pluralVar); ?>.js'
-                    ]
-                });
-            }]
         }
     });
 
@@ -172,19 +117,19 @@ foreach($daRelationships as $alias => $details)
     echo "  ncyBreadcrumb: {"."\n";
     echo "      parent: '".strtolower($pluralVar)."List',"."\n";
     echo "      label: 'BREADCRUMB-". strtoupper($pluralVar)."-VIEW-". strtoupper( Inflector::pluralize($otherSingularVar) )."-LABEL'"."\n";
-    echo "  },"."\n";
-    echo "  resolve: {"."\n";
-    echo "      deps: ['\$ocLazyLoad', function(\$ocLazyLoad) {"."\n";
-    echo "          return \$ocLazyLoad.load({"."\n";
-    echo "              name: 'frontappApp',"."\n";
-    echo "              insertBefore: '#ng_load_plugins_before',"."\n";
-    echo "              files: ["."\n";
-    echo "                  'scripts/controllers/". strtolower($pluralVar).".js',"."\n";
-    echo "                  'scripts/controllers/". Inflector::pluralize($otherSingularVar).".js'"."\n";
-    echo "              ]"."\n";
-    echo "          });"."\n";
-    echo "      }]"."\n";
     echo "  }"."\n";
+//    echo "  resolve: {"."\n";
+//    echo "      deps: ['\$ocLazyLoad', function(\$ocLazyLoad) {"."\n";
+//    echo "          return \$ocLazyLoad.load({"."\n";
+//    echo "              name: 'frontappApp',"."\n";
+//    echo "              insertBefore: '#ng_load_plugins_before',"."\n";
+//    echo "              files: ["."\n";
+//    echo "                  //'scripts/controllers/". strtolower($pluralVar).".js',"."\n";
+//    echo "                  //'scripts/controllers/". Inflector::pluralize($otherSingularVar).".js'"."\n";
+//    echo "              ]"."\n";
+//    echo "          });"."\n";
+//    echo "      }]"."\n";
+//    echo "  }"."\n";
     echo "});"."\n";
 }
 

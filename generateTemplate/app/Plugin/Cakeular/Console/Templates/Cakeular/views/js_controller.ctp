@@ -498,9 +498,13 @@ if (isset($associations['belongsTo']))
         }
     }
 }
+if( Inflector::humanize($pluralVar) !== 'Lovs' )
+{
+    echo "\n";
+    echo "    var Lovs = \$injector.get('Lovs');"."\n";
+}
 ?>
 
-    var Lovs = $injector.get('Lovs');
     $scope.setSelectedLov = function( $lovValue, $lovType, $obj )
     {
         if( $lovType && $lovValue && $obj )

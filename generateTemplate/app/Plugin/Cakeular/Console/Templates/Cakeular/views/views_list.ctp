@@ -305,34 +305,8 @@
 
 
                                                                     <td class="tasty-table-td text-center">
-                                                                        <form data-editable-form class="form-inline" name="<?= $singularVar; ?>-<?= $field; ?>Form">
-                                                                            <div editable-ui-select="<?= $singularVar; ?>.<?= $field; ?>" data-e-form="<?= $singularVar; ?>-<?= $field; ?>Form" data-e-name="state" name="state" theme="bootstrap" data-e-ng-model="<?= $singularVar; ?>.<?= $field; ?>" >
-                                                                                {{<?= $singularVar; ?>.<?= $field; ?>}}
-                                                                                <editable-ui-select-match placeholder="{{ 'Search <?= $field; ?>' | translate }} ...">
-                                                                                    {{$select.selected['name' + ( (selectedLanguage) ? '_' + selectedLanguage : '' ) ]}}
-                                                                                </editable-ui-select-match>
-                                                                                <editable-ui-select-choices repeat="item in lov<?= Inflector::pluralize( Inflector::camelize( $fieldNameWLov ) ); ?>" refresh="getLovs( '<?= $upperFieldNameWLov; ?>', 'lov<?= Inflector::pluralize( Inflector::camelize( $fieldNameWLov ) ); ?>', $select.search )" refresh-delay="500" >
-                                                                                    <div ng-if="selectedLanguage" ng-bind-html="item['name' + '_' + selectedLanguage]"></div>
-                                                                                    <div ng-if="!selectedLanguage" ng-bind-html="item['name']"></div>
-                                                                                </editable-ui-select-choices>
-                                                                            </div>
-                                                                            <div class="buttons">
-                                                                                <!-- button to show form -->
-                                                                                <button type="button" class="btn btn-default" ng-click="<?= $singularVar; ?>-<?= $field; ?>Form.$show()" ng-show="!<?= $singularVar; ?>-<?= $field; ?>Form.$visible">
-                                                                                    Edit
-                                                                                </button>
-                                                                                <!-- buttons to submit / cancel form -->
-                                                                                  <span ng-show="<?= $singularVar; ?>-<?= $field; ?>Form.$visible">
-                                                                                    <button type="submit" class="btn btn-primary" ng-disabled="<?= $singularVar; ?>-<?= $field; ?>Form.$waiting">
-                                                                                        Save
-                                                                                    </button>
-                                                                                    <button type="button" class="btn btn-default" ng-disabled="<?= $singularVar; ?>-<?= $field; ?>Form.$waiting" ng-click="<?= $singularVar; ?>-<?= $field; ?>Form.$cancel()">
-                                                                                        Cancel
-                                                                                    </button>
-                                                                                  </span>
-                                                                            </div>
-                                                                        </form>
-
+                                                                        <span ng-if="selectedLanguage" show-lov-value="<?= $upperFieldNameWLov; ?>" load-lovtype-value="{{<?= $singularVar; ?>.<?= $field; ?>}}" ></span>
+                                                                        <span ng-if="!selectedLanguage" >{{<?= $singularVar; ?>.<?= $field; ?>}}</span>
                                                                     </td>
                                                                     <?php
 
