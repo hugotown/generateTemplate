@@ -133,9 +133,7 @@
                                                 <div class="form-group" ng-class="{ 'has-error' : submitted && <?= $singularVar; ?>Form.<?= $field;?>.$invalid }">
                                                     <label for="<?= $field;?>" class="col-lg-4 col-md-4 col-sm-4 control-label">{{ '<?= $singularVar."-". $field;?>' | translate }}</label>
                                                     <div class="col-lg-8 col-md-8 col-sm-8">
-                                                        <p class="form-control" >
-                                                            {{<?= $singularVar; ?>.<?= $field;?>}}
-                                                        </p>
+                                                        <textarea name="<?= $field; ?>" id="<?= $field; ?>" ng-model="<?= $singularVar; ?>.<?= $field; ?>" readonly="readonly" class="form-control disabled"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

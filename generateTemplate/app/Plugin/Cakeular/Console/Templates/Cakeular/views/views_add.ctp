@@ -69,7 +69,7 @@
                                             echo "            <label for=\"".$field."\" class=\" col-lg-4 col-md-4 col-sm-4 control-label\">{{ '".$singularVar."-".$otherSingularVar."' | translate }}</label>"."\n";
                                             echo "            <div class=\" col-lg-8 col-md-8 col-sm-8 \">"."\n";
                                             echo "                <div class=\"input-group\">"."\n";
-                                            echo "                    <ui-select  ng-model=\"selected".$alias.".selected\" id=\"".$field."\" name=\"".$field."\" reset-search-input=\"false\" theme=\"bootstrap\" >"."\n";
+                                            echo "                    <ui-select ".$required." ng-model=\"selected".$alias.".selected\" id=\"".$field."\" name=\"".$field."\" reset-search-input=\"false\" theme=\"bootstrap\" >"."\n";
                                             echo "                        <ui-select-match placeholder=\"{{ 'Search ".$alias."' | translate }}...\">{{\$select.selected.name}}</ui-select-match>"."\n";
                                             echo "                        <ui-select-choices repeat=\"item in ".Inflector::pluralize($otherSingularVar)." \"  refresh=\"find".Inflector::pluralize($alias)."(\$select.search)\" refresh-delay=\"500\" >"."\n";
                                             echo "                            <div ng-bind-html=\"item.name | highlight: \$select.search\"></div>"."\n";
@@ -355,7 +355,7 @@
                             <div class="col-md-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <button type="submit" ng-disabled="!session.acl.<?= $pluralVar; ?>.postAction" class="btn blue-madison">{{ 'Save' | translate }}</button>
+                                        <button type="submit" rest-action="<?= Inflector::humanize($pluralVar); ?>|post" class="btn blue-madison">{{ 'Save' | translate }}</button>
                                     </div>
                                 </div>
                             </div>

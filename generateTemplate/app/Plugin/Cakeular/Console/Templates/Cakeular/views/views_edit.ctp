@@ -31,7 +31,7 @@
                 <a href="javascript:;" class="btn btn-sm green-haze " ui-sref="<?php echo $pluralVar; ?>List" acl-check="<?= $pluralVar; ?>List">
                     <i class="glyphicon glyphicon-arrow-left " data-container="body" data-title="{{'Back to list' | translate}}" data-animation="am-flip-x" bs-tooltip ></i>
                 </a>
-                <a class="btn btn-sm red " ng-bootbox-confirm="{{ 'Are you sure want to delete this record?' | translate }}" ng-bootbox-confirm-action="remove(<?= $singularVar; ?>)" >
+                <a class="btn btn-sm red " rest-action="<?= Inflector::humanize($pluralVar); ?>|delete" ng-bootbox-confirm="{{ 'Are you sure want to delete this record?' | translate }}" ng-bootbox-confirm-action="remove(<?= $singularVar; ?>)" >
                     <i class="glyphicon glyphicon-trash" data-container="body" data-title="{{'Delete' | translate}}" data-animation="am-flip-x" bs-tooltip></i>
                 </a>
             </div>
@@ -72,7 +72,7 @@
                                             echo "            <label for=\"".$field."\" class=\" col-lg-4 col-md-4 col-sm-4 control-label\">{{ '".$singularVar."-".$otherSingularVar."' | translate }}</label>"."\n";
                                             echo "            <div class=\" col-lg-8 col-md-8 col-sm-8 \">"."\n";
                                             echo "                <div class=\"input-group\">"."\n";
-                                            echo "                    <ui-select  ng-model=\"selected".$alias.".selected\" id=\"".$field."\" name=\"".$field."\" reset-search-input=\"false\" theme=\"bootstrap\" >"."\n";
+                                            echo "                    <ui-select ".$required." ng-model=\"selected".$alias.".selected\" id=\"".$field."\" name=\"".$field."\" reset-search-input=\"false\" theme=\"bootstrap\" >"."\n";
                                             echo "                        <ui-select-match placeholder=\"{{ 'Search ".$alias."' | translate }}...\">{{\$select.selected.name}}</ui-select-match>"."\n";
                                             echo "                        <ui-select-choices repeat=\"item in ".Inflector::pluralize($otherSingularVar)." \"  refresh=\"find".Inflector::pluralize($alias)."(\$select.search)\" refresh-delay=\"500\" >"."\n";
                                             echo "                            <div ng-bind-html=\"item.name | highlight: \$select.search\"></div>"."\n";
@@ -359,7 +359,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-md-12 col-xs-12">
-                                        <button type="submit" ng-disabled="!session.acl.<?php echo $pluralVar; ?>.putAction" class="btn blue-madison">{{ 'Save' | translate }}</button>
+                                        <button type="submit" rest-action="<?= Inflector::humanize($pluralVar); ?>|put" class="btn blue-madison">{{ 'Save' | translate }}</button>
                                     </div>
                                 </div>
                             </div>
