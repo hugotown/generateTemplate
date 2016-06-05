@@ -67,21 +67,22 @@ class DATABASE_CONFIG {
 		'login' => 'admin',
 		'password' => 'admin',
 		'database' => 'proacademic-prollux-db',
-		//'prefix' => '',
+		'prefix' => '',
 		'encoding' => 'utf8',
 	);
-//	//SERVER DATABASE
-//	public $default = array(
-//		'datasource' => 'Database/Mysql',
-//		'persistent' => false,
-//		'host' => '104.218.12.141',
-//		'port' => 3306,
-//		'login' => 'aquaserv_academ',
-//		'password' => 'TD7DJ;6GmPHi',
-//		'database' => 'aquaserv_proacademic-db',
-//		'prefix' => '',
-//		'encoding' => 'utf8',
-//	);
+
+	//SERVER DATABASE
+	// public $default = array(
+	// 	'datasource' => 'Database/Mysql',
+	// 	'persistent' => false,
+	// 	'host' => '104.218.12.141',
+	// 	'port' => 3306,
+	// 	'login' => 'aquaserv_academ',
+	// 	'password' => 'TD7DJ;6GmPHi',
+	// 	'database' => 'aquaserv_proacademic-db',
+	// 	'prefix' => '',
+	// 	'encoding' => 'utf8',
+	// );
 
 	/*public $test = array(
 		'datasource' => 'Database/Mysql',
