@@ -66,8 +66,8 @@ class DATABASE_CONFIG {
 		'port' => 3306,
 		'login' => 'admin',
 		'password' => 'admin',
-		'database' => 'aquaserv_proacademic-db',
-		'prefix' => '',
+		'database' => 'proacademic-prollux-db',
+		//'prefix' => '',
 		'encoding' => 'utf8',
 	);
 //	//SERVER DATABASE
