@@ -165,7 +165,7 @@ foreach ($fields as $key => $field)
         });
 
     $scope.<?= $singularVar; ?>Filters = {};
-    $scope.get<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj)
+    $scope.list<?= Inflector::humanize($pluralVar); ?> = function(params, paramsObj)
     {
         var urlApi = $rootScope.appSettings.backendUrl +'/<?= $pluralVar; ?>?';
 

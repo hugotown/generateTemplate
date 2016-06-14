@@ -253,7 +253,7 @@
 
                     <div class="table-responsive">
 
-                        <div tasty-table bind-resource-callback="get<?= Inflector::camelize($pluralVar); ?>" bind-filters="<?= $singularVar; ?>Filters" >
+                        <div tasty-table bind-resource-callback="list<?= Inflector::camelize($pluralVar); ?>" bind-filters="<?= $singularVar; ?>Filters" >
                             <table class="table table-striped table-condensed">
                                 <thead tasty-thead not-sort-by="['actions']"></thead>
                                 <tbody>
@@ -320,7 +320,7 @@
 
                                                                             <td class="tasty-table-td text-center">
                                                                                 <a href="javascript:;" editable-text="<?= $singularVar; ?>.<?= $field; ?>" onaftersave="editableUpdate(<?= $singularVar; ?>, '<?= $field; ?>')">
-                                                                                    {{ ( <?= $singularVar; ?>.<?= $field; ?> || '...' ) | translate  }}
+                                                                                    {{ <?= $singularVar; ?>.<?= $field; ?> || '...' }}
                                                                                 </a>
                                                                             </td>
                                                                             <?php
@@ -416,7 +416,7 @@
                                             <a acl-check="<?= $pluralVar; ?>Edit" href="/#/<?= $pluralVar; ?>/edit/{{<?= $singularVar; ?>.id}}" class="btn btn-xs btn-circle yellow-casablanca " data-container="body" data-title="{{'Edit' | translate}}" data-animation="am-flip-x" bs-tooltip >
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
-                                            <a class="btn btn-xs btn-circle red " ng-bootbox-confirm="{{ 'Are you sure want to delete' | translate }} : {{<?= $singularVar; ?>.name}} {{'<?= $singularVar; ?>'}}" ng-bootbox-confirm-action="remove(<?= $singularVar; ?>)" >
+                                            <a class="btn btn-xs btn-circle red " rest-action="<?= Inflector::humanize($pluralVar); ?>|delete" ng-bootbox-confirm="{{ 'Are you sure want to delete' | translate }} : {{<?= $singularVar; ?>.name}} {{'<?= $singularVar; ?>'}}" ng-bootbox-confirm-action="remove(<?= $singularVar; ?>)" >
                                                 <i class="glyphicon glyphicon-trash" data-container="body" data-title="{{'Delete' | translate}}" data-animation="am-flip-x" bs-tooltip></i>
                                             </a>
                                         </div>
