@@ -707,14 +707,10 @@ if( Inflector::humanize($pluralVar) !== 'Lovs' )
                             message: '<?= $singularHumanName; ?> has been updated',
                             delay: 4000
                         });
-                        $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
                         response = null;
                     } );
                     <?= $singularVar;?> = null;
                 });
-            } else {
-                $location.path('<?= strtolower($pluralVar); ?>/list');
-                $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
             }
         };
 
@@ -775,11 +771,11 @@ if( Inflector::humanize($pluralVar) !== 'Lovs' )
             });
         }
 
-        $rootScope.$watch('selectedLanguage', function(newValue, oldValue)
-        {
-            $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
-            newValue = null;
-            oldValue = null;
-        });
+        // $rootScope.$watch('selectedLanguage', function(newValue, oldValue)
+        // {
+        //     $scope.<?= $singularVar; ?>Filters.timestamp = new Date();
+        //     newValue = null;
+        //     oldValue = null;
+        // });
 
 }]);
