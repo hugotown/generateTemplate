@@ -64,6 +64,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'port' => 3306,
+		//'unix_socket' => '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock',
 		'login' => 'admin',
 		'password' => 'admin',
 		'database' => 'proacademic-prollux-db',
