@@ -62,26 +62,15 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
+		//'host' => 'localhost',
+		'host' => '172.20.10.12',
 		'port' => 3306,
 		'login' => 'admin',
 		'password' => 'admin',
-		'database' => 'aquaserv_proacademic-db',
+		'database' => 'MedicalCenterSailsAngular2',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
-//	//SERVER DATABASE
-//	public $default = array(
-//		'datasource' => 'Database/Mysql',
-//		'persistent' => false,
-//		'host' => '104.218.12.141',
-//		'port' => 3306,
-//		'login' => 'aquaserv_academ',
-//		'password' => 'TD7DJ;6GmPHi',
-//		'database' => 'aquaserv_proacademic-db',
-//		'prefix' => '',
-//		'encoding' => 'utf8',
-//	);
 
 	/*public $test = array(
 		'datasource' => 'Database/Mysql',

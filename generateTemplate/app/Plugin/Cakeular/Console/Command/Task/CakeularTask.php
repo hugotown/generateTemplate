@@ -60,7 +60,7 @@ class CakeularTask extends BakeTask {
  *
  * @var array
  */
-	public $scaffoldActions = array('js_controller', 'js_route', 'js_service', 'views_index', 'views_list', 'views_view', 'views_add', 'views_edit');
+	public $scaffoldActions = array('ts_component', 'ts_componentAdd', 'ts_componentEdit', 'ts_componentList', 'ts_componentView', 'ts_route', 'ts_service', 'views_index', 'views_list', 'views_view', 'views_add', 'views_edit');
 
 /**
  * An array of action names that don't require templates. These
@@ -362,19 +362,23 @@ class CakeularTask extends BakeTask {
 				$action = str_replace('views_', '', $action);
 				switch($action){
 					case 'index':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
-						break;
-					}
-					case 'view':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->controllerName) . DS . strtolower($this->controllerName) . '.component.html';
 						break;
 					}
 					case 'add':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->controllerName) . DS . strtolower($this->controllerName) . '-'. strtolower(Inflector::camelize(strtolower($action))) . '.component.html';
 						break;
 					}
 					case 'edit':{
-						$filename = WWW_ROOT . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'views' . DS . strtolower($this->controllerName) . Inflector::camelize(strtolower($action)) . '.html';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->controllerName) . DS . strtolower($this->controllerName) . '-'. strtolower(Inflector::camelize(strtolower($action))) . '.component.html';
+						break;
+					}
+					case 'list':{
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->controllerName) . DS . strtolower($this->controllerName) . '-'. strtolower(Inflector::camelize(strtolower($action))) . '.component.html';
+						break;
+					}
+					case 'view':{
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->controllerName) . DS . strtolower($this->controllerName) . '-'. strtolower(Inflector::camelize(strtolower($action))) . '.component.html';
 						break;
 					}
 					default:
@@ -382,18 +386,35 @@ class CakeularTask extends BakeTask {
 				}
 				break;
 			}
-			case 'js': {
-				$action = str_replace('js_', '', $action);
-				
-				if($action == "controller")
+			case 'ts': {
+				$action = str_replace('ts_', '', $action);
+				if($action == "component")
 					{
-						$filename = WWW_ROOT . DS  . 'app' . DS . strtolower($this->controllerName) . DS . 'controllers' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
-					} elseif($action == "service")
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.component.ts';
+					}
+					elseif($action == "componentAdd")
 					{
-						$filename = WWW_ROOT . DS . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'services' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '.js';
-					} elseif($action == "route")
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '-add.component.ts';
+					}
+					elseif($action == "componentEdit")
 					{
-						$filename = WWW_ROOT . DS . DS . 'app' . DS . strtolower($this->controllerName) . DS . 'routes' . DS .strtolower($this->_pluralHumanName($this->controllerName)) . 'routes.js';
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '-edit.component.ts';
+					}
+					elseif($action == "componentList")
+					{
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '-list.component.ts';
+					}
+					elseif($action == "componentView")
+					{
+						$filename = WWW_ROOT . DS . 'app' . DS . 'components' . DS . strtolower($this->_pluralHumanName($this->controllerName)) . DS . strtolower($this->_pluralHumanName($this->controllerName)) . '-view.component.ts';
+					}
+					elseif($action == "service")
+					{
+						$filename = WWW_ROOT . DS . 'app' . DS . 'services' . DS . strtolower($this->_singularHumanName($this->controllerName)) . '.service.ts';
+					} 
+					elseif($action == "route")
+					{
+						$filename = WWW_ROOT . DS . 'app' . DS . 'routes' . DS .strtolower($this->_pluralHumanName($this->controllerName)) . 'routes.js';
 					}
 				break;
 			}

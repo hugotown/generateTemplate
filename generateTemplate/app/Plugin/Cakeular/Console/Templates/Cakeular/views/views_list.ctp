@@ -33,10 +33,10 @@
                                         <div class="form-body">
                                     <?php foreach ($fields as $field)
                                     {
-                                        $this->out("\n");
-                                        $this->out("field");
-                                        $this->out($field);
-                                        $this->out($schema[$field]);
+                                        // $this->out("\n");
+                                        // $this->out("field");
+                                        // $this->out($field);
+                                        // $this->out($schema[$field]);
 
                                         $fieldAlreadyPainted = false;
                                         if(isset($associations['belongsTo']))
