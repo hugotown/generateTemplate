@@ -20,5 +20,33 @@
 <?php $singularHumanName = Inflector::classify($singularHumanName); ?>
 <?php $pluralVar = strtolower($pluralVar); ?>
 <?php $singularVar = strtolower($singularVar); ?>
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { environment } from '../../environments/environment';
+import { UtilService } from './util.service';
 
-<?= $pluralHumanName . ' -- '; ?>
+@Injectable()
+export class <?= $singularHumanName; ?>Service
+{
+
+  constructor( private http: Http, private _utilService: UtilService )
+  { }
+
+  read( key: any = null, request: any = null )
+  {
+    let url = `${ environment.backendUrl }/<?= $pluralVar; ?>`;
+    if ( null !== key )
+    {
+      url += `/${ key }`;
+      request = null;
+    } else {
+      url += `?`;
+    }
+
+    url = this._utilService.parseTableRequest(url, request);
+
+    // console.log( url );
+    return this.http.get( url ).map( response => response );
+  }
+
+}

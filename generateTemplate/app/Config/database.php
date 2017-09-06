@@ -67,7 +67,7 @@ class DATABASE_CONFIG {
 		'port' => 3306,
 		'login' => 'admin',
 		'password' => 'admin',
-		'database' => 'MedicalCenterSailsAngular2',
+		'database' => 'medical-center',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);

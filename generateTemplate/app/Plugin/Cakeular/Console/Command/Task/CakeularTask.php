@@ -60,7 +60,7 @@ class CakeularTask extends BakeTask {
  *
  * @var array
  */
-	public $scaffoldActions = array('ts_component', 'ts_componentAdd', 'ts_componentEdit', 'ts_componentList', 'ts_componentView', 'ts_route', 'ts_service', 'views_index', 'views_list', 'views_view', 'views_add', 'views_edit');
+	public $scaffoldActions = array('ts_component', 'ts_componentAdd', 'ts_componentEdit', 'ts_componentList', 'ts_componentView', 'ts_route', 'ts_service', 'views_index', 'views_list', 'views_view', 'views_add', 'views_edit', 'back_controller', 'back_model');
 
 /**
  * An array of action names that don't require templates. These
@@ -416,6 +416,18 @@ class CakeularTask extends BakeTask {
 					{
 						$filename = WWW_ROOT . DS . 'app' . DS . 'routes' . DS .strtolower($this->_pluralHumanName($this->controllerName)) . 'routes.js';
 					}
+				break;
+			}
+			case 'back':{
+				$action = str_replace('back_', '', $action);
+				if($action == "model")
+				{
+					$filename = WWW_ROOT . DS . 'app' . DS . 'sails' . DS . 'models' . DS . $this->_pluralHumanName($this->controllerName) . '.js';
+				}
+				elseif($action == "controller")
+				{
+					$filename = WWW_ROOT . DS . 'app' . DS . 'sails' . DS . 'controllers' . DS . $this->_pluralHumanName($this->controllerName) . 'Controller.js';
+				}
 				break;
 			}
 			default:

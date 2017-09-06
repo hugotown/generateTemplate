@@ -20,20 +20,25 @@
 <?php $singularHumanName = Inflector::classify($singularHumanName); ?>
 <?php $pluralVar = strtolower($pluralVar); ?>
 <?php $singularVar = strtolower($singularVar); ?>
-import { Component, OnInit } from '@angular/core';
+/**
+ * <?=Inflector::pluralize($pluralHumanName);?>Controller
+ *
+ * @description :: Server-side logic for managing users
+ * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ */
 
-@Component({
-  selector: 'app-<?= $pluralVar; ?>-view',
-  templateUrl: './<?= $pluralVar; ?>-view.component.html',
-  styleUrls: ['./<?= $pluralVar; ?>-view.component.css']
-})
-export class <?= Inflector::pluralize( $pluralHumanName ); ?>ViewComponent implements OnInit
-{
+module.exports = {
+	
+  subscribe: function(req, res)
+  {
+    if( ! req.isSocket)
+    {
+      return res.badRequest();
+    }
 
-  constructor()
-  { }
+    sails.sockets.join(req.socket, '<?= strtolower( Inflector::pluralize($pluralHumanName) );?>');
 
-  ngOnInit()
-  { }
+    return res.ok( );
+  }
+};
 
-}

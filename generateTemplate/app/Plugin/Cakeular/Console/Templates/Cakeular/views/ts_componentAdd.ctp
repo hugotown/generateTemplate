@@ -20,5 +20,20 @@
 <?php $singularHumanName = Inflector::classify($singularHumanName); ?>
 <?php $pluralVar = strtolower($pluralVar); ?>
 <?php $singularVar = strtolower($singularVar); ?>
+import { Component, OnInit } from '@angular/core';
 
-<?= $pluralHumanName . ' -- '; ?>
+@Component({
+  selector: 'app-<?= $pluralVar; ?>-add',
+  templateUrl: './<?= $pluralVar; ?>-add.component.html',
+  styleUrls: ['./<?= $pluralVar; ?>-add.component.css']
+})
+export class <?= Inflector::pluralize( $pluralHumanName ); ?>AddComponent implements OnInit
+{
+
+  constructor()
+  { }
+
+  ngOnInit()
+  { }
+
+}
